@@ -12,8 +12,6 @@ const useStyles = makeStyles({
   },
 });
 const TextField = ({
-  datatest,
-  error,
   type,
   variant,
   label,
@@ -26,9 +24,9 @@ const TextField = ({
   const classes = useStyles();
   return (
     <TxtField
-      data-testid={datatest}
-      error={error === ""}
-      helperText={error === "" ? "Empty field!" : " "}
+      // data-testid={datatest}
+      // error={error === ""}
+      // helperText={error === "" ? "Empty field!" : " "}
       type={type}
       variant={variant}
       label={label}
@@ -41,7 +39,7 @@ const TextField = ({
   );
 };
 TextField.propTypes = {
-  error: PropTypes.string,
+  // error: PropTypes.string,
   variant: PropTypes.string,
   type: PropTypes.string,
   label: PropTypes.string,

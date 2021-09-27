@@ -5,17 +5,24 @@ import clsx from "clsx";
 
 const useStyles = makeStyles({
   root: {
-
-    textDecoration: 'none',
-    color: "#FFFFFF",
+    color:"#000000"
   },
+  link:{
+    textDecoration: 'none',
+    color:"#FFFFFF",
+  },
+  logo:{
+    color:"#FFFFFF",
+  }
+  
 });
-const Typography = ({ variant, text, className }) => {
+const Typography = ({ variant, text, className,...props }) => {
   const classes = useStyles();
   return (
     <Typograph
       className={clsx(classes.root, classes[className])}
       variant={variant}
+      {...props}
     >
       {text}
     </Typograph>

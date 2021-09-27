@@ -17,23 +17,23 @@ const Nav = (props) => {
         <Toolbar>
         <Typography variant="h6" text="Metroevent" className="logo"/>
           <Link to="/Home" style={{ textDecoration: 'none',padding:10,marginLeft:"auto" }}>
-            <Typography variant="h7" text="Home" />
+            <Typography variant="h7" text="Home" className="link" />
           </Link>
           {user && (
             <Link to="/LogOut" style={{ textDecoration: 'none' ,padding:10}}>
-            <Typography variant="h7" text="LogOut" />
+            <Typography variant="h7" text="LogOut" className="link"/>
           </Link>
           )}
           <Link to="/Login" style={{ textDecoration: 'none',padding:10 }}>
-            <Typography variant="h7" text="Login" />
+            <Typography variant="h7" text="Login" className="link"/>
           </Link>
           <Link to="/Signup" style={{ textDecoration: 'none',padding:10 }}>
-            <Typography variant="h7" text="Signup" />
+            <Typography variant="h7" text="Signup" className="link" />
           </Link>
           
           {user && (
             <Link to="/LogOut" style={{ textDecoration: 'none' ,padding:10}}>
-            <Typography variant="h7" text="LogOut" />
+            <Typography variant="h7" text="LogOut" className="link" />
           </Link>
           )}
         </Toolbar>
