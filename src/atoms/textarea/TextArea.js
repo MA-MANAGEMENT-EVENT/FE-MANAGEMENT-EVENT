@@ -7,7 +7,7 @@ const useStyles = makeStyles({
     marginTop: "10px",
   },
 });
-const TextArea = ({minRows,placeholder,name,onChange,value}) => {
+const TextArea = ({minRows,placeholder,name,onChange,value,...props}) => {
   const classes = useStyles();
   return (
     <TxtArea
@@ -17,6 +17,7 @@ const TextArea = ({minRows,placeholder,name,onChange,value}) => {
       name={name}
       onChange={onChange}
       value={value}
+      {...props}
     />
   );
 };
