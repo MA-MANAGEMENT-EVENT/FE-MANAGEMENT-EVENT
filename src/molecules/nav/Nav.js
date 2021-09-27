@@ -15,10 +15,15 @@ const Nav = (props) => {
     <>
       <AppBar data-testid={props.datatest} position={props.position}>
         <Toolbar>
-        <Typography variant="h6" text="Metrodata" className="logo"/>
+        <Typography variant="h6" text="Metroevent" className="logo"/>
           <Link to="/Home" style={{ textDecoration: 'none',padding:10,marginLeft:"auto" }}>
             <Typography variant="h7" text="Home" />
           </Link>
+          {user && (
+            <Link to="/LogOut" style={{ textDecoration: 'none' ,padding:10}}>
+            <Typography variant="h7" text="LogOut" />
+          </Link>
+          )}
           <Link to="/Login" style={{ textDecoration: 'none',padding:10 }}>
             <Typography variant="h7" text="Login" />
           </Link>

@@ -8,7 +8,6 @@ import { UserProvider } from "../context/UserContext";
 const Template = (props) => {
   return (
     <>
-     
         <Router>
         <Nav datatest="nav" position="static"  />
           <Section/>
