@@ -4,8 +4,9 @@ import TextField from '@material-ui/core/TextField';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
+import { Link } from "react-router-dom";
+// import { AccountBoxSharpIcon } from '@mui/icons-material';
 
 const Login = () => {
   const useStyles = makeStyles((theme) => ({
@@ -13,15 +14,19 @@ const Login = () => {
       width: '100%',
       marginTop:'10px',
     },
+     containerLg: {
+      marginTop: "100px",
+      marginBottom: "8px"
+    }
   }));
-
+  
+  const classes = useStyles();
   return (
-    
-    <Container component="main" maxWidth="xs">
-    <Typography component="h1" variant="h5">
-         Log in
-        </Typography>
-    <form>
+    <Container component="main" maxWidth="xs"  
+            className={`${classes.container} ${classes.containerLg}`}>
+    {/* <AccountBoxSharpIcon /> */}
+    <Typography component="h1" variant="h5" align="center">Log in </Typography>
+    <form className={classes.form}>
     <TextField
             variant="outlined"
             margin="normal"
@@ -50,11 +55,12 @@ const Login = () => {
             variant="contained"
             color="primary"
           >Log in</Button>
-      <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
+      <Grid item style={{ marginTop:'20px' }}>
+      Don't have an account? 
+      <Link to="/Signup" variant="body2">
+                {" Sign Up"}
+      </Link>
+      </Grid>
     </form>
     
     </Container>
