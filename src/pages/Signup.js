@@ -8,8 +8,8 @@ import Checkbox from "../atoms/checkbox/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-// import Typography from "../atoms/typography/Typhography";
-import Typography from "@material-ui/core/Typography";
+import Typography from "../atoms/typography/Typhography";
+// import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
@@ -43,10 +43,10 @@ export default function SignUp() {
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
-        {/* <Typography component="h1" variant="h5" text="Sign up" /> */}
-        <Typography component="h1" variant="h5">
+        <Typography component="h1" variant="h5" text="Sign up" />
+        {/* <Typography component="h1" variant="h5">
           Sign up
-        </Typography>
+        </Typography> */}
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
@@ -59,7 +59,7 @@ export default function SignUp() {
                 variant="outlined"
                 label="First Name"
                 autoFocus
-                error="isi"
+            
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -96,12 +96,7 @@ export default function SignUp() {
                 autoComplete="current-password"
               />
             </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-              />
-            </Grid>
+          
           </Grid>
           <Button
             type="submit"

@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
 
+
 }));
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -94,7 +95,6 @@ const Home = () => {
                 </CardContent>
                 <CardActions>
                   <Button size="small" color="primary" text="view"/>
-               
                 </CardActions>
               </Card>
             </Grid>
