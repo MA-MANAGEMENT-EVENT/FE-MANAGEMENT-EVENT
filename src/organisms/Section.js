@@ -4,6 +4,8 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import SignUp from "../pages/Signup";
+import FeedbackForm from "../pages/FormFeedback"
+import EventListForm from "../pages/EventListHistory";
 const Section = () => {
   const [user] = useContext(UserContext);
 
@@ -25,8 +27,10 @@ const Section = () => {
           <Redirect to="/home" />
         </Route>
         <Route exact path="/home" component={Home} />
+        <Route exact path="/feedback" component={FeedbackForm} />
         <LoginRoute exact path="/login" user={user} component={Login} />
         <LoginRoute exact path="/signup" user={user} component={SignUp} />
+        <LoginRoute exact path="/history" user={user} component={EventListForm} />
 
         {/* <PrivateRoute
           exact

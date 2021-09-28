@@ -11,7 +11,7 @@ const Template = (props) => {
         <Router>
         <Nav datatest="nav" position="static"  />
           <Section/>
-          <Footer datatest="footer" text="copyright &copy; ravenwijaya" />
+          <Footer datatest="footer" text="Metroevent" />
         </Router>
 
     </>

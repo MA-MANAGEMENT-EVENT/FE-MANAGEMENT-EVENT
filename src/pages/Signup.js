@@ -1,5 +1,5 @@
 import React from "react";
-import Avatar from "@material-ui/core/Avatar";
+
 import Button from "../atoms/button/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "../atoms/textfield/TextField";
@@ -7,9 +7,8 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "../atoms/checkbox/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+
 import Typography from "../atoms/typography/Typhography";
-// import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
@@ -41,13 +40,8 @@ export default function SignUp() {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
+
         <Typography component="h1" variant="h5" text="Sign up" />
-        {/* <Typography component="h1" variant="h5">
-          Sign up
-        </Typography> */}
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
@@ -96,7 +90,12 @@ export default function SignUp() {
                 autoComplete="current-password"
               />
             </Grid>
-          
+            <Grid item xs={12}>
+              <FormControlLabel
+                control={<Checkbox value="allowExtraEmails" color="primary" />}
+                label="By clicking Sign Up, you agree to our Terms, Data Policy and Cookie Policy."
+              />
+            </Grid>
           </Grid>
           <Button
             type="submit"
@@ -108,7 +107,7 @@ export default function SignUp() {
           />
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="/login" variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>
