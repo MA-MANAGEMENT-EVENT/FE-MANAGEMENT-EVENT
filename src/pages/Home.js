@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import TextField from "../atoms/textfield/TextField";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -8,7 +9,7 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Typography from "../atoms/typography/Typhography";
-import Button from "../atoms/button/Button"
+import Button from "../atoms/button/Button";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -31,13 +32,11 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
   },
   cardMedia: {
-    paddingTop: "56.25%", 
+    paddingTop: "56.25%",
   },
   cardContent: {
     flexGrow: 1,
   },
-
-
 }));
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -94,7 +93,9 @@ const Home = () => {
                   />
                 </CardContent>
                 <CardActions>
-                  <Button size="small" color="primary" text="view"/>
+                   <Link to="/Detail" style={{ textDecoration: "none", padding: 10 }}>
+                    <Button size="small" color="primary" text="view" />
+                  </Link>
                 </CardActions>
               </Card>
             </Grid>

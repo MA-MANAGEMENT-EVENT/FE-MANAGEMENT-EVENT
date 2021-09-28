@@ -6,6 +6,7 @@ import Login from "../pages/Login";
 import SignUp from "../pages/Signup";
 import FeedbackForm from "../pages/FormFeedback"
 import EventListForm from "../pages/EventListHistory";
+import DetailEvent from '../pages/Detail/DetailEvent';
 const Section = () => {
   const [user] = useContext(UserContext);
 
@@ -31,6 +32,7 @@ const Section = () => {
         <LoginRoute exact path="/login" user={user} component={Login} />
         <LoginRoute exact path="/signup" user={user} component={SignUp} />
         <LoginRoute exact path="/history" user={user} component={EventListForm} />
+        <LoginRoute exact path="/detail" user={user} component={DetailEvent} />
 
         {/* <PrivateRoute
           exact
