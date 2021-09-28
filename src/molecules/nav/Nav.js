@@ -16,7 +16,7 @@ const Nav = (props) => {
     <>
       <AppBar data-testid={props.datatest} position={props.position}>
         <Toolbar>
-        <img src={logo} style={{width:"100px"}} ></img>
+        <img src={logo} style={{width:"100px"}} />
         <Typography variant="h6" text="Metroevent" className="logo"/>
           <Link to="/Home" style={{ textDecoration: 'none',padding:10,marginLeft:"auto" }}>
             <Typography variant="h7" text="Home" className="link" />
