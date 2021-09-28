@@ -4,6 +4,7 @@ import { UserContext } from "../../context/UserContext";
 import Typography from "../../atoms/typography/Typhography";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
+import logo from "../nav/logoMA.png"
 
 const Nav = (props) => {
   const [user, setUser] = useContext(UserContext);
@@ -15,6 +16,7 @@ const Nav = (props) => {
     <>
       <AppBar data-testid={props.datatest} position={props.position}>
         <Toolbar>
+        <img src={logo} style={{width:"100px"}} ></img>
         <Typography variant="h6" text="Metroevent" className="logo"/>
           <Link to="/Home" style={{ textDecoration: 'none',padding:10,marginLeft:"auto" }}>
             <Typography variant="h7" text="Home" className="link" />

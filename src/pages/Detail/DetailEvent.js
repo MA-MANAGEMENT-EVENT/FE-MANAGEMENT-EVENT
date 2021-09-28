@@ -18,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
   mainGrid: {
     marginTop: theme.spacing(3),
   },
+  container: {
+    marginTop: "20px",
+  }
 }));
 
 const mainFeaturedPost = {
@@ -88,10 +91,10 @@ export default function Blog() {
   return (
     <React.Fragment>
       <CssBaseline />
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" className={classes.container} >
         <main>
           <MainFeaturedPost post={mainFeaturedPost} />
-          <Grid container spacing={4}>
+          <Grid container spacing={4} style={{marginTop:"30px"}}>
             {featuredPosts.map((post) => (
               <FeaturedPost key={post.title} post={post} />
             ))}
