@@ -5,24 +5,23 @@ import clsx from "clsx";
 
 const useStyles = makeStyles({
   root: {
-    color:"#000000"
+    color: "#000000",
   },
-  link:{
-    textDecoration: 'none',
-    color:"#FFFFFF",
+  link: {
+    textDecoration: "none",
+    color: "#FFFFFF",
   },
-  logo:{
-    color:"#FFFFFF",
-  }
-  
+  logo: {
+    color: "#FFFFFF",
+  },
 });
-const Typography = ({ variant, text, className,...props }) => {
+const Typography = ({ variant, text, className, ...rest }) => {
   const classes = useStyles();
   return (
     <Typograph
       className={clsx(classes.root, classes[className])}
       variant={variant}
-      {...props}
+      {...rest}
     >
       {text}
     </Typograph>
@@ -30,13 +29,13 @@ const Typography = ({ variant, text, className,...props }) => {
 };
 
 Typography.propTypes = {
-  className:PropTypes.string,
+  className: PropTypes.string,
   variant: PropTypes.string,
   text: PropTypes.string,
 };
 
 Typography.defaultProps = {
-  className:undefined,
+  className: undefined,
   variant: "",
   text: "",
 };

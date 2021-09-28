@@ -19,7 +19,7 @@ const TextField = ({
   className,
   onChange,
   value,
-  ...props
+  ...rest
 }) => {
   const classes = useStyles();
   return (
@@ -33,8 +33,8 @@ const TextField = ({
       name={name}
       className={classes[className]}
       onChange={onChange}
-      value={value}
-      {...props}
+      // value={value}
+      {...rest}
     />
   );
 };

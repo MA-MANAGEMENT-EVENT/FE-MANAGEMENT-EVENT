@@ -27,7 +27,7 @@ const useStyles = makeStyles({
   },
 
 });
-const Button = ({ datatest, className, variant, color, onClick, startIcon, text,...props}) => {
+const Button = ({ datatest, className, variant, color, onClick, startIcon, text, ...rest}) => {
   const classes = useStyles();
   return (
     <Btn
@@ -37,7 +37,7 @@ const Button = ({ datatest, className, variant, color, onClick, startIcon, text,
       color={color}
       startIcon={startIcon}
       onClick={onClick}
-      {...props}
+      {...rest}
     >
       {text}
     </Btn>
