@@ -19,21 +19,22 @@ const Nav = (props) => {
           <Link to="/Home" style={{ textDecoration: 'none',padding:10,marginLeft:"auto" }}>
             <Typography variant="h7" text="Home" className="link" />
           </Link>
-          {user && (
-            <Link to="/LogOut" style={{ textDecoration: 'none' ,padding:10}}>
-            <Typography variant="h7" text="LogOut" className="link"/>
-          </Link>
-          )}
+          
           <Link to="/Login" style={{ textDecoration: 'none',padding:10 }}>
             <Typography variant="h7" text="Login" className="link"/>
           </Link>
           <Link to="/Signup" style={{ textDecoration: 'none',padding:10 }}>
             <Typography variant="h7" text="Signup" className="link" />
           </Link>
-          
+          {/* User route */}
           {user && (
             <Link to="/LogOut" style={{ textDecoration: 'none' ,padding:10}}>
-            <Typography variant="h7" text="LogOut" className="link" />
+            <Typography variant="h7" text="LogOut" className="link"/>
+          </Link>
+          )}
+          {true && (
+            <Link to="/History" style={{ textDecoration: 'none' ,padding:10}}>
+            <Typography variant="h7" text="History" className="link" />
           </Link>
           )}
         </Toolbar>
