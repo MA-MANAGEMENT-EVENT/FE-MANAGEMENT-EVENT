@@ -9,7 +9,6 @@ import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "../atoms/typography/Typhography";
-// import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
@@ -44,9 +43,6 @@ export default function SignUp() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5" text="Sign up" />
-        {/* <Typography component="h1" variant="h5">
-          Sign up
-        </Typography> */}
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
@@ -96,7 +92,12 @@ export default function SignUp() {
                 autoComplete="current-password"
               />
             </Grid>
-          
+            <Grid item xs={12}>
+              <FormControlLabel
+                control={<Checkbox value="allowExtraEmails" color="primary" />}
+                label="By clicking Sign Up, you agree to our Terms, Data Policy and Cookie Policy."
+              />
+            </Grid>
           </Grid>
           <Button
             type="submit"

@@ -57,7 +57,7 @@ const Login = () => {
       <Grid item style={{ marginTop:'20px' }}>
       Don't have an account? 
       <Link to="/Signup" variant="body2">
-                {" Sign Up"}
+          Sign Up
       </Link>
       </Grid>
     </form>
