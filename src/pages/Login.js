@@ -1,31 +1,46 @@
-import Container from '@material-ui/core/Container';
-import Typography from "../atoms/typography/Typhography";
+import React from 'react';
+import Button from '../atoms/button/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
+
+import Typography from '../atoms/typography/Typhography';
 import { makeStyles } from '@material-ui/core/styles';
-import { Link } from "react-router-dom";
+import Container from '@material-ui/core/Container';
 import TextField from '../atoms/textfield/TextField';
-import Button from '../atoms/button/Button'
 
-const Login = () => {
-  const useStyles = makeStyles((theme) => ({
-    form: {
-      width: '100%',
-      marginTop:'10px',
-    },
-     containerLg: {
-      marginTop: "100px",
-      marginBottom: "8px"
-    }
-  }));
-  
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
+
+export default function Login() {
   const classes = useStyles();
-  return (
-    <Container component="main" maxWidth="xs"  
-            className={`${classes.container} ${classes.containerLg}`}>
 
-    <Typography component="h1" variant="h5" align="center" text="Log in"/>
-    <form className={classes.form}>
-    <TextField
+  return (
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <div className={classes.paper}>
+    
+        <Typography component="h1" variant="h5" text="Sign in"/>
+         
+        <form className={classes.form} noValidate>
+          <TextField
             variant="outlined"
             margin="normal"
             required
@@ -36,7 +51,7 @@ const Login = () => {
             autoComplete="email"
             autoFocus
           />
-     <TextField
+          <TextField
             variant="outlined"
             margin="normal"
             required
@@ -47,22 +62,34 @@ const Login = () => {
             id="password"
             autoComplete="current-password"
           />
-      <Button
+          {/* <FormControlLabel
+            control={<Checkbox value="remember" color="primary" />}
+            label="Remember me"
+          /> */}
+          <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
-            text="Log in"
+            className={classes.submit}
+            text="Sign In"
           />
-      <Grid item style={{ marginTop:'20px' }}>
-      Don't have an account? 
-      <Link to="/Signup" variant="body2">
-          Sign Up
-      </Link>
-      </Grid>
-    </form>
-    
+       
+          <Grid container>
+            {/* <Grid item xs>
+              <Link href="#" variant="body2">
+                Forgot password?
+              </Link>
+            </Grid> */}
+            <Grid item>
+              <Link href="#" variant="body2">
+                {"Don't have an account? Sign Up"}
+              </Link>
+            </Grid>
+          </Grid>
+        </form>
+      </div>
+   
     </Container>
   );
-};
-export default Login;
+}
