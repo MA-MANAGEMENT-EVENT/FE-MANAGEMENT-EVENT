@@ -29,7 +29,8 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    marginTop: theme.spacing(3)
+    // margin: theme.spacing(3, 0, 2),
   },
 }));
 
@@ -59,7 +60,6 @@ export default function SignUp() {
                 variant="outlined"
                 label="First Name"
                 autoFocus
-            
               />
             </Grid>
             <Grid item xs={12} sm={6}>
