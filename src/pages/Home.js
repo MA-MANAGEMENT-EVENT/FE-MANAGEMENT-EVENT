@@ -93,7 +93,7 @@ const Home = () => {
                   />
                 </CardContent>
                 <CardActions>
-                   <Link to="/Detail" style={{ textDecoration: "none", padding: 10 }}>
+                   <Link to="/detailevent" style={{ textDecoration: "none", padding: 10 }}>
                     <Button size="small" color="primary" text="view" />
                   </Link>
                 </CardActions>

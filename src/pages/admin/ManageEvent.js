@@ -1,6 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import TextField from "../atoms/textfield/TextField";
+import TextField from "../../atoms/textfield/TextField";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
@@ -8,17 +7,16 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import Typography from "../atoms/typography/Typhography";
-import Button from "../atoms/button/Button";
-import { Box } from '@mui/system'
+import Typography from "../../atoms/typography/Typhography";
+import Button from "../../atoms/button/Button"
 
 const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
   },
   heroContent: {
+    backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(8, 0, 6),
-    marginTop:20,
   },
   heroButtons: {
     marginTop: theme.spacing(4),
@@ -26,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
   cardGrid: {
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(8),
-    backgroundColor: "#FAF8FF",
   },
   card: {
     height: "100%",
@@ -34,16 +31,18 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
   },
   cardMedia: {
-    paddingTop: "56.25%",
+    paddingTop: "56.25%", 
   },
   cardContent: {
     flexGrow: 1,
   },
+
+
 }));
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-const EventListHistory = () => {
+const ManageEvent = () => {
   const classes = useStyles();
 
   return (
@@ -55,20 +54,21 @@ const EventListHistory = () => {
             align="center"
             color="textPrimary"
             gutterBottom
-            text="My Events"
+            text="Metroevent"
           />
-         <Box
-        sx={{
-        marginLeft:15,
-          width: 300,
-          height: 80,
-          bgcolor: '#00B4B8',
-          borderRadius: "10px",
-          '&:hover': {
-            backgroundColor: '#009ACA',
-            opacity: [0.9, 0.8, 0.7],
-          },
-        }}><h3 style={{marginLeft:70, marginTop:20}}>I have attended <p>() Events</p></h3></Box>
+          <Typography
+            variant="h5"
+            align="center"
+            color="textSecondary"
+            text="Never Stop Learning, Because Life Never Stops Teaching."
+            paragraph
+          />
+
+          <div className={classes.heroButtons}>
+            <Grid container spacing={2} justifyContent="center">
+              <TextField label="Search Event" value="" className="trainer" />
+            </Grid>
+          </div>
         </Container>
       </div>
       <Container className={classes.cardGrid} maxWidth="md">
@@ -88,15 +88,15 @@ const EventListHistory = () => {
                     component="h2"
                     text="Heading"
                   />
+                
                   <Typography
                     text=" This is a media card. You can use this section to describe
                     the content."
                   />
                 </CardContent>
                 <CardActions>
-                   <Link to="/Detail" style={{ textDecoration: "none", padding: 10 }}>
-                    <Button size="small" color="primary" text="view" />
-                  </Link>
+                  <Button size="small" color="primary" text="edit"/>
+                  <Button size="small" color="primary" text="delete"/>
                 </CardActions>
               </Card>
             </Grid>
@@ -106,4 +106,4 @@ const EventListHistory = () => {
     </>
   );
 };
-export default EventListHistory;
+export default ManageEvent;

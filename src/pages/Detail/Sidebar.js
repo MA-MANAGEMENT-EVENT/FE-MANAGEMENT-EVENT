@@ -9,7 +9,6 @@ import RoomIcon from '@mui/icons-material/Room';
 import EventAvailableSharpIcon from '@mui/icons-material/EventAvailableSharp';
 
 const useStyles = makeStyles((theme) => ({
-  
   sidebarAboutBox: {
     padding: theme.spacing(2),
     backgroundColor: theme.palette.grey[200],

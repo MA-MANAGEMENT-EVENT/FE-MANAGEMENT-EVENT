@@ -12,15 +12,14 @@ export const UserProvider = props => {
   useEffect( () => {
 
     if (daftarUser.length === 0){
-      axios.get(`https://backendexample.sanbersy.com/api/users`)
+      axios.get(`url`)
       .then(res => {
   
           setDaftarUser(res.data.map(el=>{ return {
             id: el.id, 
             username: el.username, 
             password: el.password,
-            created_at:el.created_at, 
-            updated_at:el.updated_at
+            role: el.role, 
           }
         }))
       })

@@ -4,9 +4,13 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import SignUp from "../pages/Signup";
-import FeedbackForm from "../pages/FormFeedback"
-import EventListForm from "../pages/EventListHistory";
-import DetailEvent from '../pages/Detail/DetailEvent';
+import FeedbackForm from "../pages/user/FormFeedback"
+import History from "../pages/user/History";
+import ManageEvent from "../pages/admin/ManageEvent"
+import EditEvent from "../pages/admin/EditEvent"
+import ManageFeedback from "../pages/admin/ManageFeedback"
+import Detail from "../pages/Detail/DetailEvent"
+
 const Section = () => {
   const [user] = useContext(UserContext);
 
@@ -29,11 +33,30 @@ const Section = () => {
         </Route>
         <Route exact path="/home" component={Home} />
         <Route exact path="/feedback" component={FeedbackForm} />
+        <Route exact path="/history" user={user} component={History} />
+        <Route exact path="/detailevent" user={user} component={Detail}/>
+        {/* login route */}
         <LoginRoute exact path="/login" user={user} component={Login} />
         <LoginRoute exact path="/signup" user={user} component={SignUp} />
-        <LoginRoute exact path="/history" user={user} component={EventListForm} />
-        <LoginRoute exact path="/detail" user={user} component={DetailEvent} />
+        
+        {/* admin route */}
+        <Route
+         exact
+         path="/manageevent"
+         user={user}
+         component={ManageEvent}/>
 
+         <Route
+         exact
+         path="/editevent"
+         user={user}
+         component={EditEvent}/>
+
+         <Route
+         exact
+         path="/managefeedback"
+         user={user}
+         component={ManageFeedback}/>
         {/* <PrivateRoute
           exact
           path="/movielist"
