@@ -25,7 +25,6 @@ const useStyles = makeStyles({
     minWidth: 0,
 
   },
-
 });
 const Button = ({ datatest, className, variant, color, onClick, startIcon, text, ...rest}) => {
   const classes = useStyles();

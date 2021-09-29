@@ -28,7 +28,8 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    marginTop: theme.spacing(3)
+    // margin: theme.spacing(3, 0, 2),
   },
 }));
 
@@ -43,8 +44,9 @@ export default function SignUp() {
         <Typography component="h1" variant="h5" text="Sign up" />
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
-           
+
             <Grid item xs={12}>
+
               <TextField
                 variant="outlined"
                 required
