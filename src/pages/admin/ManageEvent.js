@@ -88,6 +88,7 @@ const ManageEvent = () => {
                     component="h2"
                     text="Heading"
                   />
+                
                   <Typography
                     text=" This is a media card. You can use this section to describe
                     the content."

@@ -9,7 +9,7 @@ import History from "../pages/user/History";
 import ManageEvent from "../pages/admin/ManageEvent"
 import EditEvent from "../pages/admin/EditEvent"
 import ManageFeedback from "../pages/admin/ManageFeedback"
-
+import Detail from "../pages/Detail/DetailEvent"
 
 const Section = () => {
   const [user] = useContext(UserContext);
@@ -34,7 +34,7 @@ const Section = () => {
         <Route exact path="/home" component={Home} />
         <Route exact path="/feedback" component={FeedbackForm} />
         <Route exact path="/history" user={user} component={History} />
-        
+        <Route exact path="/detailevent" user={user} component={Detail}/>
         {/* login route */}
         <LoginRoute exact path="/login" user={user} component={Login} />
         <LoginRoute exact path="/signup" user={user} component={SignUp} />
