@@ -7,7 +7,6 @@ import Typography from "@material-ui/core/Typography";
 // import Link from "@material-ui/core/Link";
 import Button from "../../atoms/button/Button";
 // import TextField from "../../atoms/textfield/TextField";
-import RoomIcon from "@mui/icons-material/Room";
 
 const useStyles = makeStyles((theme) => ({
   sidebarAboutBox: {
@@ -66,17 +65,7 @@ export default function Sidebar(props) {
         className={classes.submit}
         text="Daftar Sekarang"
       />
-      <Typography
-        style={{
-          fontSize: 25,
-          paddingBottom: 10.0,
-          marginTop: 40,
-          fontStretch: "ultra-expanded",
-        }}
-      >
-        Location
-      </Typography>
-      <RoomIcon />
+      
     </Grid>
   );
 }

@@ -7,12 +7,12 @@ import Container from "@material-ui/core/Container";
 // import FacebookIcon from "@material-ui/icons/Facebook";
 // import TwitterIcon from "@material-ui/icons/Twitter";
 import MainFeaturedPost from "./MainFeaturedPost";
-import FeaturedPost from "./FeaturedPost";
+// import FeaturedPost from "./FeaturedPost";
 import Main from "./Main";
 import Sidebar from "./Sidebar";
-import post1 from "./blog-post.1.md";
-import post2 from "./blog-post.2.md";
-import post3 from "./blog-post.3.md";
+// import post1 from "./blog-post.1.md";
+// import post2 from "./blog-post.2.md";
+// import post3 from "./blog-post.3.md";
 
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
@@ -25,35 +25,40 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const mainFeaturedPost = {
-  title: "Title of a longer featured blog post",
-  description:
-    "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
+  title: "Preparing your IT to meet the demands of the hybrid workforce",
+  // description:
+  //   "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
   image: "https://source.unsplash.com/random",
   imgText: "main image description",
-  linkText: "Continue reading…",
+  location: "Online",
+  time: "Thursday, 30 September 2021 09.00 AM",
+  speaker: "Ken Wheeler"
+  // linkText: "Continue reading…",
 };
 
-const featuredPosts = [
-  {
-    title: "Featured post",
-    date: "Nov 12",
-    description:
-      "This is a wider card with supporting text below as a natural lead-in to additional content.",
-    image: "https://source.unsplash.com/random",
-    imageText: "Image Text",
-  },
-  {
-    title: "Post title",
-    date: "Nov 11",
-    description:
-      "This is a wider card with supporting text below as a natural lead-in to additional content.",
-    image: "https://source.unsplash.com/random",
-    imageText: "Image Text",
-  },
-];
+// const featuredPosts = [
+//   {
+//     title: "Featured post",
+//     date: "Nov 12",
+//     description:
+//       "This is a wider card with supporting text below as a natural lead-in to additional content.",
+//     image: "https://source.unsplash.com/random",
+//     imageText: "Image Text",
+//   },
+//   {
+//     title: "Post title",
+//     date: "Nov 11",
+//     description:
+//       "This is a wider card with supporting text below as a natural lead-in to additional content.",
+//     image: "https://source.unsplash.com/random",
+//     imageText: "Image Text",
+//   },
+// ];
 
 // const posts = [];
-const posts = [post1, post2, post3];
+const posts = {
+  description: "Anda belum dapat mendaftar event ini. Yuk buat akun sekarang agar bisa mendaftar di event i",
+};
 
 const sidebar = {
   // title: "About",
@@ -95,13 +100,13 @@ export default function Blog() {
       <Container maxWidth="lg" className={classes.container} >
         <main>
           <MainFeaturedPost post={mainFeaturedPost} />
-          <Grid container spacing={4} style={{marginTop:"30px"}}>
+          {/* <Grid container spacing={4} style={{marginTop:"30px"}}>
             {featuredPosts.map((post) => (
               <FeaturedPost key={post.title} post={post} />
             ))}
-          </Grid>
+          </Grid> */}
           <Grid container spacing={5} className={classes.mainGrid}>
-            <Main title="From the firehose" posts={posts} />
+            <Main title="From the firehose" posts={posts} post={mainFeaturedPost} />  
             <Sidebar
               title={sidebar.title}
               description={sidebar.description}
