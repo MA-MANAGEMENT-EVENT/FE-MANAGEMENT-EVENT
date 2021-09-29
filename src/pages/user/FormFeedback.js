@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import CodingCampFeedback from "../molecules/codingcampfeedback/CodingCampFeedback";
-import TrainerFeedback from "../molecules/trainerfeedback/TrainerFeedback";
-import EnvironmentFeedback from "../molecules/environmentfeedback/EnvironmentFeedback";
-import { Alert } from "../atoms/alert/Alert";
-import Button from "../atoms/button/Button"
+import CodingCampFeedback from "../../molecules/codingcampfeedback/CodingCampFeedback";
+import TrainerFeedback from "../../molecules/trainerfeedback/TrainerFeedback";
+import EnvironmentFeedback from "../../molecules/environmentfeedback/EnvironmentFeedback";
+import { Alert } from "../../atoms/alert/Alert";
+import Button from "../../atoms/button/Button"
 
 const FeedbackForm = () => {
   const [page, setPage] = useState(1);
@@ -30,6 +30,7 @@ const FeedbackForm = () => {
       },
     ],
   });
+  
 
   const onChangePage = (number) => {
     setPage(number);

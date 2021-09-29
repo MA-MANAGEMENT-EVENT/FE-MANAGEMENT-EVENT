@@ -16,27 +16,33 @@ const Nav = (props) => {
       <AppBar data-testid={props.datatest} position={props.position}>
         <Toolbar>
         <Typography variant="h6" text="Metroevent" className="logo"/>
-          <Link to="/Home" style={{ textDecoration: 'none',padding:10,marginLeft:"auto" }}>
+          <Link to="/home" style={{ textDecoration: 'none',padding:10,marginLeft:"auto" }}>
             <Typography variant="h7" text="Home" className="link" />
           </Link>
           
-          <Link to="/Login" style={{ textDecoration: 'none',padding:10 }}>
+          <Link to="/login" style={{ textDecoration: 'none',padding:10 }}>
             <Typography variant="h7" text="Login" className="link"/>
           </Link>
-          <Link to="/Signup" style={{ textDecoration: 'none',padding:10 }}>
+          <Link to="/signup" style={{ textDecoration: 'none',padding:10 }}>
             <Typography variant="h7" text="Signup" className="link" />
           </Link>
+
           {/* User route */}
           {user && (
-            <Link to="/LogOut" style={{ textDecoration: 'none' ,padding:10}}>
+            <Link to="/logOut" style={{ textDecoration: 'none' ,padding:10}}>
             <Typography variant="h7" text="LogOut" className="link"/>
           </Link>
           )}
           {true && (
-            <Link to="/History" style={{ textDecoration: 'none' ,padding:10}}>
+            <Link to="/history" style={{ textDecoration: 'none' ,padding:10}}>
             <Typography variant="h7" text="History" className="link" />
           </Link>
           )}
+          {/* admin route */}
+           <Link to="/manageevent" style={{ textDecoration: 'none',padding:10 }}>
+            <Typography variant="h7" text="Manage Event" className="link" />
+          </Link>
+         
         </Toolbar>
       </AppBar>
     </>
