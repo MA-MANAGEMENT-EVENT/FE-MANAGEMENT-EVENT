@@ -7,10 +7,9 @@ import Typography from "@material-ui/core/Typography";
 // import Link from "@material-ui/core/Link";
 import Button from "../../atoms/button/Button";
 // import TextField from "../../atoms/textfield/TextField";
-import RoomIcon from '@mui/icons-material/Room';
+import RoomIcon from "@mui/icons-material/Room";
 
 const useStyles = makeStyles((theme) => ({
-  
   sidebarAboutBox: {
     padding: theme.spacing(2),
     backgroundColor: theme.palette.grey[200],
@@ -28,13 +27,26 @@ export default function Sidebar(props) {
 
   return (
     <Grid item xs={12} md={4}>
-      <Paper elevation={0} className={classes.sidebarAboutBox} style={{marginBottom:55.0}} >
+      <Paper
+        elevation={0}
+        className={classes.sidebarAboutBox}
+        style={{ marginBottom: 40.0 }}
+      >
         <Typography variant="h6" gutterBottom>
           {title}
         </Typography>
         <Typography>{description}</Typography>
       </Paper>
-      <Typography style={{fontSize:20.0, paddingBottom: 10.0, fontStretch: "ultra-expanded"}}>{desc2}</Typography>
+      <Typography
+        style={{
+          textAlign: "center",
+          fontSize: 20.0,
+          paddingBottom: 10.0,
+          fontStretch: "ultra-expanded"
+        }}
+      >
+        {desc2}
+      </Typography>
       {/* <Grid item xs={12}>
         <TextField
           variant="outlined"
@@ -54,8 +66,17 @@ export default function Sidebar(props) {
         className={classes.submit}
         text="Daftar Sekarang"
       />
-       <Typography style={{fontSize:25, paddingBottom: 10.0, marginTop:10, fontStretch: "ultra-expanded"}}>Location</Typography>
-       <RoomIcon />
+      <Typography
+        style={{
+          fontSize: 25,
+          paddingBottom: 10.0,
+          marginTop: 40,
+          fontStretch: "ultra-expanded",
+        }}
+      >
+        Location
+      </Typography>
+      <RoomIcon />
     </Grid>
   );
 }
