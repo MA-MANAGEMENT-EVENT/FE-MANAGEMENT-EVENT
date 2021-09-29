@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     marginTop: "20px",
+    marginBottom: "30px",
   }
 }));
 
@@ -107,7 +108,7 @@ export default function Blog() {
               desc2={sidebar.desc2}
               archives={sidebar.archives}
               social={sidebar.social}
-              style={{ position: "fixed" }}
+              style={{ position: "fixed", justifyContent: 'center' }}
             />
           </Grid>
         </main>

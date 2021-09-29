@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 // import Link from "@material-ui/core/Link";
 import Button from "../../atoms/button/Button";
 // import TextField from "../../atoms/textfield/TextField";
+import RoomIcon from '@mui/icons-material/Room';
 
 const useStyles = makeStyles((theme) => ({
   
@@ -53,27 +54,8 @@ export default function Sidebar(props) {
         className={classes.submit}
         text="Daftar Sekarang"
       />
-      {/* <Typography variant="h6" gutterBottom className={classes.sidebarSection}>
-        Archives
-      </Typography>
-      {archives.map((archive) => (
-        <Link display="block" variant="body1" href={archive.url} key={archive.title}>
-          {archive.title}
-        </Link>
-      ))} */}
-      {/* <Typography variant="h6" gutterBottom className={classes.sidebarSection}>
-        Social
-      </Typography>
-      {social.map((network) => (
-        <Link display="block" variant="body1" href="#" key={network}>
-          <Grid container direction="row" spacing={1} alignItems="center">
-            <Grid item>
-              <network.icon />
-            </Grid>
-            <Grid item>{network.name}</Grid>
-          </Grid>
-        </Link>
-      ))} */}
+       <Typography style={{fontSize:25, paddingBottom: 10.0, marginTop:10, fontStretch: "ultra-expanded"}}>Location</Typography>
+       <RoomIcon />
     </Grid>
   );
 }
