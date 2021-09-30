@@ -3,16 +3,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
-// import GitHubIcon from "@material-ui/icons/GitHub";
-// import FacebookIcon from "@material-ui/icons/Facebook";
-// import TwitterIcon from "@material-ui/icons/Twitter";
-import MainFeaturedPost from "./MainFeaturedPost";
-// import FeaturedPost from "./FeaturedPost";
+import DetailHeader from "./DetailHeader";
 import Main from "./Main";
 import Sidebar from "./Sidebar";
-// import post1 from "./blog-post.1.md";
-// import post2 from "./blog-post.2.md";
-// import post3 from "./blog-post.3.md";
 
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
@@ -24,38 +17,15 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const mainFeaturedPost = {
+const detailHeader = {
   title: "Preparing your IT to meet the demands of the hybrid workforce",
-  // description:
-  //   "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
   image: "https://source.unsplash.com/random",
   imgText: "main image description",
   location: "Online",
   time: "Thursday, 30 September 2021 09.00 AM",
   speaker: "Ken Wheeler"
-  // linkText: "Continue reading…",
 };
 
-// const featuredPosts = [
-//   {
-//     title: "Featured post",
-//     date: "Nov 12",
-//     description:
-//       "This is a wider card with supporting text below as a natural lead-in to additional content.",
-//     image: "https://source.unsplash.com/random",
-//     imageText: "Image Text",
-//   },
-//   {
-//     title: "Post title",
-//     date: "Nov 11",
-//     description:
-//       "This is a wider card with supporting text below as a natural lead-in to additional content.",
-//     image: "https://source.unsplash.com/random",
-//     imageText: "Image Text",
-//   },
-// ];
-
-// const posts = [];
 const posts = {
   description: `There are many variations of passages of Lorem Ipsum available, 
   but the majority have suffered alteration in some form, by injected humour, 
@@ -70,30 +40,11 @@ const posts = {
 };
 
 const sidebar = {
-  // title: "About",
   description:
-    "Anda belum dapat mendaftar event ini. Yuk buat akun sekarang agar bisa mendaftar di event ini dan juga event - event lainnya.",
+    `Anda belum dapat mendaftar event ini. Yuk buat akun sekarang agar bisa mendaftar 
+    di event ini dan juga event - event lainnya.`,
 
   desc2: "Daftar sekarang untuk dapat mengikuti event ini",
-
-  // archives: [
-  //   { title: "March 2020", url: "#" },
-  //   { title: "February 2020", url: "#" },
-  //   { title: "January 2020", url: "#" },
-  //   { title: "November 1999", url: "#" },
-  //   { title: "October 1999", url: "#" },
-  //   { title: "September 1999", url: "#" },
-  //   { title: "August 1999", url: "#" },
-  //   { title: "July 1999", url: "#" },
-  //   { title: "June 1999", url: "#" },
-  //   { title: "May 1999", url: "#" },
-  //   { title: "April 1999", url: "#" },
-  // ],
-  // social: [
-  //   { name: "GitHub", icon: GitHubIcon },
-  //   { name: "Twitter", icon: TwitterIcon },
-  //   { name: "Facebook", icon: FacebookIcon },
-  // ],
 };
 
 export default function Blog() {
@@ -108,22 +59,18 @@ export default function Blog() {
       <CssBaseline />
       <Container maxWidth="lg" className={classes.container} >
         <main>
-          <MainFeaturedPost post={mainFeaturedPost} />
-          {/* <Grid container spacing={4} style={{marginTop:"30px"}}>
-            {featuredPosts.map((post) => (
-              <FeaturedPost key={post.title} post={post} />
-            ))}
-          </Grid> */}
+          <DetailHeader post={detailHeader} />
           <Grid container spacing={5} className={classes.mainGrid}>
-            <Main title="From the firehose" posts={posts} post={mainFeaturedPost} />  
+            <Main title={detailHeader.title} posts={posts} post={detailHeader} />  
             <Sidebar
-              title={sidebar.title}
               description={sidebar.description}
               desc2={sidebar.desc2}
-              archives={sidebar.archives}
-              social={sidebar.social}
+              speaker={detailHeader.speaker}
+              location={detailHeader.location}
+              time={detailHeader.time}
               style={{ position: "fixed", justifyContent: 'center' }}
             />
+            <div style={{margin:10}}></div>
           </Grid>
         </main>
       </Container>

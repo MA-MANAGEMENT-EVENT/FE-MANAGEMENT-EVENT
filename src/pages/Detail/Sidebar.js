@@ -5,7 +5,8 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Button from "../../atoms/button/Button";
-import RoomIcon from '@mui/icons-material/Room';
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
+import RoomOutlinedIcon from '@mui/icons-material/RoomOutlined';
 import EventAvailableSharpIcon from '@mui/icons-material/EventAvailableSharp';
 
 const useStyles = makeStyles((theme) => ({
@@ -21,8 +22,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Sidebar(props) {
   const classes = useStyles();
-  const { description, title, desc2 } = props;
-  // const { archives, description, social, title, desc2 } = props;
+  const { description, title, desc2, speaker, location, time } = props;
 
   return (
     <Grid item xs={12} md={4}>
@@ -33,26 +33,34 @@ export default function Sidebar(props) {
         <Typography>{description}</Typography>
       </Paper>
       
-      <Grid item xs={12}>
-      <Typography style={{fontSize:20, fontStretch: "ultra-expanded"}}>Location</Typography>
-      <RoomIcon style={{marginTop:10}} />
-      <Typography style={{fontSize:20, marginTop:10, fontStretch: "ultra-expanded"}}>Tanggal Pelaksanaan</Typography>
-      <EventAvailableSharpIcon style={{marginTop:10}} />
+      <Grid item xs={12} style={{marginTop: 30.0, marginBottom: 15}}>
+        <Typography style={{fontSize:20, fontStretch: "ultra-expanded", marginTop:30}}><b>Speaker</b></Typography>
+        <div style={{display: "flex",alignItems: "center",marginBottom: 10.0,marginTop: 10.0,}}>
+          <PersonOutlineOutlinedIcon color="action" />
+          <Typography style={{fontSize: 20, marginLeft: 20, fontStretch: "ultra-expanded"}}>
+            {speaker}
+          </Typography>
+        </div>
+
+        <Typography style={{fontSize:18, fontStretch: "ultra-expanded", marginTop:30}}><b>Location</b></Typography>
+        <div style={{display: "flex",alignItems: "center",marginBottom: 10.0,marginTop: 10.0,}}>
+          <RoomOutlinedIcon color="action" />
+          <Typography style={{fontSize: 20, marginLeft: 20, fontStretch: "ultra-expanded"}}>
+            {location}
+          </Typography>
+        </div>
+        
+        <Typography style={{fontSize:18, fontStretch: "ultra-expanded", marginTop:30}}><b>Tanggal Pelaksanaan</b></Typography>
+        <div style={{display: "flex",marginBottom: 10.0,marginTop: 10.0,}}>
+          <EventAvailableSharpIcon color="action" style={{marginTop:3}} />
+          <Typography style={{fontSize: 20, marginLeft: 20, fontStretch: "ultra-expanded"}}>
+            {time}
+          </Typography>
+        </div>
       </Grid>
       
-      
-      <Typography style={{fontSize:20.0, marginTop:10, paddingBottom: 10.0, fontStretch: "ultra-expanded"}}>{desc2}</Typography>
-      {/* <Grid item xs={12}>
-        <TextField
-          variant="outlined"
-          required
-          fullWidth
-          id="email"
-          label="Email Address"
-          name="email"
-          autoComplete="email"
-        />
-      </Grid> */}
+      <div style={{borderTop: "1px gainsboro solid", marginBottom: 5}}>
+      <Typography style={{fontSize:20.0, marginTop:30, marginBottom: 10.0, textAlign:"center", fontStretch: "ultra-expanded"}}>{desc2}</Typography>
       <Button
         type="submit"
         fullWidth
@@ -60,7 +68,10 @@ export default function Sidebar(props) {
         color="primary"
         className={classes.submit}
         text="Daftar Sekarang"
+        size= "large"
+        style={{fontSize:18, fontWeight: "700", borderRadius:"8px" }}
       />
+      </div>
     </Grid>
   );
 }
