@@ -33,7 +33,7 @@ const TextField = ({
       name={name}
       className={classes[className]}
       onChange={onChange}
-      // value={value}
+      value={value}
       {...rest}
     />
   );
