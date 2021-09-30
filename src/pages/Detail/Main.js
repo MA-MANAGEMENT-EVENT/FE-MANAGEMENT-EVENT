@@ -30,7 +30,10 @@ export default function Main(props) {
         </Markdown>
       ))} */}
         <Typography variant="h6" gutterBottom paragraph="true">
+       
           {posts.description}
+ 
+        
         </Typography>
       </Grid>
       <Grid

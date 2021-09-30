@@ -57,7 +57,8 @@ const mainFeaturedPost = {
 
 // const posts = [];
 const posts = {
-  description: "Anda belum dapat mendaftar event ini. Yuk buat akun sekarang agar bisa mendaftar di event i",
+  description: `Anda belum dapat mendaftar event ini. 
+  Yuk buat akun sekarang agar bisa mendaftar di event i`
 };
 
 const sidebar = {

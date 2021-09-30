@@ -7,7 +7,7 @@ import SignUp from "../pages/Signup";
 import Feedback from "../pages/user/Feedback"
 import History from "../pages/user/History";
 import ManageEvent from "../pages/admin/ManageEvent"
-import EditEvent from "../pages/admin/EditEvent"
+import EventForm from "../pages/admin/EventForm"
 import ManageFeedback from "../pages/admin/ManageFeedback"
 import Detail from "../pages/Detail/DetailEvent"
 import PageNotFound from "../pages/PageNotFound";
@@ -53,7 +53,7 @@ const Section = () => {
          exact
          path="/editevent"
          user={user}
-         component={EditEvent}/>
+         component={EventForm}/>
 
          <Route
          exact
