@@ -6,7 +6,7 @@ const useStyles = makeStyles({
     width: "350px",
     marginBottom: "10px",
   },
-  trainer: {
+  root: {
     width: "250px",
     marginRight: "10px",
   },

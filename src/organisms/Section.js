@@ -4,12 +4,13 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import SignUp from "../pages/Signup";
-import FeedbackForm from "../pages/user/FormFeedback"
+import Feedback from "../pages/user/Feedback"
 import History from "../pages/user/History";
 import ManageEvent from "../pages/admin/ManageEvent"
 import EditEvent from "../pages/admin/EditEvent"
 import ManageFeedback from "../pages/admin/ManageFeedback"
 import Detail from "../pages/Detail/DetailEvent"
+import PageNotFound from "../pages/PageNotFound";
 
 const Section = () => {
   const [user] = useContext(UserContext);
@@ -31,10 +32,12 @@ const Section = () => {
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>
+        
         <Route exact path="/home" component={Home} />
-        <Route exact path="/feedback" component={FeedbackForm} />
+        <Route exact path="/feedback" component={Feedback} />
         <Route exact path="/history" user={user} component={History} />
         <Route exact path="/detailevent" user={user} component={Detail}/>
+       
         {/* login route */}
         <LoginRoute exact path="/login" user={user} component={Login} />
         <LoginRoute exact path="/signup" user={user} component={SignUp} />
@@ -57,6 +60,7 @@ const Section = () => {
          path="/managefeedback"
          user={user}
          component={ManageFeedback}/>
+         <Route component={PageNotFound} />
         {/* <PrivateRoute
           exact
           path="/movielist"
