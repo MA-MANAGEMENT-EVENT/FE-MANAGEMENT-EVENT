@@ -60,7 +60,7 @@ export default function Sidebar(props) {
       </Grid>
       
       <div style={{borderTop: "1px gainsboro solid", marginBottom: 5}}>
-      <Typography style={{fontSize:20.0, marginTop:30, marginBottom: 10.0, textAlign:"center", fontStretch: "ultra-expanded"}}>{desc2}</Typography>
+      <Typography style={{fontSize:20.0, marginTop:30, marginBottom: 15.0, textAlign:"center", fontStretch: "ultra-expanded"}}>{desc2}</Typography>
       <Button
         type="submit"
         fullWidth
