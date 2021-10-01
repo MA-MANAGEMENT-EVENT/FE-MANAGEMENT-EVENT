@@ -11,6 +11,9 @@ import ReactDatePicker from "react-datepicker";
 import Grid from "@material-ui/core/Grid";
 import "react-datepicker/dist/react-datepicker.css";
 import TextArea from "../../atoms/textarea/TextArea";
+import DateTimePicker from "react-datetime-picker";
+import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
+
 const EventForm = () => {
   const defaultValues = {
     title: "",
@@ -42,65 +45,65 @@ const EventForm = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Label text="Form Event" className="title" />
         <Label text="Event Thumbnail" className="question" />
-        {/* {input.image_url && (
-          <Paper variant="outlined">
-            <img src={input.image_url} />
-          </Paper>
-        )} */}
         <input
           id="imagefile"
           name="imagefile"
           type="file"
           //  {...register("imagefile")}
         />
-        {/* <button type="submit">Upload!</button> */}
-        <Label text="Event Title" className="question" />
-        <Controller
-          render={({ field }) => <TextField {...field} />}
-          control={control}
-          name="title"
-          datatest="title"
-          className="root"
-        />
-        {/* <TextField
-          datatest="title"
-          name="title"
-          className="root"
-          value={input.title}
-          {...register("title")}
-        /> */}
+        <Grid container spacing={1}>
+          <Grid item xs={3}>
+            <Label text="Event Title" className="question" />
+            <Controller
+              render={({ field }) => <TextField {...field} />}
+              control={control}
+              name="title"
+              datatest="title"
+              className="root"
+            />
+          </Grid>
+          <Grid item xs={3}>
+            <Label text="Location" className="question" />
+            <Controller
+              render={({ field }) => <TextField {...field} />}
+              control={control}
+              datatest="location"
+              name="location"
+              className="root"
+            />
+          </Grid>
+          <Grid item xs={3}>
+            <Label text="Code" className="question" />
+            <Controller
+              render={({ field }) => <TextField {...field} />}
+              control={control}
+              datatest="code"
+              name="code"
+              className="root"
+            />
+          </Grid>
+          <Grid item xs={3}>
+            <Label text="Password" className="question" />
+            <Controller
+              render={({ field }) => <TextField {...field} />}
+              control={control}
+              datatest="password"
+              name="password"
+              className="root"
+            />
+          </Grid>
+        </Grid>
+
         <Label text="Event Description" className="question" />
         <Controller
-          render={({ field }) => <TextArea {...field} />}
+          render={({ field }) => (
+            <TextArea {...field} style={{ width: "100%" }} />
+          )}
           control={control}
           name="description"
           datatest="title"
         />
 
-        <Label text="Location" className="question" />
-        <Controller
-          render={({ field }) => <TextField {...field} />}
-          control={control}
-          datatest="location"
-          name="location"
-          className="root"
-        />
-        <Label text="Code" className="question" />
-        <Controller
-          render={({ field }) => <TextField {...field} />}
-          control={control}
-          datatest="code"
-          name="code"
-          className="root"
-        />
-        <Label text="Password" className="question" />
-        <Controller
-          render={({ field }) => <TextField {...field} />}
-          control={control}
-          datatest="password"
-          name="password"
-          className="root"
-        />
         <Label text="Speaker" className="question" />
         <Controller
           name="ReactSelect"
@@ -119,41 +122,100 @@ const EventForm = () => {
             </div>
           )}
         />
-        <Label text="Date" className="question" />
-      
-        
-         
-       <Grid container>
-        <Grid item xs={2}>
-        <Controller
-            control={control}
-            name="startdate"
-            render={({ field }) => (
-              <ReactDatePicker
-                className="input"
-                placeholderText="Start date"
-                onChange={(e) => field.onChange(e)}
-                selected={field.value}
-              />
-            )}
-          />
+
+        <Grid container spacing={4}>
+          <Grid item xs={4}>
+            <Label text="Start Date" className="question" />
+            <Controller
+              control={control}
+              name="startdate"
+              render={({ field }) => (
+                <DateTimePickerComponent
+                  className="input"
+                  placeholderText="Start date"
+                  onChange={(e) => field.onChange(e)}
+                  selected={field.value}
+                />
+              )}
+            />
+          </Grid>
+
+          <Grid item xs={4}>
+            <Label text="End Date" className="question" />
+            <Controller
+              control={control}
+              name="enddate"
+              render={({ field }) => (
+                <DateTimePickerComponent
+                  className="input"
+                  placeholderText="Start date"
+                  onChange={(e) => field.onChange(e)}
+                  selected={field.value}
+                />
+              )}
+            />
+          </Grid>
         </Grid>
-        <Grid item xs={4}>
+        <Label text="Feedback Question 1" className="question" />
         <Controller
-            control={control}
-            name="enddate"
-            render={({ field }) => (
-              <ReactDatePicker
-                className="input"
-                placeholderText="End date"
-                onChange={(e) => field.onChange(e)}
-                selected={field.value}
-              />
-            )}
-          />
-        </Grid>
-      </Grid>
-        
+          render={({ field }) => (
+            <TextField
+              {...field}
+              datatest="question1"
+              className="questionfeedback"
+            />
+          )}
+          control={control}
+          name="question1"
+        />
+        <Label text="Feedback Question 2" className="question" />
+        <Controller
+          render={({ field }) => (
+            <TextField
+              {...field}
+              datatest="question2"
+              className="questionfeedback"
+            />
+          )}
+          control={control}
+          name="question2"
+        />
+        <Label text="Feedback Question 3" className="question" />
+        <Controller
+          render={({ field }) => (
+            <TextField
+              {...field}
+              datatest="question3"
+              className="questionfeedback"
+            />
+          )}
+          control={control}
+          name="question3"
+        />
+        <Label text="Feedback Question 4" className="question" />
+        <Controller
+          render={({ field }) => (
+            <TextField
+              {...field}
+              datatest="question4"
+              className="questionfeedback"
+            />
+          )}
+          control={control}
+          name="question4"
+        />
+        <Label text="Feedback Question 5" className="question" />
+        <Controller
+          render={({ field }) => (
+            <TextField
+              {...field}
+              datatest="question5"
+              className="questionfeedback"
+            />
+          )}
+          name="question5"
+          control={control}
+        />
         <br />
 
         <Button datatest="submit" text="submit" type="submit" />

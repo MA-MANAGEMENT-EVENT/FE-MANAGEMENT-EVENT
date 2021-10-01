@@ -10,6 +10,10 @@ const useStyles = makeStyles({
     width: "250px",
     marginRight: "10px",
   },
+  questionfeedback: {
+    width: "400px",
+    marginRight: "10px",
+  },
 });
 const TextField = ({
   type,
