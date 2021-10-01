@@ -22,7 +22,8 @@ const useStyles = makeStyles({
     fontSize: "30px", 
     fontWeight: "bold", 
     float:"left",
-    marginLeft:40
+    marginLeft:40,
+    
   },sublogo:{
     color: "#FFFFFF",
     fontSize: "20px", 

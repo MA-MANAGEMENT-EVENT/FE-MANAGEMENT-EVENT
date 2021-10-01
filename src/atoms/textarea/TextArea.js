@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles({
   root: {
-    width: "500px",
+    width: "600px",
     marginTop: "10px",
   },
 });
@@ -13,6 +13,7 @@ const TextArea = ({minRows,placeholder,name,onChange,value,...props}) => {
     <TxtArea
       className={classes.root}
       minRows={minRows}
+
       placeholder={placeholder}
       name={name}
       onChange={onChange}
@@ -24,6 +25,7 @@ const TextArea = ({minRows,placeholder,name,onChange,value,...props}) => {
 TextArea.propTypes = {
   className:PropTypes.string,
   minRows:PropTypes.number,
+ 
   placeholder: PropTypes.string,
   name:PropTypes.string,
   onChange:PropTypes.func,
