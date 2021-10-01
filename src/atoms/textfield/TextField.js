@@ -17,8 +17,6 @@ const TextField = ({
   label,
   name,
   className,
-  onChange,
-  value,
   ...rest
 }) => {
   const classes = useStyles();
@@ -32,30 +30,24 @@ const TextField = ({
       label={label}
       name={name}
       className={classes[className]}
-      onChange={onChange}
-      value={value}
       {...rest}
     />
   );
 };
 TextField.propTypes = {
   // error: PropTypes.string,
-  variant: PropTypes.string,
   type: PropTypes.string,
+  variant: PropTypes.string,
   label: PropTypes.string,
   name: PropTypes.string,
   className: PropTypes.string,
-  onChange: PropTypes.func,
-  value: PropTypes.string,
 };
 
 TextField.defaultProps = {
-  variant: "outlined",
   type: "text",
+  variant: "outlined",
   label: "",
   name: "",
   className: "",
-  onChange: undefined,
-  value: "",
 };
 export default TextField;

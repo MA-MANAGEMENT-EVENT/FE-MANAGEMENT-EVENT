@@ -1,13 +1,12 @@
 import React from "react";
-
-import Button from "../atoms/button/Button";
+import { useForm } from "react-hook-form";
+import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "../atoms/textfield/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "../atoms/checkbox/Checkbox";
+import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
-
 import Typography from "../atoms/typography/Typhography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
@@ -28,37 +27,42 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
   },
   submit: {
-    marginTop: theme.spacing(3)
-    // margin: theme.spacing(3, 0, 2),
+    margin: theme.spacing(3, 0, 2),
   },
 }));
 
 export default function SignUp() {
   const classes = useStyles();
-
+  const { register, handleSubmit } = useForm();
+  const onSubmit = (data) => {
+    console.log(data);
+  };
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-
-        <Typography component="h1" variant="h5" text="Sign up" />
-        <form className={classes.form} noValidate>
+        <Typography text="Sign up" variant="h4" />
+        <form
+          className={classes.form}
+          noValidate
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <Grid container spacing={2}>
-
             <Grid item xs={12}>
-
               <TextField
+                {...register("name")}
                 variant="outlined"
                 required
                 fullWidth
-                id="nama"
+                id="name"
                 label="Name"
                 name="name"
-                autoComplete="name"
+                autoComplete="lname"
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
+                {...register("email")}
                 variant="outlined"
                 required
                 fullWidth
@@ -70,6 +74,7 @@ export default function SignUp() {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                {...register("password")}
                 variant="outlined"
                 required
                 fullWidth
@@ -93,8 +98,9 @@ export default function SignUp() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            text="Sign Up"
-          />
+          >
+            Sign Up
+          </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link href="/login" variant="body2">

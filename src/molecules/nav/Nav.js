@@ -26,31 +26,31 @@ const Nav = (props) => {
       <Typography variant="h6" text="METROEVENT" className="logo" style={{marginLeft:10.0}} />
     </Link>
     <Link to="/Home" style={{ textDecoration: 'none',padding:10,marginLeft:"auto" }}>
-      <Typography variant="h7" text="Home" className="link" />
+      <Typography variant="body1" text="Home" className="link" />
     </Link>
   
   
   <Link to="/login" style={{ textDecoration: 'none',padding:10 }}>
-    <Typography variant="h7" text="Login" className="link"/>
+    <Typography variant="body1" text="Login" className="link"/>
   </Link>
   <Link to="/signup" style={{ textDecoration: 'none',padding:10 }}>
-    <Typography variant="h7" text="Signup" className="link" />
+    <Typography variant="body1" text="Signup" className="link" />
   </Link>
 
   {/* User route */}
   {user && (
     <Link to="/logOut" style={{ textDecoration: 'none' ,padding:10}}>
-    <Typography variant="h7" text="LogOut" className="link"/>
+    <Typography variant="body1" text="LogOut" className="link"/>
   </Link>
   )}
   {true && (
     <Link to="/history" style={{ textDecoration: 'none' ,padding:10}}>
-    <Typography variant="h7" text="History" className="link" />
+    <Typography variant="body1" text="History" className="link" />
   </Link>
   )}
   {/* admin route */}
    <Link to="/manageevent" style={{ textDecoration: 'none',padding:10 }}>
-    <Typography variant="h7" text="Manage Event" className="link" />
+    <Typography variant="body1" text="Manage Event" className="link" />
   </Link>
  
 </Toolbar>

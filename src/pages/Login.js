@@ -1,26 +1,23 @@
-import React from 'react';
-import Button from '../atoms/button/Button';
-import Typography from '../atoms/typography/Typhography';
-import TextField from '../atoms/textfield/TextField';
-import CssBaseline from '@material-ui/core/CssBaseline';
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
-import { makeStyles } from '@material-ui/core/styles';
-
+import React from "react";
+import { useForm } from "react-hook-form";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "../atoms/textfield/TextField";
+import Link from "@material-ui/core/Link";
+import Grid from "@material-ui/core/Grid";
+import Typography from "../atoms/typography/Typhography";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
-
   form: {
-    width: '100%',
+    width: "100%",
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -30,16 +27,23 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login() {
   const classes = useStyles();
+  const { register, handleSubmit } = useForm();
+  const onSubmit = (data) => {
+    console.log(data);
+  };
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-    
-        <Typography component="h1" variant="h5" text="Sign in"/>
-         
-        <form className={classes.form} noValidate>
+        <Typography text="Sign in" variant="h4" />
+        <form
+          className={classes.form}
+          noValidate
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <TextField
+            {...register("email")}
             variant="outlined"
             margin="normal"
             required
@@ -51,6 +55,7 @@ export default function Login() {
             autoFocus
           />
           <TextField
+            {...register("password")}
             variant="outlined"
             margin="normal"
             required
@@ -61,25 +66,22 @@ export default function Login() {
             id="password"
             autoComplete="current-password"
           />
-          {/* <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          /> */}
+
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
-            text="Sign In"
-          />
-       
+          >
+            Sign In
+          </Button>
           <Grid container>
-            {/* <Grid item xs>
+            <Grid item xs>
               <Link href="#" variant="body2">
                 Forgot password?
               </Link>
-            </Grid> */}
+            </Grid>
             <Grid item>
               <Link href="/signup" variant="body2">
                 {"Don't have an account? Sign Up"}
@@ -88,7 +90,6 @@ export default function Login() {
           </Grid>
         </form>
       </div>
-   
     </Container>
   );
 }
