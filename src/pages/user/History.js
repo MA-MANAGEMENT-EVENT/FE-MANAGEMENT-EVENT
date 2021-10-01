@@ -1,127 +1,98 @@
-import React from "react";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Grid from "@material-ui/core/Grid";
-import { makeStyles } from "@material-ui/core/styles";
+import React from 'react'
 import Container from "@material-ui/core/Container";
 import Typography from "../../atoms/typography/Typhography";
-import Box from '@material-ui/core/Box';
-import AccountCircleSharpIcon from '@mui/icons-material/AccountCircleSharp';
+import { makeStyles } from "@material-ui/core/styles";
+import { Box } from '@mui/system'
+import Button from "../../atoms/button/Button";
 import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+import Avatar from '@mui/material/Avatar';
+import EventNoteOutlinedIcon from '@mui/icons-material/EventNoteOutlined';
 
+const message = `Truncation should be conditionally applicable on this long line of text
+ as this is a much longer line than what the container can support. `;
 const useStyles = makeStyles((theme) => ({
-    icon: {
-      marginRight: theme.spacing(2),
-    },
     heroContent: {
-      backgroundColor: theme.palette.background.paper,
       padding: theme.spacing(8, 0, 6),
+      marginTop:20,
     },
-    heroBoxs: {
-      marginTop: theme.spacing(4),
-    },
-    cardGrid: {
-      paddingTop: theme.spacing(8),
-      paddingBottom: theme.spacing(8),
-    },
-    card: {
-      height: "100%",
-      display: "flex",
-      flexDirection: "column",
-    },
-    cardMedia: {
-      paddingTop: "56.25%",
-    },
-    cardContent: {
-      flexGrow: 1,
+      item:{...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
     },
   }));
-  
-  const cards = [1, 2, 3, 4, 5, 6];
 
-const History = ()=>{
+  const history = [
+    {
+    id:1,
+    name :"Belajar Kotlin to Build Android App",
+    },
+    {
+    id:2,
+    name :"How to Start Javascipt to build",
+    },
+    {
+    id:3,
+    name :"Belajar Kotlin to Build Android App",
+    },
+    {
+    id:4,
+    name :"Belajar Kotlin to Build Android App",
+    }
+]
+
+const countHistory = history.filter(item => item.id).length;
+
+const History = () => {
     const classes = useStyles();
-
-    return(<><div className={classes.heroContent} style={{ marginTop: 10 }}>
+    return(<>
+    <div className={classes.heroContent} style={{ marginTop: 10 }}>
         <Container maxWidth="sm">
           <Typography
-            variant="h3"
+            variant="h4"
             align="center"
             color="textPrimary"
             gutterBottom
             text="My History Events"
           />
-          <div className={classes.heroBoxs}>
-            <Box border={1} container spacing={2} justifyContent="center">
-                <Typography
-                variant="h6"
-                align="center"
-                color="textPrimary"
-                gutterBottom
-                text="I have Attended .. Events"
-            />
+          <div>
+            <Box display="flex" flexDirection="column" justifyContent="center" padding={1}
+            sx={{
+                bgcolor: '#F2ECFF',
+                width:200,
+                height:50,
+                marginLeft:20,
+              }}
+            ><h4 sx={{marginLeft:20, marginTop:10}}> I have {countHistory} Attended  Events</h4>
             </Box>
           </div>
         </Container>
       </div>
-      <Container className={classes.cardGrid} maxWidth="md">
-        <Grid container spacing={4}>
-          {cards.map((card) => (
-            <Grid item key={card} xs={12} sm={6} md={6}>
-              <Card className={classes.card}>
-                <CardMedia
-                  className={classes.cardMedia}
-                  image="https://source.unsplash.com/random"
-                  title="Image title"
-                />
-                <CardContent className={classes.cardContent}>
-                  <Typography
-                    gutterBottom
-                    variant="h5"
-                    component="h2"
-                    text="Heading"
-                  />
-                  <Typography
-                    text=" This is a media card. You can use this section to describe
-                    the content."
-                  />
-                </CardContent>
-                <CardActions>
-                   <Box border={1}>
-                <Grid container direction="row">
-                <Grid item>
-                    <AccountCircleSharpIcon />
-                </Grid>
-                <Grid item>
-                    Nama Peserta
-                </Grid>
-                </Grid>
-                <h6>"Saya senang bisa mengikuti event tersebut, 
-                thank you for inspiring me!</h6>
-                   </Box>
-
-                {/* second box */}
-                   <Box border={1}>
-                <Grid container direction="row">
-                <Grid item>
-                    <AccountCircleSharpIcon />
-                </Grid>
-                <Grid item>
-                    Nama Peserta
-                </Grid>
-                </Grid>
-                <h6>"Saya senang bisa mengikuti event tersebut, 
-                thank you for inspiring me!</h6>
-                   </Box>
-                </CardActions>
-              </Card>
-            </Grid>
-          ))}
+      
+      {/* coba3 */}
+      <Box sx={{ flexGrow: 1, overflow: 'hidden', px: 3 }}>
+      <Paper sx={{ maxWidth: 400, my: 1, mx: 'auto', p: 2 }}>
+        <Grid container wrap="nowrap" spacing={2}>
+          <Grid item>
+            <EventNoteOutlinedIcon />
+          </Grid>
+          <Grid item xs zeroMinWidth>
+          <Typography
+            align="left"
+            color="textSecondary"
+            text="Never Stop Learning, Because Life Never Stops Teaching."
+            paragraph
+          />
+          </Grid>
+          <Grid item>
+          <Button size="small" color="primary" text="Feedback" />
+          </Grid>
         </Grid>
-      </Container>
-
-    </>)
+      </Paper>
+    </Box>
+  
+</>)
 }
+
 export default History
