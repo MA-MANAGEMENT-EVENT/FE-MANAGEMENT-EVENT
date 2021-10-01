@@ -9,7 +9,6 @@ import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
 import ReactDatePicker from "react-datepicker";
 import Grid from "@material-ui/core/Grid";
-
 import "react-datepicker/dist/react-datepicker.css";
 import TextArea from "../../atoms/textarea/TextArea";
 const EventForm = () => {
