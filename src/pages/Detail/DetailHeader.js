@@ -4,13 +4,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-// import Link from "@material-ui/core/Link";
 import RoomIcon from "@mui/icons-material/Room";
 import AccessTimeFilledTwoToneIcon from "@mui/icons-material/AccessTimeFilledTwoTone";
 import PersonIcon from "@mui/icons-material/Person";
 
 const useStyles = makeStyles((theme) => ({
-  mainFeaturedPost: {
+  detailHeader: {
     position: "relative",
     backgroundColor: theme.palette.grey[800],
     color: theme.palette.common.white,
@@ -28,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     left: 0,
     backgroundColor: "rgba(0,0,0,.3)",
   },
-  mainFeaturedPostContent: {
+  detailHeaderContent: {
     position: "relative",
     padding: theme.spacing(3),
     [theme.breakpoints.up("md")]: {
@@ -38,13 +37,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MainFeaturedPost(props) {
+export default function DetailHeader(props) {
   const classes = useStyles();
   const { post } = props;
 
   return (
     <Paper
-      className={classes.mainFeaturedPost}
+      className={classes.detailHeader}
       style={{ backgroundImage: `url(${post.image})` }}
     >
       {/* Increase the priority of the hero background image */}
@@ -60,7 +59,7 @@ export default function MainFeaturedPost(props) {
       <div className={classes.overlay} />
       <Grid container>
         <Grid item md={10}>
-          <div className={classes.mainFeaturedPostContent}>
+          <div className={classes.detailHeaderContent}>
             <Typography
               component="h1"
               variant="h3"
@@ -70,10 +69,6 @@ export default function MainFeaturedPost(props) {
             >
               {post.title}
             </Typography>
-
-            {/* <Typography variant="h5" color="inherit" paragraph>
-              {post.description}
-            </Typography> */}
 
             <div
               style={{
@@ -104,13 +99,7 @@ export default function MainFeaturedPost(props) {
               }}
             >
               <RoomIcon />
-              <Typography
-                style={{
-                  fontSize: 20,
-                  marginLeft: 20,
-                  fontStretch: "ultra-expanded",
-                }}
-              >
+              <Typography style={{fontSize: 20, marginLeft: 20, fontStretch: "ultra-expanded"}}>
                 {post.location}
               </Typography>
             </div>
@@ -133,12 +122,6 @@ export default function MainFeaturedPost(props) {
                 {post.time}
               </Typography>
             </div>
-
-            
-
-            {/* <Link variant="subtitle1" href="#">
-              {post.linkText}
-            </Link> */}
           </div>
         </Grid>
       </Grid>
@@ -146,6 +129,6 @@ export default function MainFeaturedPost(props) {
   );
 }
 
-MainFeaturedPost.propTypes = {
+DetailHeader.propTypes = {
   post: PropTypes.object,
 };
