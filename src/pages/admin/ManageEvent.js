@@ -44,7 +44,6 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const ManageEvent = () => {
   const classes = useStyles();
-
   return (
     <>
       <div className={classes.heroContent} style={{ marginTop: 10 }}>
@@ -96,7 +95,7 @@ const ManageEvent = () => {
                 </CardContent>
                 <CardActions>
                   <Button size="small" color="primary" text="edit"/>
-                  <Button size="small" color="primary" text="delete"/>
+                  <Button size="small" color="secondary" text="delete"/>
                 </CardActions>
               </Card>
             </Grid>

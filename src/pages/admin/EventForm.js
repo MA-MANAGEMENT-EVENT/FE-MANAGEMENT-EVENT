@@ -24,9 +24,9 @@ const EventForm = () => {
     speaker: "",
     startdate: "",
     enddate: "",
-    image_url: "",
+    imagefile: "",
   };
-  const { handleSubmit, reset, setValue, control } = useForm({ defaultValues });
+  const { handleSubmit, register, reset, setValue, control } = useForm({ defaultValues });
 
   const onSubmit = (data) => {
     console.log(data);
@@ -49,7 +49,8 @@ const EventForm = () => {
           id="imagefile"
           name="imagefile"
           type="file"
-          //  {...register("imagefile")}
+         // control={control}
+         {...register("imagefile")}
         />
         <Grid container spacing={1}>
           <Grid item xs={3}>
