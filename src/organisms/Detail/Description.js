@@ -18,10 +18,10 @@ export default function Main(props) {
   return (
     <>
       <Grid item xs={12} md={8} style={{borderRight: "1px gainsboro solid"}}>
-        <Typography variant="h6" gutterBottom style={{fontSize:24, fontWeight:"600", marginBottom:20}}>
+        <Typography variant="h6" gutterBottom style={{fontSize:28, fontWeight:"600", marginBottom:20}}>
           {title}
         </Typography>
-        <Typography variant="h6" gutterBottom>
+        <Typography variant="subtitle1" gutterBottom style={{fontSize: 18, marginTop: 40}}>
           {posts.description}
         </Typography>
       </Grid>
