@@ -1,17 +1,12 @@
 import Label from "../../atoms/label/Label";
 import TextField from "../../atoms/textfield/TextField";
 import Button from "../../atoms/button/Button";
-import Paper from "@material-ui/core/Paper";
-import { Alert } from "../../atoms/alert/Alert";
 import React, { useState } from "react";
 import ReactSelect from "react-select";
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
-import ReactDatePicker from "react-datepicker";
 import Grid from "@material-ui/core/Grid";
-import "react-datepicker/dist/react-datepicker.css";
 import TextArea from "../../atoms/textarea/TextArea";
-import DateTimePicker from "react-datetime-picker";
 import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
 
 const EventForm = () => {

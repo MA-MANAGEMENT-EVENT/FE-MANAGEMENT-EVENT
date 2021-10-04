@@ -44,52 +44,96 @@ const Nav = (props) => {
             >
               <Typography variant="body1" text="Home" className="link" />
             </Link>
+          
+           
 
-            <Link to="/login" style={{ textDecoration: "none", padding: 10 }}>
-              <Typography variant="body1" text="Login" className="link" />
-            </Link>
-            <Link to="/signup" style={{ textDecoration: "none", padding: 10 }}>
-              <Typography variant="body1" text="Signup" className="link" />
-            </Link>
-
-            {/* User route */}
+            {/* User / Admin Route */}
             {user && (
-              <Link
-                to="/logOut"
-                style={{ textDecoration: "none", padding: 10 }}
-              >
-                <Typography variant="body1" text="LogOut" className="link" />
+              <>
+              {user.role=="guest" && (
+                 <>
+                 <Link to="/login" style={{ textDecoration: "none", padding: 10 }}>
+                <Typography variant="body1" text="Login" className="link" />
               </Link>
-            )}
-            {true && (
-              <Link
-                to="/history"
-                style={{ textDecoration: "none", padding: 10 }}
-              >
-                <Typography variant="body1" text="History" className="link" />
+              <Link to="/signup" style={{ textDecoration: "none", padding: 10 }}>
+                <Typography variant="body1" text="Signup" className="link" />
               </Link>
+                </>
+              )}
+                {user.role =="user" && user.role =="admin"&& (
+                  <>
+                  <Link
+                  to="/logout"
+                  style={{ textDecoration: "none", padding: 10 }}
+                >
+                  <Typography variant="body1" text="LogOut" className="link" />
+                </Link>
+                  </>
+                )}
+
+                {/* User Route */}
+                {user.role == "user" && (
+                  <>
+                    <Link
+                      to="/history"
+                      style={{ textDecoration: "none", padding: 10 }}
+                    >
+                      <Typography
+                        variant="body1"
+                        text="History"
+                        className="link"
+                      />
+                    </Link>
+                  </>
+                )}
+                {/* Admin Route */}
+                {user.role == "admin" && (
+                  <>
+                    <Link
+                      to="/manageevent"
+                      style={{ textDecoration: "none", padding: 10 }}
+                    >
+                      <Typography
+                        variant="body1"
+                        text="Manage Event"
+                        className="link"
+                      />
+                    </Link>
+                    <Link
+                      to="/managefeedback"
+                      style={{ textDecoration: "none", padding: 10 }}
+                    >
+                      <Typography
+                        variant="body1"
+                        text="Manage Feedback"
+                        className="link"
+                      />
+                    </Link>
+                    <Link
+                      to="/managespeaker"
+                      style={{ textDecoration: "none", padding: 10 }}
+                    >
+                      <Typography
+                        variant="body1"
+                        text="Manage Speaker"
+                        className="link"
+                      />
+                    </Link>
+                    <Link
+                      to="/managepeserta"
+                      style={{ textDecoration: "none", padding: 10 }}
+                    >
+                      <Typography
+                        variant="body1"
+                        text="Manage Peserta"
+                        className="link"
+                      />
+                    </Link>
+                   
+                  </>
+                )}
+              </>
             )}
-            {/* admin route */}
-            <Link
-              to="/manageevent"
-              style={{ textDecoration: "none", padding: 10 }}
-            >
-              <Typography
-                variant="body1"
-                text="Manage Event"
-                className="link"
-              />
-            </Link>
-            <Link
-              to="/editevent"
-              style={{ textDecoration: "none", padding: 10 }}
-            >
-              <Typography
-                variant="body1"
-                text="Edit Event"
-                className="link"
-              />
-            </Link>
           </Toolbar>
         </Container>
       </AppBar>

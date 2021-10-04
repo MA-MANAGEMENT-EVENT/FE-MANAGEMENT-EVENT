@@ -4,27 +4,19 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import SignUp from "../pages/Signup";
-import Feedback from "../pages/user/Feedback"
+import Feedback from "../pages/user/Feedback";
 import History from "../pages/user/History";
-import ManageEvent from "../pages/admin/ManageEvent"
-import EventForm from "../pages/admin/EventForm"
-import ManageFeedback from "../pages/admin/ManageFeedback"
-import Detail from "../pages/Detail/DetailEvent"
+import ManageEvent from "../pages/admin/ManageEvent";
+import EventForm from "../pages/admin/EventForm";
+import ManageFeedback from "../pages/admin/ManageFeedback";
+import Detail from "../pages/Detail/DetailEvent";
+import { Admin, User } from "../Auth"; // Add this line
 import PageNotFound from "../pages/PageNotFound";
 
 const Section = () => {
   const [user] = useContext(UserContext);
-
-  const PrivateRoute = ({ user, ...props }) => {
-    if (user) {
-      return <Route {...props} />;
-    } else {
-      return <Redirect to="/login" />;
-    }
-  };
-
   const LoginRoute = ({ user, ...props }) =>
-    user ? <Redirect to="/home" /> : <Route {...props} />;
+    user ?<Route {...props} />: <Redirect to="/home" /> ; 
 
   return (
     <div className="section">
@@ -32,88 +24,37 @@ const Section = () => {
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>
-        
         <Route exact path="/home" component={Home} />
-        <Route exact path="/feedback" component={Feedback} />
-        <Route exact path="/history" user={user} component={History} />
-        <Route exact path="/detailevent" user={user} component={Detail}/>
-       
+
         {/* login route */}
         <LoginRoute exact path="/login" user={user} component={Login} />
         <LoginRoute exact path="/signup" user={user} component={SignUp} />
-        
+        {/* user route */}
+        <Route exact path="/feedback" component={User(Feedback)} />
+        <Route exact path="/history" user={user} component={User(History)} />
+        <Route exact path="/detailevent" user={user} component={User(Detail)} />
+
         {/* admin route */}
         <Route
-         exact
-         path="/manageevent"
-         user={user}
-         component={ManageEvent}/>
-
-         <Route
-         exact
-         path="/editevent"
-         user={user}
-         component={EventForm}/>
-
-         <Route
-         exact
-         path="/managefeedback"
-         user={user}
-         component={ManageFeedback}/>
-         <Route component={PageNotFound} />
-        {/* <PrivateRoute
           exact
-          path="/movielist"
+          path="/manageevent"
           user={user}
-          component={MovieList}
+          component={Admin(ManageEvent)}
         />
-        <PrivateRoute exact path="/movie" user={user} component={Movies} />
-        <PrivateRoute
+        <Route
           exact
-          path="/movie/create"
+          path="/editevent"
           user={user}
-          component={MovieForm}
+          component={Admin(EventForm)}
         />
-        <PrivateRoute
+        <Route
           exact
-          path="/movie/edit/:id"
+          path="/managefeedback"
           user={user}
-          component={MovieForm}
+          component={Admin(ManageFeedback)}
         />
-        <PrivateRoute
-          exact
-          path="/movie/review/:id"
-          user={user}
-          component={MovieReview}
-        />
-
-        <PrivateRoute exact path="/gamelist" user={user} component={GameList} />
-        <PrivateRoute exact path="/game" user={user} component={Games} />
-        <PrivateRoute
-          exact
-          path="/game/create"
-          user={user}
-          component={GameForm}
-        />
-        <PrivateRoute
-          exact
-          path="/game/edit/:id"
-          user={user}
-          component={GameForm}
-        />
-        <PrivateRoute
-          exact
-          path="/game/review/:id"
-          user={user}
-          component={GameReview}
-        />
-
-        <PrivateRoute
-          exact
-          path="/changepassword"
-          user={user}
-          component={ChangePassword}
-        /> */}
+        {/* not found */}
+        <Route component={PageNotFound} />
       </Switch>
     </div>
   );
