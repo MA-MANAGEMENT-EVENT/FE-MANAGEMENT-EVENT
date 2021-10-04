@@ -25,17 +25,21 @@ const Section = () => {
           <Redirect to="/home" />
         </Route>
         <Route exact path="/home" component={Home} />
-        {/* login route */}
-        {!user && (
-          <>
-            <LoginRoute exact path="/login" user={user} component={Login} />
-            <LoginRoute exact path="/signup" user={user} component={SignUp} />
-   
-          </>
-        )}
 
         {user && (
           <>
+            {/* login route */}
+            {user.role == "guest" && (
+              <>
+                <LoginRoute exact path="/login" user={user} component={Login} />
+                <LoginRoute
+                  exact
+                  path="/signup"
+                  user={user}
+                  component={SignUp}
+                />
+              </>
+            )}
             {user.role == "user" && (
               <>
                 {/* user route */}
@@ -52,8 +56,7 @@ const Section = () => {
                   user={user}
                   component={Detail}
                 />
-                  {/* not found */}
-                
+                {/* not found */}
               </>
             )}
             {user.role == "admin" && (
@@ -63,28 +66,26 @@ const Section = () => {
                   exact
                   path="/manageevent"
                   user={user}
-                  component={Admin(ManageEvent)}
+                  component={ManageEvent}
                 />
                 <Route
                   exact
                   path="/editevent"
                   user={user}
-                  component={Admin(EventForm)}
+                  component={EventForm}
                 />
                 <Route
                   exact
                   path="/managefeedback"
                   user={user}
-                  component={Admin(ManageFeedback)}
+                  component={ManageFeedback}
                 />
                 {/* not found */}
-            
               </>
             )}
-              
           </>
         )}
-          <Route component={PageNotFound} />
+        <Route component={PageNotFound} />
       </Switch>
     </div>
   );

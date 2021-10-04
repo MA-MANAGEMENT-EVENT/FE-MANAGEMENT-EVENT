@@ -6,8 +6,7 @@ import { Box } from "@mui/system";
 import Button from "../../atoms/button/Button";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-
-
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -80,7 +79,12 @@ const History = () => {
             </Grid>
             <Grid item xs={4}>
               <div style={{ marginTop: -5, float: "right" }}>
-                <Button size="small" color="primary" text="Feedback" />
+              <Link
+                  to="/feedback"
+                  style={{ textDecoration: "none", padding: 10 }}
+                >
+                  <Button size="small" color="primary" text="Feedback" />
+                </Link>
               </div>
             </Grid>
           </Grid>
@@ -106,7 +110,12 @@ const History = () => {
             </Grid>
             <Grid item xs={4}>
               <div style={{ marginTop: -5, float: "right" }}>
-                <Button size="small" color="primary" text="Feedback" />
+                <Link
+                  to="/feedback"
+                  style={{ textDecoration: "none", padding: 10 }}
+                >
+                  <Button size="small" color="primary" text="Feedback" />
+                </Link>
               </div>
             </Grid>
           </Grid>

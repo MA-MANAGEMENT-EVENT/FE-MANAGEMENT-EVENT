@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 import TextField from "../atoms/textfield/TextField";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -42,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const Home = () => {
+  const [user] = useContext(UserContext);
   const classes = useStyles();
 
   return (
@@ -93,7 +95,7 @@ const Home = () => {
                   />
                 </CardContent>
                 <CardActions>
-                   <Link to="/detailevent" style={{ textDecoration: "none", padding: 10 }}>
+                   <Link to={user.role!="guest" ? "/detailevent":"/signup"} style={{ textDecoration: "none", padding: 10 }}>
                     <Button size="small" color="primary" text="view" />
                   </Link>
                 </CardActions>

@@ -19,7 +19,7 @@ const Nav = (props) => {
         <Container>
           <Toolbar>
             <Link
-              to="/Home"
+              to="/home"
               style={{
                 textDecoration: "none",
                 display: "flex",
@@ -35,7 +35,7 @@ const Nav = (props) => {
               />
             </Link>
             <Link
-              to="/Home"
+              to="/home"
               style={{
                 textDecoration: "none",
                 padding: 10,
@@ -48,7 +48,7 @@ const Nav = (props) => {
             {/* User / Admin Route */}
             {user && (
               <>
-                {user.role == "guest" && (
+                {user.role === "guest" && (
                   <>
                     <Link
                       to="/login"
@@ -72,23 +72,10 @@ const Nav = (props) => {
                     </Link>
                   </>
                 )}
-                {user.role == "user" && user.role == "admin" && (
-                  <>
-                    <Link
-                      to="/logout"
-                      style={{ textDecoration: "none", padding: 10 }}
-                    >
-                      <Typography
-                        variant="body1"
-                        text="LogOut"
-                        className="link"
-                      />
-                    </Link>
-                  </>
-                )}
+              
 
                 {/* User Route */}
-                {user.role == "user" && (
+                {user.role === "user" && (
                   <>
                     <Link
                       to="/history"
@@ -104,7 +91,7 @@ const Nav = (props) => {
                   </>
                 )}
                 {/* Admin Route */}
-                {user.role == "admin" && (
+                {user.role === "admin" && (
                   <>
                     <Link
                       to="/manageevent"
@@ -143,6 +130,20 @@ const Nav = (props) => {
                       <Typography
                         variant="body1"
                         text="Manage Peserta"
+                        className="link"
+                      />
+                    </Link>
+                  </>
+                )}
+                  {user.role === "user" || user.role === "admin" && (
+                  <>
+                    <Link
+                      to="/logout"
+                      style={{ textDecoration: "none", padding: 10 }}
+                    >
+                      <Typography
+                        variant="body1"
+                        text="LogOut"
                         className="link"
                       />
                     </Link>

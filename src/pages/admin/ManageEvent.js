@@ -9,6 +9,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -94,7 +95,13 @@ const ManageEvent = () => {
                   />
                 </CardContent>
                 <CardActions>
-                  <Button size="small" color="primary" text="edit"/>
+                <Link
+                    to="/editevent"
+                    style={{ textDecoration: "none", padding: 10 }}
+                  >
+                    <Button size="small" color="primary" text="edit" />
+                  </Link>
+                 
                   <Button size="small" color="secondary" text="delete"/>
                 </CardActions>
               </Card>
