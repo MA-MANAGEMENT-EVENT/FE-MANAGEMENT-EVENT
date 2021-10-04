@@ -124,7 +124,7 @@ const Nav = (props) => {
                       />
                     </Link>
                     <Link
-                      to="/managepeserta"
+                      to="/manageparticipant"
                       style={{ textDecoration: "none", padding: 10 }}
                     >
                       <Typography

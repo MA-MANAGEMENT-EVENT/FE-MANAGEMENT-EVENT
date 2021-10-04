@@ -26,7 +26,7 @@ const Feedback = () => {
           text="This form is used to improve the quality of our services"
           className="formInfo"
         />
-        <Label text="TRAINER FEEDBACK" className="title" />
+        <Label text="FEEDBACK" className="title" />
         {pertanyaan.map((question, index) => {
           return (
             <>
