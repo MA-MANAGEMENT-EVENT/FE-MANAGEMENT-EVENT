@@ -26,38 +26,53 @@ const Section = () => {
           <Redirect to="/home" />
         </Route>
         <Route exact path="/home" component={Home} />
-
         {user && (
           <>
             {/* login route */}
             {user.role == "guest" && (
               <>
-                <LoginRoute exact path="/login" user={user} component={Login} />
-                <LoginRoute
-                  exact
-                  path="/signup"
-                  user={user}
-                  component={SignUp}
-                />
+                <Switch>
+                  <LoginRoute
+                    exact
+                    path="/login"
+                    user={user}
+                    component={Login}
+                  />
+                  <LoginRoute
+                    exact
+                    path="/signup"
+                    user={user}
+                    component={SignUp}
+                  />
+                  <Route component={PageNotFound} />
+                </Switch>
               </>
             )}
             {user.role == "user" && (
               <>
                 {/* user route */}
-                <Route
-                  exact
-                  path="/feedback"
-                  user={user}
-                  component={Feedback}
-                />
-                <Route exact path="/history" user={user} component={History} />
-                <Route
-                  exact
-                  path="/detailevent"
-                  user={user}
-                  component={Detail}
-                />
-                {/* not found */}
+                <Switch>
+                  <Route
+                    exact
+                    path="/feedback"
+                    user={user}
+                    component={Feedback}
+                  />
+                  <Route
+                    exact
+                    path="/history"
+                    user={user}
+                    component={History}
+                  />
+                  <Route
+                    exact
+                    path="/detailevent"
+                    user={user}
+                    component={Detail}
+                  />
+
+                  <Route component={PageNotFound} />
+                </Switch>
               </>
             )}
             {user.role == "admin" && (
