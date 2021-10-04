@@ -50,7 +50,7 @@ export default function DetailHeader(props) {
       {
         <img
           style={{ display: "none"
-          , opacity:0.5
+          , opacity:"0.1"
         }}
           src={post.image}
           alt={post.imageText}

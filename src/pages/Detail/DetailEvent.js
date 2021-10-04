@@ -3,9 +3,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
-import DetailHeader from "./DetailHeader";
-import Main from "./Main";
-import Sidebar from "./Sidebar";
+import DetailHeader from "../../organisms/Detail/DetailHeader";
+import Main from "../../organisms/Detail/Description";
+import Sidebar from "../../organisms/Detail/Sidebar";
 
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
