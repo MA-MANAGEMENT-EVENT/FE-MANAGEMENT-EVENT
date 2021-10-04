@@ -3,7 +3,8 @@ import { Redirect } from "react-router-dom";
 
 const GetUser = (user) => {
     console.log(user)
-    return !!user ? user : { role: 'guest'};
+    return !!user ? user : { role: user.role};
+
 }
 
 /**
@@ -37,7 +38,9 @@ const isValidRole = ({role, allowedRoles}) => allowedRoles.includes(role);
 const Authorization = allowedRoles => wrappedComponent => class withAuth extends Component {
     constructor(props){
         super(props);
-        
+        console.log("aaaaaaaaaaa")
+        console.log(props)
+        // console.log(props.user)
         this.state = {
             user: GetUser(props.user),
         }

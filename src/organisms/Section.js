@@ -10,13 +10,13 @@ import ManageEvent from "../pages/admin/ManageEvent";
 import EventForm from "../pages/admin/EventForm";
 import ManageFeedback from "../pages/admin/ManageFeedback";
 import Detail from "../pages/Detail/DetailEvent";
-import { Admin, User } from "../Auth"; // Add this line
+import { Admin, User } from "../Auth";
 import PageNotFound from "../pages/PageNotFound";
 
 const Section = () => {
   const [user] = useContext(UserContext);
   const LoginRoute = ({ user, ...props }) =>
-    user ?<Route {...props} />: <Redirect to="/home" /> ; 
+    user ? <Route {...props} /> : <Redirect to="/home" />;
 
   return (
     <div className="section">
@@ -25,36 +25,66 @@ const Section = () => {
           <Redirect to="/home" />
         </Route>
         <Route exact path="/home" component={Home} />
-
         {/* login route */}
-        <LoginRoute exact path="/login" user={user} component={Login} />
-        <LoginRoute exact path="/signup" user={user} component={SignUp} />
-        {/* user route */}
-        <Route exact path="/feedback" component={User(Feedback)} />
-        <Route exact path="/history" user={user} component={User(History)} />
-        <Route exact path="/detailevent" user={user} component={User(Detail)} />
+        {!user && (
+          <>
+            <LoginRoute exact path="/login" user={user} component={Login} />
+            <LoginRoute exact path="/signup" user={user} component={SignUp} />
+   
+          </>
+        )}
 
-        {/* admin route */}
-        <Route
-          exact
-          path="/manageevent"
-          user={user}
-          component={Admin(ManageEvent)}
-        />
-        <Route
-          exact
-          path="/editevent"
-          user={user}
-          component={Admin(EventForm)}
-        />
-        <Route
-          exact
-          path="/managefeedback"
-          user={user}
-          component={Admin(ManageFeedback)}
-        />
-        {/* not found */}
-        <Route component={PageNotFound} />
+        {user && (
+          <>
+            {user.role == "user" && (
+              <>
+                {/* user route */}
+                <Route
+                  exact
+                  path="/feedback"
+                  user={user}
+                  component={Feedback}
+                />
+                <Route exact path="/history" user={user} component={History} />
+                <Route
+                  exact
+                  path="/detailevent"
+                  user={user}
+                  component={Detail}
+                />
+                  {/* not found */}
+                
+              </>
+            )}
+            {user.role == "admin" && (
+              <>
+                {/* admin route */}
+                <Route
+                  exact
+                  path="/manageevent"
+                  user={user}
+                  component={Admin(ManageEvent)}
+                />
+                <Route
+                  exact
+                  path="/editevent"
+                  user={user}
+                  component={Admin(EventForm)}
+                />
+                <Route
+                  exact
+                  path="/managefeedback"
+                  user={user}
+                  component={Admin(ManageFeedback)}
+                />
+                {/* not found */}
+            
+              </>
+            )}
+              
+          </>
+        )}
+          <Route component={PageNotFound} />
       </Switch>
     </div>
   );

@@ -44,30 +44,46 @@ const Nav = (props) => {
             >
               <Typography variant="body1" text="Home" className="link" />
             </Link>
-          
-           
 
             {/* User / Admin Route */}
             {user && (
               <>
-              {user.role=="guest" && (
-                 <>
-                 <Link to="/login" style={{ textDecoration: "none", padding: 10 }}>
-                <Typography variant="body1" text="Login" className="link" />
-              </Link>
-              <Link to="/signup" style={{ textDecoration: "none", padding: 10 }}>
-                <Typography variant="body1" text="Signup" className="link" />
-              </Link>
-                </>
-              )}
-                {user.role =="user" && user.role =="admin"&& (
+                {user.role == "guest" && (
                   <>
-                  <Link
-                  to="/logout"
-                  style={{ textDecoration: "none", padding: 10 }}
-                >
-                  <Typography variant="body1" text="LogOut" className="link" />
-                </Link>
+                    <Link
+                      to="/login"
+                      style={{ textDecoration: "none", padding: 10 }}
+                    >
+                      <Typography
+                        variant="body1"
+                        text="Login"
+                        className="link"
+                      />
+                    </Link>
+                    <Link
+                      to="/signup"
+                      style={{ textDecoration: "none", padding: 10 }}
+                    >
+                      <Typography
+                        variant="body1"
+                        text="Signup"
+                        className="link"
+                      />
+                    </Link>
+                  </>
+                )}
+                {user.role == "user" && user.role == "admin" && (
+                  <>
+                    <Link
+                      to="/logout"
+                      style={{ textDecoration: "none", padding: 10 }}
+                    >
+                      <Typography
+                        variant="body1"
+                        text="LogOut"
+                        className="link"
+                      />
+                    </Link>
                   </>
                 )}
 
@@ -84,6 +100,7 @@ const Nav = (props) => {
                         className="link"
                       />
                     </Link>
+                    
                   </>
                 )}
                 {/* Admin Route */}
@@ -129,7 +146,6 @@ const Nav = (props) => {
                         className="link"
                       />
                     </Link>
-                   
                   </>
                 )}
               </>
