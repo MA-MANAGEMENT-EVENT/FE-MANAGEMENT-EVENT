@@ -4,12 +4,13 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import SignUp from "../pages/Signup";
+import Detail from "../pages/user/DetailEvent";
 import Feedback from "../pages/user/Feedback";
 import History from "../pages/user/History";
 import ManageEvent from "../pages/admin/ManageEvent";
 import EventForm from "../pages/admin/EventForm";
 import ManageFeedback from "../pages/admin/ManageFeedback";
-import Detail from "../pages/Detail/DetailEvent";
+import ManageParticipant from "../pages/admin/ManageParticipant";
 import { Admin, User } from "../Auth";
 import PageNotFound from "../pages/PageNotFound";
 
@@ -79,6 +80,12 @@ const Section = () => {
                   path="/managefeedback"
                   user={user}
                   component={ManageFeedback}
+                />
+                <Route
+                  exact
+                  path="/manageparticipant"
+                  user={user}
+                  component={ManageParticipant}
                 />
                 {/* not found */}
               </>
