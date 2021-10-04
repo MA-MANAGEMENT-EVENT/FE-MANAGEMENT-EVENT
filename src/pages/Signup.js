@@ -86,11 +86,24 @@ export default function SignUp() {
               />
             </Grid>
             <Grid item xs={12}>
+              <TextField
+                {...register("job")}
+                variant="outlined"
+                required
+                fullWidth
+                name="job"
+                label="Job"
+                id="job"
+                autoComplete="current-job"
+              />
+            </Grid>
+            <Grid item xs={12}>
               <FormControlLabel
                 control={<Checkbox value="allowExtraEmails" color="primary" />}
                 label="By clicking Sign Up, you agree to our Terms, Data Policy and Cookie Policy."
               />
             </Grid>
+            
           </Grid>
           <Button
             type="submit"
