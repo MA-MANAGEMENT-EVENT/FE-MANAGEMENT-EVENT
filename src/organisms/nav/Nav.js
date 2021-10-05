@@ -34,7 +34,14 @@ const Nav = (props) => {
                 style={{ marginLeft: 10.0 }}
               />
             </Link>
-            <Link
+            
+
+            {/* User / Admin Route */}
+            {user && (
+              <>
+                {user.role === "guest" && (
+                  <>
+                  <Link
               to="/home"
               style={{
                 textDecoration: "none",
@@ -44,12 +51,6 @@ const Nav = (props) => {
             >
               <Typography variant="body1" text="Home" className="link" />
             </Link>
-
-            {/* User / Admin Route */}
-            {user && (
-              <>
-                {user.role === "guest" && (
-                  <>
                     <Link
                       to="/login"
                       style={{ textDecoration: "none", padding: 10 }}
@@ -77,6 +78,16 @@ const Nav = (props) => {
                 {/* User Route */}
                 {user.role === "user" && (
                   <>
+                  <Link
+              to="/home"
+              style={{
+                textDecoration: "none",
+                padding: 10,
+                marginLeft: "auto",
+              }}
+            >
+              <Typography variant="body1" text="Home" className="link" />
+            </Link>
                     <Link
                       to="/history"
                       style={{ textDecoration: "none", padding: 10 }}
@@ -95,7 +106,7 @@ const Nav = (props) => {
                   <>
                     <Link
                       to="/manageevent"
-                      style={{ textDecoration: "none", padding: 10 }}
+                      style={{ textDecoration: "none", padding: 10, marginLeft:"auto" }}
                     >
                       <Typography
                         variant="body1"

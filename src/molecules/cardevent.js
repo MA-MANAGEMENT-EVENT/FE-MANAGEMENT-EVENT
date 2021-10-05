@@ -20,19 +20,19 @@ const useStyles = makeStyles(() => ({
     flexGrow: 1,
   },
 }));
-const ButtonColor=(text)=>{
-    switch(text) {
-        case "Edit":
-          return "#f0ad4e"
-          break;
-        case "Delete":
-          return "#FF0000"
-          break;
-        default:
-        return "#3f50b5"
-          // code block
-      }
-}
+const ButtonColor = (text) => {
+  switch (text) {
+    case "Edit":
+      return "#f0ad4e";
+      break;
+    case "Delete":
+      return "#FF0000";
+      break;
+    default:
+      return "#3f50b5";
+    // code block
+  }
+};
 const CardEvent = (props) => {
   const classes = useStyles();
   return (
@@ -59,22 +59,21 @@ const CardEvent = (props) => {
             {props.link.map((value, i) => {
               return (
                 <Grid item xs={3.5}>
-                <Link
-                  to={value}
-                  style={{ textDecoration: "none", padding: 10 }}
-                >
-                  <Button
-                    size="small"
-                    text={props.linkText[i]}
-                    style={{ backgroundColor: ButtonColor(props.linkText[i]) }}
-                  />
-                </Link>
-              </Grid>
+                  <Link
+                    to={value}
+                    style={{ textDecoration: "none", padding: 10 }}
+                  >
+                    <Button
+                      size="small"
+                      text={props.linkText[i]}
+                      style={{
+                        backgroundColor: ButtonColor(props.linkText[i]),
+                      }}
+                    />
+                  </Link>
+                </Grid>
               );
             })}
-
-           
-       
           </Grid>
         </Card>
       </Grid>

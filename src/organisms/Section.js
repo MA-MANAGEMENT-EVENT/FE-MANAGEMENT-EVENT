@@ -22,16 +22,17 @@ const Section = () => {
   return (
     <div className="section">
       <Switch>
-        <Route exact path="/">
-          <Redirect to="/home" />
-        </Route>
-        <Route exact path="/home" component={Home} />
+        <Route exact path="/detailevent" user={user} component={Detail} />
         {user && (
           <>
             {/* login route */}
             {user.role === "guest" && (
               <>
                 <Switch>
+                  <Route exact path="/">
+                    <Redirect to="/home" />
+                  </Route>
+                  <Route exact path="/home" component={Home} />
                   <LoginRoute
                     exact
                     path="/login"
@@ -44,6 +45,7 @@ const Section = () => {
                     user={user}
                     component={SignUp}
                   />
+
                   <Route component={PageNotFound} />
                 </Switch>
               </>
@@ -52,6 +54,10 @@ const Section = () => {
               <>
                 {/* user route */}
                 <Switch>
+                  <Route exact path="/">
+                    <Redirect to="/home" />
+                  </Route>
+                  <Route exact path="/home" component={Home} />
                   <Route
                     exact
                     path="/feedback"
@@ -64,12 +70,6 @@ const Section = () => {
                     user={user}
                     component={History}
                   />
-                  <Route
-                    exact
-                    path="/detailevent"
-                    user={user}
-                    component={Detail}
-                  />
 
                   <Route component={PageNotFound} />
                 </Switch>
@@ -78,31 +78,37 @@ const Section = () => {
             {user.role === "admin" && (
               <>
                 {/* admin route */}
-                <Route
-                  exact
-                  path="/manageevent"
-                  user={user}
-                  component={ManageEvent}
-                />
-                <Route
-                  exact
-                  path="/editevent"
-                  user={user}
-                  component={EventForm}
-                />
-                <Route
-                  exact
-                  path="/managefeedback"
-                  user={user}
-                  component={ManageFeedback}
-                />
-                <Route
-                  exact
-                  path="/manageparticipant"
-                  user={user}
-                  component={ManageParticipant}
-                />
-                {/* not found */}
+                <Switch>
+                  <Route exact path="/">
+                    <Redirect to="/manageevent" />
+                  </Route>
+                  <Route
+                    exact
+                    path="/manageevent"
+                    user={user}
+                    component={ManageEvent}
+                  />
+                  <Route
+                    exact
+                    path="/editevent"
+                    user={user}
+                    component={EventForm}
+                  />
+                  <Route
+                    exact
+                    path="/managefeedback"
+                    user={user}
+                    component={ManageFeedback}
+                  />
+                  <Route
+                    exact
+                    path="/manageparticipant"
+                    user={user}
+                    component={ManageParticipant}
+                  />
+                  {/* not found */}
+                  <Route component={PageNotFound} />
+                </Switch>
               </>
             )}
           </>

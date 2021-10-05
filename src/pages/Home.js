@@ -4,7 +4,7 @@ import { UserContext } from "../context/UserContext";
 import TextField from "../atoms/textfield/TextField";
 import Typography from "../atoms/typography/Typhography";
 import Button from "../atoms/button/Button";
-import Grid from "../atoms/grid/index"
+import Grid from "../atoms/grid/index";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
@@ -96,7 +96,8 @@ const Home = () => {
                 </CardContent>
                 <CardActions>
                   <Link
-                    to={user.role != "guest" ? "/detailevent" : "/signup"}
+                    // to={user.role != "guest" ? "/detailevent" : "/signup"}
+                    to={"/detailevent"}
                     style={{ textDecoration: "none", padding: 10 }}
                   >
                     <Button size="small" color="primary" text="view" />
