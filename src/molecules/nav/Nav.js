@@ -103,36 +103,9 @@ const Nav = (props) => {
                         className="link"
                       />
                     </Link>
-                    <Link
-                      to="/managefeedback"
-                      style={{ textDecoration: "none", padding: 10 }}
-                    >
-                      <Typography
-                        variant="body1"
-                        text="Manage Feedback"
-                        className="link"
-                      />
-                    </Link>
-                    <Link
-                      to="/managespeaker"
-                      style={{ textDecoration: "none", padding: 10 }}
-                    >
-                      <Typography
-                        variant="body1"
-                        text="Manage Speaker"
-                        className="link"
-                      />
-                    </Link>
-                    <Link
-                      to="/manageparticipant"
-                      style={{ textDecoration: "none", padding: 10 }}
-                    >
-                      <Typography
-                        variant="body1"
-                        text="Manage Peserta"
-                        className="link"
-                      />
-                    </Link>
+                  
+                    
+                  
                   </>
                 )}
                   {user.role === "user" || user.role === "admin" && (

@@ -1,12 +1,3 @@
-// const ManageFeedback=()=>{
-//     return(
-//         <>
-//         <h1>ManageFeedback</h1>
-//         </>
-//     )
-// }
-// export default ManageFeedback
-
 import * as React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Container from "@material-ui/core/Container";

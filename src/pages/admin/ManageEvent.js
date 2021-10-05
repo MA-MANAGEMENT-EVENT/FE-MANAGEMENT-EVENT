@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "../../atoms/button/Button"
+import Button from "../../atoms/button/Button";
 import TextField from "../../atoms/textfield/TextField";
 import Typography from "../../atoms/typography/Typhography";
 import Card from "@material-ui/core/Card";
@@ -32,13 +32,11 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
   },
   cardMedia: {
-    paddingTop: "56.25%", 
+    paddingTop: "56.25%",
   },
   cardContent: {
     flexGrow: 1,
   },
-
-
 }));
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -88,22 +86,55 @@ const ManageEvent = () => {
                     component="h2"
                     text="Heading"
                   />
-                
+
                   <Typography
                     text=" This is a media card. You can use this section to describe
                     the content."
                   />
                 </CardContent>
-                <CardActions>
-                <Link
-                    to="/editevent"
-                    style={{ textDecoration: "none", padding: 10 }}
-                  >
-                    <Button size="small" color="primary" text="edit" />
-                  </Link>
-                 
-                  <Button size="small" color="secondary" text="delete"/>
-                </CardActions>
+
+                <Grid container   >
+                  <Grid item xs={5}>
+                  <Link
+                      to="/manageparticipant"
+                      style={{ textDecoration: "none", padding: 10 }}
+                    >
+                      <Button size="small" color="primary" text="Participant" />
+                    </Link>
+                    
+                  </Grid>
+                  <Grid item xs={4} >
+                  <Link
+                      to="/managespeaker"
+                      style={{ textDecoration: "none", padding: 10 }}
+                    >
+                      <Button size="small" color="primary" text="Speaker" />
+                    </Link>
+                  </Grid>
+                  <Grid item xs={4}>
+                  <Link
+                      to="/managefeedback"
+                      style={{ textDecoration: "none", padding: 10 }}
+                    >
+                      <Button size="small" color="primary" text="Feedback" />
+                    </Link>
+                  </Grid>
+                </Grid>
+                <Grid container style={{ marginBottom: 10 }}>
+                  <Grid item xs={3.5}>
+                    <Link
+                      to="/editevent"
+                      style={{ textDecoration: "none", padding: 10 }}
+                    >
+                      <Button size="small" color="primary" text="edit" />
+                    </Link>
+                  </Grid>
+              
+                  <Grid item xs={2}>
+                    <Button size="small" color="secondary" text="delete" />
+                  </Grid>
+                </Grid>
+              
               </Card>
             </Grid>
           ))}
