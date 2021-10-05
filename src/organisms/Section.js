@@ -29,7 +29,7 @@ const Section = () => {
         {user && (
           <>
             {/* login route */}
-            {user.role == "guest" && (
+            {user.role === "guest" && (
               <>
                 <Switch>
                   <LoginRoute
@@ -48,7 +48,7 @@ const Section = () => {
                 </Switch>
               </>
             )}
-            {user.role == "user" && (
+            {user.role === "user" && (
               <>
                 {/* user route */}
                 <Switch>
@@ -75,7 +75,7 @@ const Section = () => {
                 </Switch>
               </>
             )}
-            {user.role == "admin" && (
+            {user.role === "admin" && (
               <>
                 {/* admin route */}
                 <Route

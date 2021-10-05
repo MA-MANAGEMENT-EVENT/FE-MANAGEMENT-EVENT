@@ -4,11 +4,11 @@ import { UserContext } from "../context/UserContext";
 import TextField from "../atoms/textfield/TextField";
 import Typography from "../atoms/typography/Typhography";
 import Button from "../atoms/button/Button";
+import Grid from "../atoms/grid/index"
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 

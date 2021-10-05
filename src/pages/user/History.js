@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@mui/system";
 import Button from "../../atoms/button/Button";
 import Paper from "@mui/material/Paper";
-import Grid from "@mui/material/Grid";
+import Grid from "../../atoms/grid/index";
 import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -79,7 +79,7 @@ const History = () => {
             </Grid>
             <Grid item xs={4}>
               <div style={{ marginTop: -5, float: "right" }}>
-              <Link
+                <Link
                   to="/feedback"
                   style={{ textDecoration: "none", padding: 10 }}
                 >
