@@ -1,90 +1,5 @@
-// import * as React from "react";
-// import Container from "@material-ui/core/Container";
-// import Typography from "../../atoms/typography/Typhography";
-// import { makeStyles } from "@material-ui/core/styles";
-// import Table from "@mui/material/Table";
-// import TableBody from "@mui/material/TableBody";
-// import TableCell from "@mui/material/TableCell";
-// import TableContainer from "@mui/material/TableContainer";
-// import TableHead from "@mui/material/TableHead";
-// import TableRow from "@mui/material/TableRow";
-// import Paper from "@mui/material/Paper";
-// import Button from "../../atoms/button/Button";
-
-// const useStyles = makeStyles((theme) => ({
-//   heroContent: {
-//     padding: theme.spacing(8, 0, 6),
-//     marginTop: 20,
-//   },
-//   item: {
-//     ...theme.typography.body2,
-//     padding: theme.spacing(1),
-//     textAlign: "center",
-//     color: theme.palette.text.secondary,
-//   },
-// }));
-
-// function createData(event, participant, email) {
-//   return { event, participant, email };
-// }
-
-// const rows = [
-//   createData("Ice cream sandwich", "George", "george@mail.com"),
-//   createData("Eclair", "Brian", "brian@mail.com"),
-//   createData("Cupcake", "Kyle", "kyle@mail.com"),
-//   createData("Frozen yoghurt", "Daniel", "daniel@mail.com"),
-//   createData("Gingerbread", "Emily", "emily@mail.com"),
-// ];
-
-// export default function BasicTable() {
-//   const classes = useStyles();
-//   return (
-//     <>
-//       <div className={classes.heroContent} style={{ marginTop: 5}}>
-//         <Container maxWidth="sm">
-//           <Typography
-//             variant="h4"
-//             align="center"
-//             color="textPrimary"
-//             gutterBottom
-//             text="Manage Event Participant"
-//           />
-//         </Container>
-//       </div>
-//       <TableContainer component={Paper}>
-//         <Table sx={{ minWidth: 650 }} aria-label="simple table">
-//           <TableHead>
-//             <TableRow >
-//               <TableCell>Event Name</TableCell>
-//               <TableCell>Participant Name</TableCell>
-//               <TableCell>Email</TableCell>
-//             </TableRow>
-//           </TableHead>
-//           <TableBody>
-//             {rows.map((row) => (
-//               <TableRow
-//                 key={row.event}
-//                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-//               >
-//                 <TableCell component="th" scope="row">
-//                   {row.event}
-//                 </TableCell>
-//                 <TableCell>{row.participant}</TableCell>
-//                 <TableCell>{row.email}</TableCell>
-//               </TableRow>
-//             ))}
-//           </TableBody>
-//         </Table>
-//       </TableContainer>
-//       <div align="right" style={{marginTop:10}}>
-//       <Button datatest="export" text="export" type="submit" /></div>
-//     </>
-//   );
-// }
-
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
-// import { DataGridPro } from "@mui/x-data-grid-pro";
 import Container from "@material-ui/core/Container";
 import Typography from "../../atoms/typography/Typhography";
 import { makeStyles } from "@material-ui/core/styles";
@@ -161,7 +76,7 @@ const rows = [
   },
 ];
 
-export default function DataTable() {
+export default function ManageParticipant() {
   const classes = useStyles();
   return (
     <>
