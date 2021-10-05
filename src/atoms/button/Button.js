@@ -1,5 +1,5 @@
 import Btn from "@material-ui/core/Button";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 const useStyles = makeStyles({
@@ -16,17 +16,25 @@ const useStyles = makeStyles({
     minHeight: 0,
     minWidth: 0,
   },
-  add:{
+  add: {
     paddingRight: 0,
     paddingTop: 8.1,
     paddingBottom: 8.1,
     paddingLeft: 10,
     minHeight: 0,
     minWidth: 0,
-
   },
 });
-const Button = ({ datatest, className, variant, color, onClick, startIcon, text, ...rest}) => {
+const Button = ({
+  datatest,
+  className,
+  variant,
+  color,
+  onClick,
+  startIcon,
+  text,
+  ...rest
+}) => {
   const classes = useStyles();
   return (
     <Btn
@@ -41,21 +49,20 @@ const Button = ({ datatest, className, variant, color, onClick, startIcon, text,
       {text}
     </Btn>
   );
-  
 };
 Button.propTypes = {
   className: PropTypes.string,
-  variant: PropTypes.oneOf(['contained', 'outlined', null]),
-  color: PropTypes.oneOf(['default','primary','secondary']),
+  variant: PropTypes.oneOf(["contained", "outlined", null]),
+  color: PropTypes.oneOf(["default", "primary", "secondary"]),
   startIcon: PropTypes.element,
   onClick: PropTypes.func,
   text: PropTypes.string,
 };
 
-Button.defaultProps= {
+Button.defaultProps = {
   className: undefined,
-  variant: 'contained',
-  color: 'primary',
+  variant: "contained",
+  color: "primary",
   startIcon: undefined,
   onClick: undefined,
   text: "",

@@ -1,9 +1,9 @@
 import * as React from "react";
+import Typography from "../../atoms/typography/Typhography";
+import Button from "../../atoms/button/Button";
 import { DataGrid } from "@mui/x-data-grid";
 import Container from "@material-ui/core/Container";
-import Typography from "../../atoms/typography/Typhography";
 import { makeStyles } from "@material-ui/core/styles";
-import Button from "../../atoms/button/Button";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {

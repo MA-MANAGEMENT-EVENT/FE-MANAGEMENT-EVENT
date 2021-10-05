@@ -3,7 +3,6 @@ import Button from "../../atoms/button/Button";
 import TextField from "../../atoms/textfield/TextField";
 import Typography from "../../atoms/typography/Typhography";
 import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Grid from "@material-ui/core/Grid";
@@ -126,7 +125,7 @@ const ManageEvent = () => {
                       to="/editevent"
                       style={{ textDecoration: "none", padding: 10 }}
                     >
-                      <Button size="small" color="primary" text="edit" />
+                      <Button size="small"  text="edit" style={{backgroundColor:"#f0ad4e"}} />
                     </Link>
                   </Grid>
               

@@ -1,8 +1,8 @@
 import "./Template.css";
 import { BrowserRouter as Router } from "react-router-dom";
-import Nav from "../molecules/nav/Nav";
+import Nav from "../organisms/nav/Nav";
 import Section from "../organisms/Section";
-import Footer from "../molecules/footer/Footer";
+import Footer from "../organisms/footer/Footer";
 import { UserProvider } from "../context/UserContext";
 
 const Template = (props) => {
