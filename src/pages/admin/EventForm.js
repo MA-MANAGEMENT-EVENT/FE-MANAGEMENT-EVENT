@@ -4,9 +4,12 @@ import Button from "../../atoms/button/Button";
 import TextArea from "../../atoms/textarea/TextArea";
 import Grid from "../../atoms/grid/index";
 import React, { useState } from "react";
-import ReactSelect from "react-select";
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
+import MenuItem from "@material-ui/core/MenuItem";
+
+
+
 import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
 
 const EventForm = () => {
@@ -16,12 +19,23 @@ const EventForm = () => {
     location: "",
     code: "",
     password: "",
-    speaker: "",
+    speaker: ["Option 1"],
     startdate: "",
     enddate: "",
     imagefile: "",
   };
-  const { handleSubmit, register, reset, setValue, control } = useForm({ defaultValues });
+  const options = [
+    { id: 1, name: "Option 1" },
+    { id: 2, name: "Option 2" },
+    { id: 3, name: "Option 3" },
+    { id: 4, name: "Option 4" },
+    { id: 5, name: "Option 5" },
+    { id: 6, name: "Option 6" },
+  ];
+
+  const { handleSubmit, register, reset, setValue, control } = useForm({
+    defaultValues,
+  });
 
   const onSubmit = (data) => {
     console.log(data);
@@ -44,8 +58,8 @@ const EventForm = () => {
           id="imagefile"
           name="imagefile"
           type="file"
-         // control={control}
-         {...register("imagefile")}
+          // control={control}
+          {...register("imagefile")}
         />
         <Grid container spacing={1}>
           <Grid item xs={3}>
@@ -102,21 +116,29 @@ const EventForm = () => {
 
         <Label text="Speaker" className="question" />
         <Controller
-          name="ReactSelect"
-          isClearable
+          name="speaker"
           control={control}
-          render={({ field }) => (
-            <div style={{ width: "300px" }}>
-              <ReactSelect
-                {...field}
-                options={[
-                  { value: "chocolate", label: "Chocolate" },
-                  { value: "strawberry", label: "Strawberry" },
-                  { value: "vanilla", label: "Vanilla" },
-                ]}
-              />
-            </div>
-          )}
+          render={({  field }) => {
+            return (
+              <TextField
+                select
+                name="speaker"
+                variant="outlined"
+                label="speaker"
+                SelectProps={{
+                  multiple: true,
+                  value: defaultValues.speaker,
+                  ...field,
+                }}
+              >
+                {options.map((option) => (
+                  <MenuItem key={option.id} value={option.name}>
+                    {option.name}
+                  </MenuItem>
+                ))}
+              </TextField>
+            );
+          }}
         />
 
         <Grid container spacing={4}>
@@ -152,68 +174,7 @@ const EventForm = () => {
             />
           </Grid>
         </Grid>
-        <Label text="Feedback Question 1" className="question" />
-        <Controller
-          render={({ field }) => (
-            <TextField
-              {...field}
-              datatest="question1"
-              className="questionfeedback"
-            />
-          )}
-          control={control}
-          name="question1"
-        />
-        <Label text="Feedback Question 2" className="question" />
-        <Controller
-          render={({ field }) => (
-            <TextField
-              {...field}
-              datatest="question2"
-              className="questionfeedback"
-            />
-          )}
-          control={control}
-          name="question2"
-        />
-        <Label text="Feedback Question 3" className="question" />
-        <Controller
-          render={({ field }) => (
-            <TextField
-              {...field}
-              datatest="question3"
-              className="questionfeedback"
-            />
-          )}
-          control={control}
-          name="question3"
-        />
-        <Label text="Feedback Question 4" className="question" />
-        <Controller
-          render={({ field }) => (
-            <TextField
-              {...field}
-              datatest="question4"
-              className="questionfeedback"
-            />
-          )}
-          control={control}
-          name="question4"
-        />
-        <Label text="Feedback Question 5" className="question" />
-        <Controller
-          render={({ field }) => (
-            <TextField
-              {...field}
-              datatest="question5"
-              className="questionfeedback"
-            />
-          )}
-          name="question5"
-          control={control}
-        />
         <br />
-
         <Button datatest="submit" text="submit" type="submit" />
       </form>
     </>
