@@ -94,6 +94,7 @@ export default function ManageFeedback() {
   const classes = useStyles();
   return (
     <>
+    
       <div className={classes.heroContent} style={{ marginTop: 5 }}>
         <Container maxWidth="sm">
           <Typography
@@ -104,6 +105,9 @@ export default function ManageFeedback() {
             text="Manage Event Feedback"
           />
         </Container>
+      </div>
+      <div align="right" style={{ marginBottom: 10 }}>
+        <Button datatest="new" text="New" type="submit" />
       </div>
       <div
         style={{
@@ -123,9 +127,7 @@ export default function ManageFeedback() {
           //   }}
         />
       </div>
-      <div align="right" style={{ marginTop: 10 }}>
-        <Button datatest="export" text="export" type="submit" />
-      </div>
+      
     </>
   );
 }
