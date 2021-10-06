@@ -11,8 +11,10 @@ const useStyles = makeStyles({
     marginRight: "10px",
   },
   questionfeedback: {
-    width: "400px",
-    marginRight: "10px",
+    width: "530px",
+    margin: "10px",
+    marginBottom:"20px",
+    marginLeft: "0px"
   },
   coba: {
     width: "200px",
