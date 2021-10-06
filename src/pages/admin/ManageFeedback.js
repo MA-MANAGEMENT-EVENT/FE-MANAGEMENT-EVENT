@@ -106,8 +106,8 @@ export default function ManageFeedback() {
           />
         </Container>
       </div>
-      <div align="right" style={{ marginBottom: 10 }}>
-        <Button datatest="new" text="New" type="submit" />
+      <div align="right" style={{ marginBottom: 20 }}>
+        <Button datatest="question" text="Manage Question" type="submit" />
       </div>
       <div
         style={{
