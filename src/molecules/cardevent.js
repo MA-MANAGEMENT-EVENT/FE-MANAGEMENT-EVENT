@@ -24,13 +24,10 @@ const ButtonColor = (text) => {
   switch (text) {
     case "Edit":
       return "#f0ad4e";
-      break;
     case "Delete":
       return "#FF0000";
-      break;
     default:
       return "#3f50b5";
-    // code block
   }
 };
 const CardEvent = (props) => {
