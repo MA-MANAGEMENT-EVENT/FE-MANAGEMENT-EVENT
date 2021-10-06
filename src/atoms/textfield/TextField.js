@@ -14,6 +14,9 @@ const useStyles = makeStyles({
     width: "400px",
     marginRight: "10px",
   },
+  coba: {
+    width: "200px",
+  },
 });
 const TextField = ({
   type,
@@ -21,6 +24,7 @@ const TextField = ({
   label,
   name,
   className,
+  children,
   ...rest
 }) => {
   const classes = useStyles();
@@ -29,15 +33,19 @@ const TextField = ({
       // data-testid={datatest}
       // error={error === ""}
       // helperText={error === "" ? "Empty field!" : " "}
+
       type={type}
       variant={variant}
       label={label}
       name={name}
       className={classes[className]}
       {...rest}
-    />
+    >
+      {children}
+    </TxtField>
   );
 };
+
 TextField.propTypes = {
   // error: PropTypes.string,
   type: PropTypes.string,
@@ -48,7 +56,7 @@ TextField.propTypes = {
 };
 
 TextField.defaultProps = {
-  type: "text",
+  type: "",
   variant: "outlined",
   label: "",
   name: "",
