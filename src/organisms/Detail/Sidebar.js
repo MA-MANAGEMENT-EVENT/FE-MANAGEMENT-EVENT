@@ -28,7 +28,7 @@ export default function Sidebar(props) {
 
   return (
     <Grid item xs={12} md={4}>
-      {user === "guest" && (
+      {user.role === "guest" && (
         <Paper elevation={0} className={classes.sidebarAboutBox}>
           <Typography variant="h6" gutterBottom></Typography>
           <Typography>{description}</Typography>
@@ -105,19 +105,20 @@ export default function Sidebar(props) {
       </Grid>
 
       <div style={{ borderTop: "1px gainsboro solid", marginBottom: 5 }}>
-        {user === "guest" && <Typography
-          style={{
-            fontSize: 20.0,
-            marginTop: 30,
-            marginBottom: 15.0,
-            textAlign: "center",
-            fontStretch: "ultra-expanded",
-          }}
-        >
-          {desc2}
-        </Typography>}
         {user.role === "user" && (
-          <>
+          <Typography
+            style={{
+              fontSize: 20.0,
+              marginTop: 30,
+              marginBottom: 15.0,
+              textAlign: "center",
+              fontStretch: "ultra-expanded",
+            }}
+          >
+            {desc2}
+          </Typography>
+        )}
+        {user.role === "user" && 
             <Button
               type="submit"
               fullWidth
@@ -128,23 +129,21 @@ export default function Sidebar(props) {
               size="large"
               style={{ fontSize: 18, fontWeight: "700", borderRadius: "8px" }}
             />
-          </>
-        )}
+        
+        }
         {user.role === "admin" && (
-          <>
-            <Link to="/manageparticipantandfeedback">
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-                text="Manage Participant and Feedback"
-                size="large"
-                style={{ fontSize: 18, fontWeight: "700", borderRadius: "8px" }}
-              />
-            </Link>
-          </>
+          <Link to="/manageparticipantandfeedback">
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              text="Manage Participant and Feedback"
+              size="large"
+              style={{ fontSize: 18, fontWeight: "700", borderRadius: "8px" }}
+            />
+          </Link>
         )}
       </div>
     </Grid>
