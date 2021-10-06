@@ -65,7 +65,7 @@ const ManageEvent = () => {
         </Container>
       </div>
       <Container className={classes.cardGrid} maxWidth="md">
-        <Grid container spacing={4}>
+        <Grid container spacing={2}>
           {cards.map((card) => (
             <CardEvent
               card={card}
@@ -74,22 +74,8 @@ const ManageEvent = () => {
               description={
                 " This is a media card. You can use this section to describe the content."
               }
-              link={[
-                "/manageparticipant",
-                "/managespeaker",
-                "/managefeedback",
-                "/detailevent",
-                "/editevent",
-                "/delete",
-              ]}
-              linkText={[
-                "Participant",
-                "Speaker",
-                "Feedback",
-                "View",
-                "Edit",
-                "Delete",
-              ]}
+              link={["/detailevent", "/editevent", "/delete"]}
+              linkText={["View", "Edit", "Delete"]}
             />
           ))}
         </Grid>

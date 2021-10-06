@@ -114,6 +114,26 @@ const Nav = (props) => {
                         className="link"
                       />
                     </Link>
+                    <Link
+                      to="/managespeaker"
+                      style={{ textDecoration: "none", padding: 10 }}
+                    >
+                      <Typography
+                        variant="body1"
+                        text="Manage Speaker"
+                        className="link"
+                      />
+                    </Link>
+                    <Link
+                      to="/createevent"
+                      style={{ textDecoration: "none", padding: 10 }}
+                    >
+                      <Typography
+                        variant="body1"
+                        text="Create Event"
+                        className="link"
+                      />
+                    </Link>
                   
                     
                   

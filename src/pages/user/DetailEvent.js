@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect} from "react";
+
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "../../atoms/grid/index";
@@ -48,6 +49,7 @@ const sidebar = {
 };
 
 export default function DetailEvent() {
+
   const classes = useStyles();
 
   useEffect(() => {
@@ -62,7 +64,7 @@ export default function DetailEvent() {
           <DetailHeader post={detailHeader} />
           <Grid container spacing={5} className={classes.mainGrid}>
             <Main title={detailHeader.title} posts={posts} post={detailHeader} />  
-            <Sidebar
+           <Sidebar
               description={sidebar.description}
               desc2={sidebar.desc2}
               speaker={detailHeader.speaker}
