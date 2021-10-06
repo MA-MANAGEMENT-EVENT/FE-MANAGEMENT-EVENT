@@ -7,6 +7,7 @@ import CardEvent from "../molecules/cardevent"
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
+
 const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
@@ -69,6 +70,7 @@ const Home = () => {
       </div>
       <Container className={classes.cardGrid} maxWidth="md">
         <Grid container spacing={4}>
+
         {cards.map((card) => (
             <CardEvent
               card={card}
