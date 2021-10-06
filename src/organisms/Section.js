@@ -11,8 +11,9 @@ import ManageEvent from "../pages/admin/ManageEvent";
 import EventForm from "../pages/admin/EventForm";
 import ManageFeedback from "../pages/admin/ManageFeedback";
 import ManageParticipant from "../pages/admin/ManageParticipant";
-import { Admin, User } from "../Auth";
 import PageNotFound from "../pages/PageNotFound";
+import ChangePassword from "../pages/ChangePassword"
+import ResetPassword from "../pages/ResetPassword"
 
 const Section = () => {
   const [user] = useContext(UserContext);
@@ -44,6 +45,18 @@ const Section = () => {
                     path="/signup"
                     user={user}
                     component={SignUp}
+                  />
+                  <LoginRoute
+                    exact
+                    path="/changepassword"
+                    user={user}
+                    component={ChangePassword}
+                  />
+                  <LoginRoute
+                    exact
+                    path="/resetpassword"
+                    user={user}
+                    component={ResetPassword}
                   />
 
                   <Route component={PageNotFound} />

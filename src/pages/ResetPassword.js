@@ -19,10 +19,9 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     marginTop: theme.spacing(1),
   },
-
 }));
 
-const ChangePassword=()=> {
+const ResetPassword=()=> {
   const classes = useStyles();
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => {
@@ -41,7 +40,7 @@ const ChangePassword=()=> {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Typography text="Change Password" variant="h4" />
+        <Typography text="Reset Password" variant="h4" />
         <form
           className={classes.form}
           noValidate
@@ -60,16 +59,15 @@ const ChangePassword=()=> {
             autoFocus
           /> */}
           <TextField
-            {...register("newpassword")}
+            {...register("email")}
             variant="outlined"
             margin="normal"
             required
             fullWidth
-            name="newpassword"
-            label="New Password"
-            type="newpassword"
-            id="newpassword"
-            autoComplete="new-password"
+            name="email"
+            label="Email"
+            id="email"
+            autoComplete="email"
           />
 
           <Button
@@ -79,12 +77,11 @@ const ChangePassword=()=> {
             color="primary"
             className={classes.submit}
           >
-            Change
+            Reset
           </Button>
         </form>
       </div>
     </Container>
   );
 }
-
-export default ChangePassword
+export default ResetPassword
