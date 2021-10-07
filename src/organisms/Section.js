@@ -17,6 +17,7 @@ import ResetPassword from "../pages/ResetPassword"
 import ManageSpeaker from "../pages/admin/ManageSpeaker";
 const Section = () => {
   const [user] = useContext(UserContext);
+
   const LoginRoute = ({ user, ...props }) =>
     user ? <Route {...props} /> : <Redirect to="/home" />;
 

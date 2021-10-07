@@ -2,11 +2,10 @@ import React, { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import TextField from "../atoms/textfield/TextField";
 import Typography from "../atoms/typography/Typhography";
-import Grid from "../atoms/grid/index"
-import CardEvent from "../molecules/cardevent"
+import Grid from "../atoms/grid/index";
+import CardEvent from "../molecules/cardevent";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -58,8 +57,7 @@ const Home = () => {
       </div>
       <Container className={classes.cardGrid} maxWidth="md">
         <Grid container spacing={4}>
-
-        {cards.map((card) => (
+          {cards.map((card) => (
             <CardEvent
               card={card}
               imageUrl={"https://source.unsplash.com/random"}
@@ -67,12 +65,8 @@ const Home = () => {
               description={
                 " This is a media card. You can use this section to describe the content."
               }
-              link={[
-                "/detailevent",
-              ]}
-              linkText={[
-                "View"
-              ]}
+              link={["/detailevent"]}
+              linkText={["View"]}
             />
           ))}
         </Grid>

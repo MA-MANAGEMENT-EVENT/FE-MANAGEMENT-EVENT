@@ -24,7 +24,7 @@ export const UserProvider = (props) => {
       //     }
       //   }))
       // })
-      console.log(userdata);
+     
       setDaftarUser(userdata);
     }
   }, [daftarUser]);

@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import TextField from "../../atoms/textfield/TextField";
 import Typography from "../../atoms/typography/Typhography";
 import Grid from "../../atoms/grid/index";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import CardEvent from "../../molecules/cardevent";
-
+import { EventContext } from "../../context/EventContext";
 const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
@@ -37,6 +37,8 @@ const useStyles = makeStyles((theme) => ({
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const ManageEvent = () => {
+  const [event] = useContext(EventContext);
+  console.log(event)
   const classes = useStyles();
   return (
     <>

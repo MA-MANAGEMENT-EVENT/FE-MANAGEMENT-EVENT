@@ -1,14 +1,14 @@
 import React from "react";
 import TextField from "../atoms/textfield/TextField";
 import Typography from "../atoms/typography/Typhography";
-import Grid from "../atoms/grid/index"
-import { useForm } from "react-hook-form";
+import Grid from "../atoms/grid/index";
+import { useForm, Controller } from "react-hook-form";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-
+import Axios from "axios";
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -27,22 +27,23 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login() {
   const classes = useStyles();
-  const { register, handleSubmit } = useForm();
+  const { control, register, handleSubmit } = useForm();
+
   const onSubmit = (data) => {
-
-  
-    // Axios.post(`url`,{username:data.email,password:input.password})
-    // .then((res)=>{
-    //   if(res.data==="invalid username or password"){
-    //     handleClickOpen()
-    //   }else{
-    //     setUser(res.data)
-    //     localStorage.setItem("user", JSON.stringify({username: input.username, password: input.password}))
-    //   }
-
-    // })
+    console.log(data);
+    Axios.post(`https://cors-anywhere.herokuapp.com/https://management-event-api.herokuapp.com/auth/login`, {
+      email: data.email,
+      password: data.password,
+    }).then((res) => {
+      console.log(res);
+      // if(res.data==="invalid username or password"){
+      //   handleClickOpen()
+      // }else{
+      //   setUser(res.data)
+      //   localStorage.setItem("user", JSON.stringify({username: input.username, password: input.password}))
+      // }
+    });
   };
- 
 
   return (
     <Container component="main" maxWidth="xs">
@@ -54,29 +55,39 @@ export default function Login() {
           noValidate
           onSubmit={handleSubmit(onSubmit)}
         >
-          <TextField
-            {...register("email")}
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
+          <Controller
+            render={({ field }) => (
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                autoComplete="email"
+                autoFocus
+                {...field}
+              />
+            )}
+            control={control}
             name="email"
-            autoComplete="email"
-            autoFocus
           />
-          <TextField
-            {...register("password")}
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
+          <Controller
+            render={({ field }) => (
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="password"
+                label="Password"
+                autoComplete="password"
+                autoFocus
+                {...field}
+              />
+            )}
+            control={control}
             name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
           />
 
           <Button
