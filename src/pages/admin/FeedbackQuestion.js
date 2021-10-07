@@ -40,7 +40,7 @@ const FeedbackQuestion = () => {
         alignItems: "center",
       }}
     >
-      <Container component="main" maxWidth="xs">
+     
         <form onSubmit={handleSubmit(onSubmit)}>
           <div style={{ textAlign: "center" }}>
             <Label text="FEEDBACK QUESTION" className="title" />
@@ -72,7 +72,7 @@ const FeedbackQuestion = () => {
           <br /> <br /> <br /> 
           <Button datatest="submit" text="submit" type="submit" />
         </form>
-      </Container>
+
     </div>
   );
 };
