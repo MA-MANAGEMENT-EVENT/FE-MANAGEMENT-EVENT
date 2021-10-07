@@ -174,66 +174,6 @@ const EventForm = () => {
             />
           </Grid>
         </Grid>
-        {/* <Label text="Feedback Question 1" className="question" />
-        <Controller
-          render={({ field }) => (
-            <TextField
-              {...field}
-              datatest="question1"
-              className="questionfeedback"
-            />
-          )}
-          control={control}
-          name="question1"
-        />
-        <Label text="Feedback Question 2" className="question" />
-        <Controller
-          render={({ field }) => (
-            <TextField
-              {...field}
-              datatest="question2"
-              className="questionfeedback"
-            />
-          )}
-          control={control}
-          name="question2"
-        />
-        <Label text="Feedback Question 3" className="question" />
-        <Controller
-          render={({ field }) => (
-            <TextField
-              {...field}
-              datatest="question3"
-              className="questionfeedback"
-            />
-          )}
-          control={control}
-          name="question3"
-        />
-        <Label text="Feedback Question 4" className="question" />
-        <Controller
-          render={({ field }) => (
-            <TextField
-              {...field}
-              datatest="question4"
-              className="questionfeedback"
-            />
-          )}
-          control={control}
-          name="question4"
-        />
-        <Label text="Feedback Question 5" className="question" />
-        <Controller
-          render={({ field }) => (
-            <TextField
-              {...field}
-              datatest="question5"
-              className="questionfeedback"
-            />
-          )}
-          name="question5"
-          control={control}
-        /> */}
         <br />
         <Button datatest="submit" text="submit" type="submit" />
       </form>

@@ -9,12 +9,12 @@ import Feedback from "../pages/user/Feedback";
 import History from "../pages/user/History";
 import ManageEvent from "../pages/admin/ManageEvent";
 import EventForm from "../pages/admin/EventForm";
-import ManageFeedback from "../pages/admin/ManageFeedback";
-import ManageParticipant from "../pages/admin/ManageParticipant";
+import ManageParticipantFeedback from "../pages/admin/ManageParticipantFeedback";
 import PageNotFound from "../pages/PageNotFound";
 import ChangePassword from "../pages/ChangePassword"
 import ResetPassword from "../pages/ResetPassword"
 import ManageSpeaker from "../pages/admin/ManageSpeaker";
+import FeedbackQuestion from "../pages/admin/FeedbackQuestion";
 const Section = () => {
   const [user] = useContext(UserContext);
 
@@ -116,9 +116,9 @@ const Section = () => {
                   />
                   <Route
                     exact
-                    path="/managefeedback"
+                    path="/question"
                     user={user}
-                    component={ManageFeedback}
+                    component={FeedbackQuestion}
                   />
                   <Route
                     exact
@@ -128,9 +128,9 @@ const Section = () => {
                   />
                   <Route
                     exact
-                    path="/manageparticipant"
+                    path="/manageparticipantandfeedback"
                     user={user}
-                    component={ManageParticipant}
+                    component={ManageParticipantFeedback}
                   />
                   {/* not found */}
                   <Route component={PageNotFound} />
