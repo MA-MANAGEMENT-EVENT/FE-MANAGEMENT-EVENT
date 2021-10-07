@@ -33,11 +33,22 @@ const useStyles = makeStyles((theme) => ({
 
 const MatEdit = ({ index }) => {
     const handleEditClick = () => {
-    
-    };
-    const handleDeleteClick = () => {
-        
-        
+
+    };  
+    return (
+      <FormControlLabel
+        control={
+          <IconButton>
+            <EditIcon style={{ color: blue[500] }} onClick={handleEditClick} />
+          </IconButton>
+        }
+      />
+    );
+  };
+
+const MatDel = ({ index }) => {
+    const handleDeleteClick = () => {   
+
     };  
     return (
       <FormControlLabel
@@ -45,7 +56,6 @@ const MatEdit = ({ index }) => {
           <IconButton
             color="secondary"
           >
-            <EditIcon style={{ color: blue[500] }} onClick={handleEditClick} />
             <DeleteIcon onClick={handleDeleteClick} />
           </IconButton>
         }
@@ -56,10 +66,10 @@ const MatEdit = ({ index }) => {
 const columns = [
   { field: "speaker", headerName: "Speaker Name", width: "200" },
   { field: "image", headerName: "Image", width: "150" },
-  { field: "deskripsi", headerName: "Deskripsi", width: "650" },
-  { field: "actions", headerName: "Action",
+  { field: "deskripsi", headerName: "Deskripsi", width: "600" },
+  { field: "actions", headerName: "Update",
     sortable: false,
-    width: 140,
+    width: 80,
     disableClickEventBubbling: true,
     renderCell: (params) => {
     return (
@@ -71,7 +81,22 @@ const columns = [
       </div>
     );
   }
-}
+},
+  { field: "action", headerName: "Delete",
+    sortable: false,
+    width: 80,
+    disableClickEventBubbling: true,
+    renderCell: (params) => {
+    return (
+    <div
+        className="d-flex justify-content-between align-items-center"
+        style={{ cursor: "pointer" }}
+    >
+        <MatDel index={params.row.id} />
+    </div>
+    );
+    }
+    }
 ];
 
 const rows = [
