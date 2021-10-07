@@ -9,30 +9,34 @@ import Feedback from "../pages/user/Feedback";
 import History from "../pages/user/History";
 import ManageEvent from "../pages/admin/ManageEvent";
 import EventForm from "../pages/admin/EventForm";
-import ManageFeedback from "../pages/admin/ManageFeedback";
-import ManageParticipant from "../pages/admin/ManageParticipant";
-import ManageSpeaker from "../pages/admin/ManageSpeaker";
-import { Admin, User } from "../Auth";
-import PageNotFound from "../pages/PageNotFound";
 
+import ManageParticipantFeedback from "../pages/admin/ManageParticipantFeedback";
+
+import PageNotFound from "../pages/PageNotFound";
+import ChangePassword from "../pages/ChangePassword"
+import ResetPassword from "../pages/ResetPassword"
+import ManageSpeaker from "../pages/admin/ManageSpeaker";
+import FeedbackQuestion from "../pages/admin/FeedbackQuestion";
 const Section = () => {
   const [user] = useContext(UserContext);
+
   const LoginRoute = ({ user, ...props }) =>
     user ? <Route {...props} /> : <Redirect to="/home" />;
 
   return (
     <div className="section">
       <Switch>
-        <Route exact path="/">
-          <Redirect to="/home" />
-        </Route>
-        <Route exact path="/home" component={Home} />
+        <Route exact path="/detailevent" user={user} component={Detail} />
         {user && (
           <>
             {/* login route */}
             {user.role === "guest" && (
               <>
                 <Switch>
+                  <Route exact path="/">
+                    <Redirect to="/home" />
+                  </Route>
+                  <Route exact path="/home" component={Home} />
                   <LoginRoute
                     exact
                     path="/login"
@@ -45,6 +49,19 @@ const Section = () => {
                     user={user}
                     component={SignUp}
                   />
+                  <LoginRoute
+                    exact
+                    path="/changepassword"
+                    user={user}
+                    component={ChangePassword}
+                  />
+                  <LoginRoute
+                    exact
+                    path="/resetpassword"
+                    user={user}
+                    component={ResetPassword}
+                  />
+
                   <Route component={PageNotFound} />
                 </Switch>
               </>
@@ -53,6 +70,10 @@ const Section = () => {
               <>
                 {/* user route */}
                 <Switch>
+                  <Route exact path="/">
+                    <Redirect to="/home" />
+                  </Route>
+                  <Route exact path="/home" component={Home} />
                   <Route
                     exact
                     path="/feedback"
@@ -65,12 +86,6 @@ const Section = () => {
                     user={user}
                     component={History}
                   />
-                  <Route
-                    exact
-                    path="/detailevent"
-                    user={user}
-                    component={Detail}
-                  />
 
                   <Route component={PageNotFound} />
                 </Switch>
@@ -79,37 +94,49 @@ const Section = () => {
             {user.role === "admin" && (
               <>
                 {/* admin route */}
-                <Route
-                  exact
-                  path="/manageevent"
-                  user={user}
-                  component={ManageEvent}
-                />
-                <Route
-                  exact
-                  path="/editevent"
-                  user={user}
-                  component={EventForm}
-                />
-                <Route
-                  exact
-                  path="/managefeedback"
-                  user={user}
-                  component={ManageFeedback}
-                />
-                <Route
-                  exact
-                  path="/managespeaker"
-                  user={user}
-                  component={ManageSpeaker}
-                />
-                <Route
-                  exact
-                  path="/manageparticipant"
-                  user={user}
-                  component={ManageParticipant}
-                />
-                {/* not found */}
+                <Switch>
+                  <Route exact path="/">
+                    <Redirect to="/manageevent" />
+                  </Route>
+                  <Route
+                    exact
+                    path="/manageevent"
+                    user={user}
+                    component={ManageEvent}
+                  />
+                  <Route
+                    exact
+                    path="/managespeaker"
+                    user={user}
+                    component={ManageSpeaker}
+                  />
+                  <Route
+                    exact
+                    path="/editevent"
+                    user={user}
+                    component={EventForm}
+                  />
+                  <Route
+                    exact
+                    path="/question"
+                    user={user}
+                    component={FeedbackQuestion}
+                  />
+                  <Route
+                    exact
+                    path="/createevent"
+                    user={user}
+                    component={EventForm}
+                  />
+                  <Route
+                    exact
+                    path="/manageparticipantandfeedback"
+                    user={user}
+                    component={ManageParticipantFeedback}
+                  />
+                  {/* not found */}
+                  <Route component={PageNotFound} />
+                </Switch>
               </>
             )}
           </>
