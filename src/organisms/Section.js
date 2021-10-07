@@ -11,6 +11,7 @@ import ManageEvent from "../pages/admin/ManageEvent";
 import EventForm from "../pages/admin/EventForm";
 import ManageFeedback from "../pages/admin/ManageFeedback";
 import ManageParticipant from "../pages/admin/ManageParticipant";
+import ManageSpeaker from "../pages/admin/ManageSpeaker";
 import { Admin, User } from "../Auth";
 import PageNotFound from "../pages/PageNotFound";
 
@@ -95,6 +96,12 @@ const Section = () => {
                   path="/managefeedback"
                   user={user}
                   component={ManageFeedback}
+                />
+                <Route
+                  exact
+                  path="/managespeaker"
+                  user={user}
+                  component={ManageSpeaker}
                 />
                 <Route
                   exact
