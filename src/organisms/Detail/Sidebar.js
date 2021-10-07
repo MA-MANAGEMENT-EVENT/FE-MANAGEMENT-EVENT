@@ -118,30 +118,29 @@ export default function Sidebar(props) {
             {desc2}
           </Typography>
         )}
-        {user.role === "user" && 
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              text="Daftar Sekarang"
-              size="large"
-              style={{ fontSize: 18, fontWeight: "700", borderRadius: "8px" }}
-            />
-        
-        }
+        {user.role === "user" && (
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            text="Daftar Sekarang"
+            size="large"
+            style={{ fontSize: 18, fontWeight: "700", borderRadius: "8px" }}
+          />
+        )}
         {user.role === "admin" && (
-          <Link to="/manageparticipantandfeedback">
+          <Link to="/manageparticipantandfeedback"
+          style={{ textDecoration: "none"}}>
+         
             <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              text="Manage Participant and Feedback"
               size="large"
-              style={{ fontSize: 18, fontWeight: "700", borderRadius: "8px" }}
+              text="Manage Participant and Feedback"
+              // color="secondary"
+              style={{
+                backgroundColor: "#3f50b5",
+              }}
             />
           </Link>
         )}

@@ -5,7 +5,7 @@ import Button from "../../atoms/button/Button";
 // import React from "react";
 import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
-import Container from "@material-ui/core/Container";
+
 
 const FeedbackQuestion = () => {
   const defaultValues = {
@@ -55,12 +55,8 @@ const FeedbackQuestion = () => {
                     <TextField
                       datatest={`${question}-${index}`}
                       name={`${question}-${index}`}
-                      //   onChange={props.onChange}
-                    //   value={input[question]}
                       className="questionfeedback"
-                      // className="root"
                       required
-                    //   {...register(`${question}-${index}`)}
                     />
                   )}
                   control={control}
