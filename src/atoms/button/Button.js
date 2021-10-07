@@ -1,4 +1,4 @@
-import Btn from "@material-ui/core/Button";
+import Button from '@mui/material/Button';
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
@@ -6,6 +6,7 @@ const useStyles = makeStyles({
   root: {
     marginTop: "10px",
     marginRight: "10px",
+    background:"#3f50b5",
   },
   delete: {
     marginLeft: "-15px",
@@ -24,8 +25,9 @@ const useStyles = makeStyles({
     minHeight: 0,
     minWidth: 0,
   },
+
 });
-const Button = ({
+const Buton = ({
   datatest,
   className,
   variant,
@@ -37,7 +39,7 @@ const Button = ({
 }) => {
   const classes = useStyles();
   return (
-    <Btn
+    <Button
       className={clsx(classes.root, classes[className])}
       data-testid={datatest}
       variant={variant}
@@ -47,19 +49,28 @@ const Button = ({
       {...rest}
     >
       {text}
-    </Btn>
+    </Button>
   );
 };
-Button.propTypes = {
+Buton.propTypes = {
   className: PropTypes.string,
   variant: PropTypes.oneOf(["contained", "outlined", null]),
-  color: PropTypes.oneOf(["default", "primary", "secondary"]),
+  color: PropTypes.oneOf([
+    "default",
+    "primary",
+    "secondary",
+    "inherit",
+    "success",
+    "error",
+    "info",
+    "warning",
+  ]),
   startIcon: PropTypes.element,
   onClick: PropTypes.func,
   text: PropTypes.string,
 };
 
-Button.defaultProps = {
+Buton.defaultProps = {
   className: undefined,
   variant: "contained",
   color: "primary",
@@ -68,4 +79,5 @@ Button.defaultProps = {
   text: "",
 };
 
-export default Button;
+
+export default Buton;
