@@ -39,12 +39,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function DetailHeader(props) {
   const classes = useStyles();
-  const { post } = props;
+  
 
   return (
     <Paper
       className={classes.detailHeader}
-      style={{ backgroundImage: `url(${post.image})` }}
+      style={{ backgroundImage: `url(${props.image})` }}
     >
       {/* Increase the priority of the hero background image */}
       {
@@ -52,8 +52,8 @@ export default function DetailHeader(props) {
           style={{ display: "none"
           , opacity:"0.1"
         }}
-          src={post.image}
-          alt={post.imageText}
+          src={props.image}
+          alt={props.imageText}
         />
       }
       <div className={classes.overlay} />
@@ -67,7 +67,7 @@ export default function DetailHeader(props) {
               gutterBottom
               style= {{marginBottom: 20}}
             >
-              {post.title}
+              {props.title}
             </Typography>
 
             <div
@@ -86,7 +86,7 @@ export default function DetailHeader(props) {
                   fontStretch: "ultra-expanded",
                 }}
               >
-                {post.speaker}
+                {props.speaker}
               </Typography>
             </div>
 
@@ -100,7 +100,7 @@ export default function DetailHeader(props) {
             >
               <RoomIcon />
               <Typography style={{fontSize: 20, marginLeft: 20, fontStretch: "ultra-expanded"}}>
-                {post.location}
+                {props.location}
               </Typography>
             </div>
             <div
@@ -119,7 +119,7 @@ export default function DetailHeader(props) {
                   fontStretch: "ultra-expanded",
                 }}
               >
-                {post.time}
+                {props.time}
               </Typography>
             </div>
           </div>
@@ -130,5 +130,5 @@ export default function DetailHeader(props) {
 }
 
 DetailHeader.propTypes = {
-  post: PropTypes.object,
+  props: PropTypes.object,
 };

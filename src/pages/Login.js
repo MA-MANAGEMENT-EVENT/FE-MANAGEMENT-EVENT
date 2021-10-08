@@ -50,6 +50,7 @@ export default function Login() {
         password: data.password,
       }).then((res) => {
         if (res) {
+          console.log(res)
           setUser(res.data);
           localStorage.setItem("user", JSON.stringify(res.data));
           history.push("/");
