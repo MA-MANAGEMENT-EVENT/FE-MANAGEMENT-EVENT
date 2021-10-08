@@ -9,11 +9,9 @@ export const EventProvider = props => {
 
   useEffect(() => {
     if (dataEvents.length === 0 ) {
-      axios.get(`url`)
+      axios.get(`https://management-event-api.herokuapp.com/event`)
         .then(res => {
-          const newData = res.data.map((el) => { return el}) ;
-          setdataEvents(newData);
-        
+          setdataEvents(res.data)
         })
     }
   })

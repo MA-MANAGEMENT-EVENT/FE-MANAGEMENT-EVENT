@@ -5,8 +5,10 @@ import Button from "../../atoms/button/Button";
 // import React from "react";
 import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
+
 import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom";
+
 
 const FeedbackQuestion = () => {
   const defaultValues = {
@@ -43,6 +45,7 @@ const FeedbackQuestion = () => {
         alignItems: "center",
       }}
     >
+
       <form onSubmit={handleSubmit(onSubmit)}>
         <div style={{ textAlign: "center" }}>
           <Label text="FEEDBACK QUESTION" className="title" />
@@ -82,6 +85,7 @@ const FeedbackQuestion = () => {
           style={{ marginLeft: 10, backgroundColor: "#3f50b5" }}
         />
       </form>
+
     </div>
   );
 };

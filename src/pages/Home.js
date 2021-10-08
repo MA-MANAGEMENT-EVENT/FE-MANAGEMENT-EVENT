@@ -2,11 +2,11 @@ import React, { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import TextField from "../atoms/textfield/TextField";
 import Typography from "../atoms/typography/Typhography";
-import Grid from "../atoms/grid/index"
-import CardEvent from "../molecules/cardevent"
+import Grid from "../atoms/grid/index";
+import CardEvent from "../molecules/cardevent";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-
+import { EventContext } from "../context/EventContext";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const Home = () => {
+  const [events] = useContext(EventContext);
   const [user] = useContext(UserContext);
   const classes = useStyles();
 
@@ -58,21 +59,14 @@ const Home = () => {
       </div>
       <Container className={classes.cardGrid} maxWidth="md">
         <Grid container spacing={4}>
-
-        {cards.map((card) => (
+          {events.map((event) => (
             <CardEvent
-              card={card}
+              eventId={event.id}
               imageUrl={"https://source.unsplash.com/random"}
-              title={"Title"}
-              description={
-                " This is a media card. You can use this section to describe the content."
-              }
-              link={[
-                "/detailevent",
-              ]}
-              linkText={[
-                "View"
-              ]}
+              title={event.name}
+              description={event.description}
+              link={[`/detailevent/${event.id}`]}
+              linkText={["View"]}
             />
           ))}
         </Grid>

@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import TextField from "../atoms/textfield/TextField";
 import Typography from "../atoms/typography/Typhography";
-import Grid from "../atoms/grid/index"
-import { useForm } from "react-hook-form";
+import Grid from "../atoms/grid/index";
+import { useForm, Controller } from "react-hook-form";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-
+import Axios from "axios";
+import Cookies from "js-cookie";
+import { UserContext } from "../context/UserContext";
+import { useHistory } from "react-router-dom";
+import { Alert } from "../atoms/alert/Alert";
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -26,57 +30,89 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Login() {
+  let history = useHistory();
   const classes = useStyles();
-  const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => {
-
-  
-    // Axios.post(`url`,{username:data.email,password:input.password})
-    // .then((res)=>{
-    //   if(res.data==="invalid username or password"){
-    //     handleClickOpen()
-    //   }else{
-    //     setUser(res.data)
-    //     localStorage.setItem("user", JSON.stringify({username: input.username, password: input.password}))
-    //   }
-
-    // })
+  const [User, setUser] = useContext(UserContext);
+  const { control, register, handleSubmit } = useForm();
+  const [open, setOpen] = useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
   };
- 
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const onSubmit = (data) => {
+    handleClose()
+    const { email, password } = data;
+    if (email && password) {
+      Axios.post(`auth/login`, {
+        email: data.email,
+        password: data.password,
+      }).then((res) => {
+        if (res) {
+          console.log(res)
+          setUser(res.data);
+          localStorage.setItem("user", JSON.stringify(res.data));
+          history.push("/");
+        } else {
+          handleClickOpen();
+        }
+      });
+    } else {
+      handleClickOpen();
+    }
+  };
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Typography text="Sign in" variant="h4" />
+        {open && (
+          <Alert
+            severity="error"
+            title="Error Login failed."
+            className="formInfo"
+          ></Alert>
+        )}
         <form
           className={classes.form}
           noValidate
           onSubmit={handleSubmit(onSubmit)}
         >
-          <TextField
-            {...register("email")}
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
+          <Controller
+            render={({ field }) => (
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                autoComplete="email"
+                autoFocus
+                {...field}
+              />
+            )}
+            control={control}
             name="email"
-            autoComplete="email"
-            autoFocus
           />
-          <TextField
-            {...register("password")}
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
+          <Controller
+            render={({ field }) => (
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="password"
+                label="Password"
+                autoComplete="password"
+                autoFocus
+                {...field}
+              />
+            )}
+            control={control}
             name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
           />
 
           <Button

@@ -18,13 +18,14 @@ import FeedbackQuestion from "../pages/admin/FeedbackQuestion";
 import FullFeaturedCrudGrid from "../pages/admin/aTesting";
 const Section = () => {
   const [user] = useContext(UserContext);
+  console.log(user)
   const LoginRoute = ({ user, ...props }) =>
     user ? <Route {...props} /> : <Redirect to="/home" />;
 
   return (
     <div className="section">
       <Switch>
-        <Route exact path="/detailevent" user={user} component={Detail} />
+        <Route exact path="/detailevent/:id" user={user} component={Detail} />
         {user && (
           <>
             {/* login route */}
@@ -64,7 +65,7 @@ const Section = () => {
                 </Switch>
               </>
             )}
-            {user.role === "user" && (
+            {user.role === "User" && (
               <>
                 {/* user route */}
                 <Switch>
@@ -89,7 +90,7 @@ const Section = () => {
                 </Switch>
               </>
             )}
-            {user.role === "admin" && (
+            {user.role === "Admin" && (
               <>
                 {/* admin route */}
                 <Switch>

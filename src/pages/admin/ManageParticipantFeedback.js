@@ -139,7 +139,7 @@ export default function ManageParticipant() {
               align="center"
               color="textPrimary"
               gutterBottom
-              text="Manage Event Participant"
+              text="Manage Participant"
             />
           </Container>
         </div>
@@ -149,9 +149,9 @@ export default function ManageParticipant() {
               datatest="question"
               text="Feedback Question"
               type="submit"
-              color="info"
-              style={{ margin: 20 }}
+              style={{ margin: 20, backgroundColor: "#3f50b5", }}
               onClick={() => {}}
+           
             />
           </Link>
           <Button

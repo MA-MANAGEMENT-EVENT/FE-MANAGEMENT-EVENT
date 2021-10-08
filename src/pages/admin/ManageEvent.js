@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import TextField from "../../atoms/textfield/TextField";
 import Typography from "../../atoms/typography/Typhography";
 import Grid from "../../atoms/grid/index";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import CardEvent from "../../molecules/cardevent";
-
+import { EventContext } from "../../context/EventContext";
+import Axios from "axios";
 const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
@@ -37,7 +38,9 @@ const useStyles = makeStyles((theme) => ({
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const ManageEvent = () => {
+  const [events] = useContext(EventContext);
   const classes = useStyles();
+
   return (
     <>
       <div className={classes.heroContent} style={{ marginTop: 10 }}>
@@ -66,15 +69,15 @@ const ManageEvent = () => {
       </div>
       <Container className={classes.cardGrid} maxWidth="md">
         <Grid container spacing={2}>
-          {cards.map((card) => (
+          {events.map((event) => (
             <CardEvent
-              card={card}
+              eventId={event.id}
               imageUrl={"https://source.unsplash.com/random"}
-              title={"Title"}
+              title={event.name}
               description={
-                " This is a media card. You can use this section to describe the content."
+                event.description
               }
-              link={["/detailevent", "/editevent", "/delete"]}
+              link={[`/detailevent/${event.id}`, "/editevent", "/delete"]}
               linkText={["View", "Edit", "Delete"]}
             />
           ))}

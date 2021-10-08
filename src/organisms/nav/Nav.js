@@ -10,7 +10,7 @@ import logo from "../nav/logoMA2.png";
 const Nav = (props) => {
   const [user, setUser] = useContext(UserContext);
   const handleLogout = () => {
-    setUser(null);
+    setUser( {role: "guest" });
     localStorage.removeItem("user");
   };
   return (
@@ -76,7 +76,7 @@ const Nav = (props) => {
               
 
                 {/* User Route */}
-                {user.role === "user" && (
+                {user.role === "User" && (
                   <>
                   <Link
               to="/home"
@@ -98,11 +98,21 @@ const Nav = (props) => {
                         className="link"
                       />
                     </Link>
-                    
+                    <Link
+                      to="/Home"
+                      style={{ textDecoration: "none", padding: 10 }}
+                      onClick={()=>handleLogout()}
+                    >
+                      <Typography
+                        variant="body1"
+                        text="LogOut"
+                        className="link"
+                      />
+                    </Link>
                   </>
                 )}
                 {/* Admin Route */}
-                {user.role === "admin" && (
+                {user.role === "Admin" && (
                   <>
                     <Link
                       to="/manageevent"
@@ -134,16 +144,10 @@ const Nav = (props) => {
                         className="link"
                       />
                     </Link>
-                  
-                    
-                  
-                  </>
-                )}
-                  {user.role === "user" || user.role === "admin" && (
-                  <>
                     <Link
-                      to="/logout"
+                      to="/Home"
                       style={{ textDecoration: "none", padding: 10 }}
+                      onClick={()=>handleLogout()}
                     >
                       <Typography
                         variant="body1"
@@ -151,8 +155,11 @@ const Nav = (props) => {
                         className="link"
                       />
                     </Link>
+                    
+                  
                   </>
                 )}
+                
               </>
             )}
           </Toolbar>

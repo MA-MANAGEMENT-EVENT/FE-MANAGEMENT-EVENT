@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Sidebar(props) {
   const [user] = useContext(UserContext);
   const classes = useStyles();
-  const { description, title, desc2, speaker, location, time } = props;
+  const { description, title, desc2, speaker, location, time, onSubmit } = props;
 
   return (
     <Grid item xs={12} md={4}>
@@ -105,7 +105,7 @@ export default function Sidebar(props) {
       </Grid>
 
       <div style={{ borderTop: "1px gainsboro solid", marginBottom: 5 }}>
-        {user.role === "user" && (
+        {user.role === "User" && (
           <Typography
             style={{
               fontSize: 20.0,
@@ -118,30 +118,36 @@ export default function Sidebar(props) {
             {desc2}
           </Typography>
         )}
-        {user.role === "user" && 
+        {user.role === "User" && (
+          <Button
+           
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            text="Daftar Sekarang"
+            size="large"
+            style={{
+              fontSize: 18,
+              fontWeight: "700",
+              borderRadius: "8px",
+              backgroundColor: "#3f50b5",
+            }}
+            onClick={()=>onSubmit()}
+          />
+        )}
+        {user.role === "Admin" && (
+          <Link
+            to="/manageparticipantandfeedback"
+            style={{ textDecoration: "none" }}
+          >
             <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              text="Daftar Sekarang"
               size="large"
-              style={{ fontSize: 18, fontWeight: "700", borderRadius: "8px" }}
-            />
-        
-        }
-        {user.role === "admin" && (
-          <Link to="/manageparticipantandfeedback">
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
               text="Manage Participant and Feedback"
-              size="large"
-              style={{ fontSize: 18, fontWeight: "700", borderRadius: "8px" }}
+              // color="secondary"
+              style={{
+                backgroundColor: "#3f50b5",
+              }}
             />
           </Link>
         )}
