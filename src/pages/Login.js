@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import TextField from "../atoms/textfield/TextField";
 import Typography from "../atoms/typography/Typhography";
 import Grid from "../atoms/grid/index";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, set } from "react-hook-form";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Axios from "axios";
+import Cookies from "js-cookie";
+import { UserContext } from "../context/UserContext";
+import { useHistory } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -26,16 +29,26 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Login() {
+  let history = useHistory();
   const classes = useStyles();
+  const [User, setUser] = useContext(UserContext);
   const { control, register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
-    Axios.post(`https://cors-anywhere.herokuapp.com/https://management-event-api.herokuapp.com/auth/login`, {
+    // console.log(data);
+    Axios.post(`auth/login`, {
       email: data.email,
       password: data.password,
     }).then((res) => {
-      console.log(res);
+  
+      setUser(res.data);
+      localStorage.setItem("user", JSON.stringify(res.data));
+      // // localStorage.setItem('token',res.data.token)
+
+      // console.log(User)
+      history.push("/");
+      // Cookies.set('JSESSIONID', 'CC894E3EE6E10644DB3B012F05C5FC32')
+
       // if(res.data==="invalid username or password"){
       //   handleClickOpen()
       // }else{

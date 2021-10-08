@@ -11,9 +11,9 @@ export const EventProvider = props => {
     if (dataEvents.length === 0 ) {
       axios.get(`https://management-event-api.herokuapp.com/event`)
         .then(res => {
-          console.log(res)
-          const newData = res.data.map((el) => { return el}) ;
-          setdataEvents(newData);
+          //console.log(res)
+          // const newData = res.data.map((el) => { return el}) ;
+          // setdataEvents(newData);
         
         })
     }

@@ -6,7 +6,7 @@ export const UserContext = createContext();
 
 export const UserProvider = (props) => {
   const currentUser = JSON.parse(localStorage.getItem("user"));
-  const iniateUser = currentUser ? currentUser : { email: "", role: "admin" };
+  const iniateUser = currentUser ? currentUser : {role: "guest" };
 
   const [user, setUser] = useState(iniateUser);
   const [daftarUser, setDaftarUser] = useState([]);

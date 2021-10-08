@@ -118,6 +118,7 @@ const EventForm = () => {
         <Controller
           name="speaker"
           control={control}
+          
           render={({  field }) => {
             return (
               <TextField
