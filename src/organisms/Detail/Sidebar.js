@@ -8,6 +8,7 @@ import Button from "../../atoms/button/Button";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import RoomOutlinedIcon from "@mui/icons-material/RoomOutlined";
 import EventAvailableSharpIcon from "@mui/icons-material/EventAvailableSharp";
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { UserContext } from "../../context/UserContext";
 import { Link } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
@@ -105,6 +106,25 @@ export default function Sidebar(props) {
       </Grid>
 
       <div style={{ borderTop: "1px gainsboro solid", marginBottom: 5 }}>
+      {user.role === "guest" && (
+        <Link to="/signup"
+        style={{ textDecoration: "none"}}>
+       
+          <Button
+            size="large"
+            text="Sign Up Here"      
+            fullWidth
+            endIcon={<ArrowForwardIosIcon 
+              style={{marginTop: 1, paddingBottom: 1}} 
+              />}
+            style={{
+              marginTop: 30.0,
+              fontSize: 18, fontWeight: "700", borderRadius: "8px",
+              backgroundColor: "#3f50b5"
+            }}
+          />
+        </Link>
+      )}
         {user.role === "user" && (
           <Typography
             style={{
@@ -125,9 +145,9 @@ export default function Sidebar(props) {
             variant="contained"
             color="primary"
             className={classes.submit}
-            text="Daftar Sekarang"
+            text="Register for Event"
             size="large"
-            style={{ fontSize: 18, fontWeight: "700", borderRadius: "8px" }}
+            style={{ fontSize: 18, fontWeight: "700", borderRadius: "8px", backgroundColor: "#3f50b5" }}
           />
         )}
         {user.role === "admin" && (
