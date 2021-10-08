@@ -34,7 +34,7 @@ const CardEvent = (props) => {
   const classes = useStyles();
   return (
     <>
-      <Grid item key={props.card} xs={12} sm={6} md={4}>
+      <Grid item key={props.eventId} xs={12} sm={6} md={4}>
         <Card className={classes.card}>
           <CardMedia
             className={classes.cardMedia}
