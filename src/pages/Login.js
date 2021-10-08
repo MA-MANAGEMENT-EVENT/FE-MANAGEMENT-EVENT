@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import TextField from "../atoms/textfield/TextField";
 import Typography from "../atoms/typography/Typhography";
 import Grid from "../atoms/grid/index";
-import { useForm, Controller, set } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Link from "@material-ui/core/Link";
@@ -12,6 +12,7 @@ import Axios from "axios";
 import Cookies from "js-cookie";
 import { UserContext } from "../context/UserContext";
 import { useHistory } from "react-router-dom";
+import { Alert } from "../atoms/alert/Alert";
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -33,29 +34,32 @@ export default function Login() {
   const classes = useStyles();
   const [User, setUser] = useContext(UserContext);
   const { control, register, handleSubmit } = useForm();
-
+  const [open, setOpen] = useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
   const onSubmit = (data) => {
-    // console.log(data);
-    Axios.post(`auth/login`, {
-      email: data.email,
-      password: data.password,
-    }).then((res) => {
-  
-      setUser(res.data);
-      localStorage.setItem("user", JSON.stringify(res.data));
-      // // localStorage.setItem('token',res.data.token)
-
-      // console.log(User)
-      history.push("/");
-      // Cookies.set('JSESSIONID', 'CC894E3EE6E10644DB3B012F05C5FC32')
-
-      // if(res.data==="invalid username or password"){
-      //   handleClickOpen()
-      // }else{
-      //   setUser(res.data)
-      //   localStorage.setItem("user", JSON.stringify({username: input.username, password: input.password}))
-      // }
-    });
+    handleClose()
+    const { email, password } = data;
+    if (email && password) {
+      Axios.post(`auth/login`, {
+        email: data.email,
+        password: data.password,
+      }).then((res) => {
+        if (res) {
+          setUser(res.data);
+          localStorage.setItem("user", JSON.stringify(res.data));
+          history.push("/");
+        } else {
+          handleClickOpen();
+        }
+      });
+    } else {
+      handleClickOpen();
+    }
   };
 
   return (
@@ -63,6 +67,13 @@ export default function Login() {
       <CssBaseline />
       <div className={classes.paper}>
         <Typography text="Sign in" variant="h4" />
+        {open && (
+          <Alert
+            severity="error"
+            title="Error Login failed."
+            className="formInfo"
+          ></Alert>
+        )}
         <form
           className={classes.form}
           noValidate
