@@ -11,10 +11,11 @@ import ManageEvent from "../pages/admin/ManageEvent";
 import EventForm from "../pages/admin/EventForm";
 import ManageParticipantFeedback from "../pages/admin/ManageParticipantFeedback";
 import PageNotFound from "../pages/PageNotFound";
-import ChangePassword from "../pages/ChangePassword"
-import ResetPassword from "../pages/ResetPassword"
+import ChangePassword from "../pages/ChangePassword";
+import ResetPassword from "../pages/ResetPassword";
 import ManageSpeaker from "../pages/admin/ManageSpeaker";
 import FeedbackQuestion from "../pages/admin/FeedbackQuestion";
+import FullFeaturedCrudGrid from "../pages/admin/aTesting";
 const Section = () => {
   const [user] = useContext(UserContext);
   console.log(user)
@@ -131,6 +132,12 @@ const Section = () => {
                     path="/manageparticipantandfeedback"
                     user={user}
                     component={ManageParticipantFeedback}
+                  />
+                  <Route
+                    exact
+                    path="/atesting"
+                    user={user}
+                    component={FullFeaturedCrudGrid}
                   />
                   {/* not found */}
                   <Route component={PageNotFound} />
