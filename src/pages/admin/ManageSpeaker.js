@@ -1,6 +1,5 @@
 import React from "react";
 import { DataGrid } from "@mui/x-data-grid";
-// import { DataGridPro } from "@mui/x-data-grid-pro";
 import Container from "@material-ui/core/Container";
 import Typography from "../../atoms/typography/Typhography";
 import TextField from "../../atoms/textfield/TextField";
@@ -185,61 +184,58 @@ export default function ManageSpeaker() {
       {/* Add New Speaker */}
       <div
         style={{
-          height:70,
+          height: 70,
         }}
       >
-      <Button
-        // className="add"
-        text="Add Speaker"
-        onClick={handleOpen}
-        // startIcon={<AddIcon/>}
-         />
-       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Add New Speaker</DialogTitle>
-        <DialogContent>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Nama Speaker"
-            type="text"
-            fullWidth
-            variant="standard"
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Description"
-            type="text"
-            fullWidth
-            variant="standard"
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label=""
-            type="file"
-            fullWidth
-            variant="standard"
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button 
-            onClick={handleClose}
-            // startIcon={<CloseIcon />}
-            color="secondary"
-            text="Cancel"
-          />
-          <Button 
-          onClick={handleClose} 
-          text="Submit"
-          />
-        </DialogActions>
-      </Dialog>
-
-     </div>
+        <Button
+          // className="add"
+          text="Add Speaker"
+          onClick={handleOpen}
+          // startIcon={<AddIcon/>}
+        />
+        <Dialog open={open} onClose={handleClose}>
+          <DialogTitle>Add New Speaker</DialogTitle>
+          <DialogContent>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Nama Speaker"
+              type="text"
+              fullWidth
+              variant="standard"
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Description"
+              type="text"
+              fullWidth
+              variant="standard"
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label=""
+              type="file"
+              fullWidth
+              variant="standard"
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button
+              onClick={handleClose}
+              // startIcon={<CloseIcon />}
+              // color="secondary"
+              style={{ background: "#D1514A" }}
+              text="Cancel"
+            />
+            <Button onClick={handleClose} text="Submit" />
+          </DialogActions>
+        </Dialog>
+      </div>
       <div
         style={{
           height: 400,
