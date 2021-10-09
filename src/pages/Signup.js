@@ -58,22 +58,27 @@ export default function SignUp() {
         console.log(res.data);
         if (res.data.verificationcode) {
         } else {
-          handleClickOpen()
+          handleClickOpen();
         }
         // history.push("/");
       });
       // history.push("/login");
     } else {
-      handleClickOpen()
+      handleClickOpen();
     }
   };
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-
         <Typography text="Sign up" variant="h4" />
-        {open&&<Alert severity="error" title="Error Sign up failed."className="formInfo" ></Alert>}
+        {open && (
+          <Alert
+            severity="error"
+            title="Error Sign up failed."
+            className="formInfo"
+          ></Alert>
+        )}
         <form
           className={classes.form}
           noValidate
@@ -108,7 +113,6 @@ export default function SignUp() {
                     id="email"
                     label="Email"
                     autoComplete="email"
-                    autoFocus
                     {...field}
                   />
                 )}
@@ -127,7 +131,6 @@ export default function SignUp() {
                     id="password"
                     label="Password"
                     autoComplete="password"
-                    autoFocus
                     {...field}
                   />
                 )}
@@ -145,7 +148,6 @@ export default function SignUp() {
                     id="job"
                     label="Job"
                     autoComplete="job"
-                    autoFocus
                     {...field}
                   />
                 )}

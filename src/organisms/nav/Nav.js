@@ -10,8 +10,9 @@ import logo from "../nav/logoMA2.png";
 const Nav = (props) => {
   const [user, setUser] = useContext(UserContext);
   const handleLogout = () => {
-    setUser( {role: "guest" });
-    localStorage.removeItem("user");
+    setUser({ role: "guest" });
+    localStorage.removeItem("userId");
+    localStorage.removeItem("token");
   };
   return (
     <>
@@ -34,23 +35,26 @@ const Nav = (props) => {
                 style={{ marginLeft: 10.0 }}
               />
             </Link>
-            
 
             {/* User / Admin Route */}
             {user && (
               <>
                 {user.role === "guest" && (
                   <>
-                  <Link
-              to="/home"
-              style={{
-                textDecoration: "none",
-                padding: 10,
-                marginLeft: "auto",
-              }}
-            >
-              <Typography variant="body1" text="Home" className="link" />
-            </Link>
+                    <Link
+                      to="/home"
+                      style={{
+                        textDecoration: "none",
+                        padding: 10,
+                        marginLeft: "auto",
+                      }}
+                    >
+                      <Typography
+                        variant="body1"
+                        text="Home"
+                        className="link"
+                      />
+                    </Link>
                     <Link
                       to="/login"
                       style={{ textDecoration: "none", padding: 10 }}
@@ -73,21 +77,24 @@ const Nav = (props) => {
                     </Link>
                   </>
                 )}
-              
 
                 {/* User Route */}
                 {user.role === "User" && (
                   <>
-                  <Link
-              to="/home"
-              style={{
-                textDecoration: "none",
-                padding: 10,
-                marginLeft: "auto",
-              }}
-            >
-              <Typography variant="body1" text="Home" className="link" />
-            </Link>
+                    <Link
+                      to="/home"
+                      style={{
+                        textDecoration: "none",
+                        padding: 10,
+                        marginLeft: "auto",
+                      }}
+                    >
+                      <Typography
+                        variant="body1"
+                        text="Home"
+                        className="link"
+                      />
+                    </Link>
                     <Link
                       to="/history"
                       style={{ textDecoration: "none", padding: 10 }}
@@ -101,7 +108,7 @@ const Nav = (props) => {
                     <Link
                       to="/Home"
                       style={{ textDecoration: "none", padding: 10 }}
-                      onClick={()=>handleLogout()}
+                      onClick={() => handleLogout()}
                     >
                       <Typography
                         variant="body1"
@@ -116,7 +123,11 @@ const Nav = (props) => {
                   <>
                     <Link
                       to="/manageevent"
-                      style={{ textDecoration: "none", padding: 10, marginLeft:"auto" }}
+                      style={{
+                        textDecoration: "none",
+                        padding: 10,
+                        marginLeft: "auto",
+                      }}
                     >
                       <Typography
                         variant="body1"
@@ -147,7 +158,7 @@ const Nav = (props) => {
                     <Link
                       to="/Home"
                       style={{ textDecoration: "none", padding: 10 }}
-                      onClick={()=>handleLogout()}
+                      onClick={() => handleLogout()}
                     >
                       <Typography
                         variant="body1"
@@ -155,11 +166,8 @@ const Nav = (props) => {
                         className="link"
                       />
                     </Link>
-                    
-                  
                   </>
                 )}
-                
               </>
             )}
           </Toolbar>

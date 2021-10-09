@@ -15,7 +15,7 @@ import ChangePassword from "../pages/ChangePassword";
 import ResetPassword from "../pages/ResetPassword";
 import ManageSpeaker from "../pages/admin/ManageSpeaker";
 import FeedbackQuestion from "../pages/admin/FeedbackQuestion";
-import FullFeaturedCrudGrid from "../pages/admin/aTesting";
+// import FullFeaturedCrudGrid from "../pages/admin/aTesting";
 const Section = () => {
   const [user] = useContext(UserContext);
   console.log(user)
@@ -75,7 +75,7 @@ const Section = () => {
                   <Route exact path="/home" component={Home} />
                   <Route
                     exact
-                    path="/feedback"
+                    path="/feedback/:id"
                     user={user}
                     component={Feedback}
                   />
@@ -133,12 +133,12 @@ const Section = () => {
                     user={user}
                     component={ManageParticipantFeedback}
                   />
-                  <Route
+                  {/* <Route
                     exact
                     path="/atesting"
                     user={user}
                     component={FullFeaturedCrudGrid}
-                  />
+                  /> */}
                   {/* not found */}
                   <Route component={PageNotFound} />
                 </Switch>

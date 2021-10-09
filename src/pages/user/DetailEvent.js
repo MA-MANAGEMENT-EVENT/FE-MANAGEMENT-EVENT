@@ -9,7 +9,7 @@ import Main from "../../organisms/Detail/Description";
 import Sidebar from "../../organisms/Detail/Sidebar";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-
+import Axios from "axios";
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
     marginTop: theme.spacing(3),
@@ -65,6 +65,30 @@ export default function DetailEvent() {
       });
     }
   });
+  const onSubmit = () => {
+    const token = localStorage.getItem("token");
+    console.log(token);
+    console.log(id);
+    Axios({
+      method: "post",
+      url: `event-registration/register/${id}`,
+      headers: { Authorization: "Basic" + token },
+    }).then((res) => {
+      console.log(res);
+    });
+    // Axios.post(`event-registration/register`, {
+    //   eventId: id,
+    //   headers: {'Authorization' : `Basic ${token}`} }).then((res) => {
+    //   if (res) {
+    //    console.log(res)
+    //     // setUser(res.data);
+    //     // localStorage.setItem("user", JSON.stringify(res.data));
+    //     // history.push("/");
+    //   } else {
+    //     // handleClickOpen();
+    //   }
+    // });
+  };
   return (
     <>
       {event && (
@@ -78,22 +102,20 @@ export default function DetailEvent() {
                 imgText="main image description"
                 location={event.location.platform.name}
                 time={`${event.openRegistration} - ${event.closeRegistration}`}
-                speaker={event.speaker.map(speaker=>speaker.name).join(",")}
+                speaker={event.speaker.map((speaker) => speaker.name).join(",")}
               />
               <Grid container spacing={5} className={classes.mainGrid}>
-                <Main
-                  title={event.name}
-                  description={event.description}
-                  
-                />
+                <Main title={event.name} description={event.description} />
                 <Sidebar
                   description={sidebar.description}
                   desc2={sidebar.desc2}
-                  speaker={event.speaker.map(speaker=>speaker.name).join(",")}
+                  speaker={event.speaker
+                    .map((speaker) => speaker.name)
+                    .join(",")}
                   location={event.location.platform.name}
                   time={`${event.startDate} - ${event.endDate}`}
                   style={{ position: "fixed", justifyContent: "center" }}
-                  onSubmit={onSubmit()}
+                  onSubmit={onSubmit}
                 />
                 <div style={{ margin: 10 }}></div>
               </Grid>
