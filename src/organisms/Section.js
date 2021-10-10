@@ -17,7 +17,6 @@ import ManageSpeaker from "../pages/admin/ManageSpeaker";
 import FeedbackQuestion from "../pages/admin/FeedbackQuestion";
 const Section = () => {
   const [user] = useContext(UserContext);
-  console.log(user)
   const LoginRoute = ({ user, ...props }) =>
     user ? <Route {...props} /> : <Redirect to="/home" />;
 
@@ -110,7 +109,7 @@ const Section = () => {
                   />
                   <Route
                     exact
-                    path="/editevent"
+                    path="/editevent/:id"
                     user={user}
                     component={EventForm}
                   />

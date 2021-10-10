@@ -60,64 +60,66 @@ const History = () => {
     }
   });
   const classes = useStyles();
-  return(
+  return (
     <>
-    {history&&(
-      <>
-      <div className={classes.heroContent} style={{ marginTop: 5 }}>
-        <Container maxWidth="sm">
-          <Typography
-            variant="h4"
-            align="center"
-            color="textPrimary"
-            gutterBottom
-            text="Events History"
-          />
-        </Container>
-      </div>
-
-      <Box>
-        {history.map((data)=>{
-          return(
-        
-            <Paper elevation={5} sx={{ mx: "auto", p: 5 }}>
-          <Grid container>
-            <Grid item xs={4}>
+      {history && (
+        <>
+          <div className={classes.heroContent} style={{ marginTop: 5 }}>
+            <Container maxWidth="sm">
               <Typography
-                align="left"
-                color="textSecondary"
-                text={data.event.name}
-                paragraph
-              />
-            </Grid>
-            <Grid item xs={4}>
-              <Typography
+                variant="h4"
                 align="center"
-                color="textSecondary"
-                text={`${data.event.startDate} - ${data.event.endDate}`}
-                paragraph
+                color="textPrimary"
+                gutterBottom
+                text="Events History"
               />
-            </Grid>
-            <Grid item xs={4}>
-              <div style={{ marginTop: -5, float: "right" }}>
-                <Link
-                  to={`/feedback/${data.event.id}`}
-                  style={{ textDecoration: "none", padding: 10 }}
-                >
-                  <Button size="small" color="primary" text="Feedback" />
-                </Link>
-              </div>
-            </Grid>
-          </Grid>
-        </Paper>
-      
-          )
-        })}
-      </Box>
-      </>
-    )}
+            </Container>
+          </div>
+
+          <Box>
+            {history.map((data) => {
+              return (
+                <Paper elevation={5} sx={{ mx: "auto", p: 5 }}>
+                  <Grid container>
+                    <Grid item xs={4}>
+                      <Typography
+                        align="left"
+                        color="textSecondary"
+                        text={data.event.name}
+                        paragraph
+                      />
+                    </Grid>
+                    <Grid item xs={4}>
+                      <Typography
+                        align="center"
+                        color="textSecondary"
+                        text={`${data.event.startDate} - ${data.event.endDate}`}
+                        paragraph
+                      />
+                    </Grid>
+                    <Grid item xs={4}>
+                      <div style={{ marginTop: -5, float: "right" }}>
+                        <Link
+                          to={`/feedback/${data.event.id}`}
+                          style={{ textDecoration: "none", padding: 10 }}
+                        >
+                          <Button
+                            size="small"
+                            color="primary"
+                            text="Feedback"
+                          />
+                        </Link>
+                      </div>
+                    </Grid>
+                  </Grid>
+                </Paper>
+              );
+            })}
+          </Box>
+        </>
+      )}
     </>
-  )
+  );
 };
 
 export default History;

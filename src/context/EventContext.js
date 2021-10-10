@@ -11,6 +11,7 @@ export const EventProvider = props => {
     if (dataEvents.length === 0 ) {
       axios.get(`https://management-event-api.herokuapp.com/event`)
         .then(res => {
+          console.log(res)
           setdataEvents(res.data)
         })
     }

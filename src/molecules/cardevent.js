@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Button from "../atoms/button/Button";
 import Typography from "../atoms/typography/Typhography";
 import Card from "@material-ui/core/Card";
@@ -7,6 +7,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Grid from "../atoms/grid/index";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
+import { EventContext } from "../context/EventContext";
 const useStyles = makeStyles(() => ({
   card: {
     height: "100%",
@@ -20,6 +21,7 @@ const useStyles = makeStyles(() => ({
     flexGrow: 1,
   },
 }));
+
 const ButtonColor = (text) => {
   switch (text) {
     case "Edit":
@@ -31,7 +33,9 @@ const ButtonColor = (text) => {
   }
 };
 const CardEvent = (props) => {
+
   const classes = useStyles();
+
   return (
     <>
       <Grid item key={props.eventId} xs={12} sm={6} md={4}>
@@ -54,6 +58,9 @@ const CardEvent = (props) => {
 
           <Grid container style={{ marginBottom: 10 }}>
             {props.link.map((value, i) => {
+              // const handlestatus=props.linkText[i].includes("Edit")
+              // console.log(props.linkText[i])
+              //console.log(props.handleEdit)
               return (
                 <Grid item xs={3.5}>
                   <Link
@@ -63,6 +70,7 @@ const CardEvent = (props) => {
                     <Button
                       size="small"
                       text={props.linkText[i]}
+                     // onClick={props.linkText[i].includes("Edit")? props.handleEdit: null}
                       style={{
                         backgroundColor: ButtonColor(props.linkText[i]),
                       }}

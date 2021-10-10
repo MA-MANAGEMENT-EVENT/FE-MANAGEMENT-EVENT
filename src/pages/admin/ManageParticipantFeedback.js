@@ -144,14 +144,13 @@ export default function ManageParticipant() {
           </Container>
         </div>
         <div align="right">
-          <Link to="/question" style={{ textDecoration: "none"}}>
+          <Link to="/question" style={{ textDecoration: "none" }}>
             <Button
               datatest="question"
               text="Feedback Question"
               type="submit"
-              style={{ margin: 20, backgroundColor: "#3f50b5", }}
+              style={{ margin: 20, backgroundColor: "#3f50b5" }}
               onClick={() => {}}
-           
             />
           </Link>
           <Button
