@@ -29,9 +29,9 @@ const useStyles = makeStyles((theme) => ({
 
 const columns = [
   { field: "id", headerName: "ID", width: "150" },
-  { field: "participant", headerName: "Participant Name", width: "200" },
-  { field: "email", headerName: "Email", width: "200" },
-  { field: "job", headerName: "Job", width: "200" },
+  { field: "name", headerName: "Participant Name", width: "200" },
+  { field: "email", headerName: "Email", width: "300" },
+  { field: "job", headerName: "Job", width: "150" },
   { field: "feedback1", headerName: "Feedback 1", width: "200" },
   { field: "feedback2", headerName: "Feedback 2", width: "200" },
   { field: "feedback3", headerName: "Feedback 3", width: "200" },
@@ -135,6 +135,27 @@ export default function ManageParticipant() {
   let [participant, setParticipant] = useState(null);
   const [dataEvents, setStatusForm] = useContext(EventContext);
 
+  // const rows = []
+
+  let rows = [];
+
+  // {participant.map((data) => {
+  //   return (
+  //   rows = [
+  //     // {participant && (
+
+  //     // console.log(data.participant.id
+  //     {
+  //       id: `${data.participant.id}`,
+  //       name: `${data.participant.name}`,
+  //       email: `${data.participant.email}`,
+  //       job: `${data.participant.job}`,
+  //     },
+
+  //     // )}
+  //   ]);
+  // });}
+
   // console.log(event.id)
 
   // console.log(`${id}`)
@@ -196,11 +217,28 @@ export default function ManageParticipant() {
                 marginBottom: 50,
               }}
             >
-              {participant.map((data) => {
+              <DataGrid
+                  rows={rows}
+                  columns={columns}
+                  pageSize={5}
+                  rowsPerPageOptions={[10]}
+                  disableSelectionOnClick
+                />
+
+              
+              {/* {participant.map((data) => {
                 return (
-                  console.log(data),
+                  console.log(data.participant.id),
                   <DataGrid
-                    // rows={data}
+                  
+                    rows={[
+                      {
+                        id: `${data.participant.id}`,
+                        name: `${data.participant.name}`,
+                        email: `${data.participant.email}`,
+                        job: `${data.participant.job}`,
+                      },
+                    ]}
                     // rows={rows}
                     columns={columns}
                     pageSize={5}
@@ -208,7 +246,7 @@ export default function ManageParticipant() {
                     disableSelectionOnClick
                   />
                 );
-              })}
+              })} */}
             </div>
           </div>
         </Container>
