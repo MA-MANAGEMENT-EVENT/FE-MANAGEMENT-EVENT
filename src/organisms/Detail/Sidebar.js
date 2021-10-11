@@ -138,7 +138,7 @@ export default function Sidebar(props) {
         )}
         {user.role === "Admin" && (
           <Link
-            to="/manageparticipantandfeedback"
+            to="/manageparticipantandfeedback/"
             style={{ textDecoration: "none" }}
           >
             <Button

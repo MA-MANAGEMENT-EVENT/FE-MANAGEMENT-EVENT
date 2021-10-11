@@ -127,7 +127,8 @@ const Section = () => {
                   />
                   <Route
                     exact
-                    path="/manageparticipantandfeedback"
+                    path="/manageparticipantandfeedback/"
+                    
                     user={user}
                     component={ManageParticipantFeedback}
                   />

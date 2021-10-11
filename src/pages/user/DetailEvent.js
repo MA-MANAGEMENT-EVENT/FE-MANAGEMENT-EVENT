@@ -53,6 +53,7 @@ export default function DetailEvent() {
   let { id } = useParams();
   const [event, setEvent] = useState(null);
   const classes = useStyles();
+  console.log(id)
 
   // useEffect(() => {
   //   window.scrollTo(0, 0);
