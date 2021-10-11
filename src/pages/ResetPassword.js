@@ -1,13 +1,19 @@
-import React from "react";
-import { useForm } from "react-hook-form";
+import React, { useContext, useState } from "react";
+import TextField from "../atoms/textfield/TextField";
+import Typography from "../atoms/typography/Typhography";
+import Grid from "../atoms/grid/index";
+import { useForm, Controller } from "react-hook-form";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "../atoms/textfield/TextField";
 import Link from "@material-ui/core/Link";
-import Typography from "../atoms/typography/Typhography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-
+import Axios from "axios";
+import Cookies from "js-cookie";
+import { UserContext } from "../context/UserContext";
+import { useHistory } from "react-router-dom";
+import { Alert } from "../atoms/alert/Alert";
+import axios from "axios";
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -19,21 +25,36 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     marginTop: theme.spacing(1),
   },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
 }));
 
-const ResetPassword=()=> {
+export default function ResetPassword() {
+
   const classes = useStyles();
-  const { register, handleSubmit } = useForm();
+
+  const { control, register, handleSubmit } = useForm();
+  const [open, setOpen] = useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
   const onSubmit = (data) => {
-    // Axios.post(`url`,{username:data.email,password:input.password})
-    // .then((res)=>{
-    //   if(res.data==="invalid username or password"){
-    //     handleClickOpen()
-    //   }else{
-    //     setUser(res.data)
-    //     localStorage.setItem("user", JSON.stringify({username: input.username, password: input.password}))
-    //   }
-    // })
+   console.log(data)
+   if (data.email ) {
+     axios.post(`auth/forgot-password`,{
+       email:data.email
+     }).then((res)=>{
+       console.log(res)
+       if(res){
+         handleClickOpen()
+       }
+     })
+    }
+   
   };
 
   return (
@@ -41,34 +62,36 @@ const ResetPassword=()=> {
       <CssBaseline />
       <div className={classes.paper}>
         <Typography text="Reset Password" variant="h4" />
+        {open && (
+          <Alert
+            severity="success"
+            title="Check your Email"
+            className="formInfo"
+          ></Alert>
+        )}
         <form
           className={classes.form}
           noValidate
           onSubmit={handleSubmit(onSubmit)}
         >
-          {/* <TextField
-            {...register("email")}
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
+          <Controller
+            render={({ field }) => (
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                autoComplete="email"
+                autoFocus
+                {...field}
+              />
+            )}
+            control={control}
             name="email"
-            autoComplete="email"
-            autoFocus
-          /> */}
-          <TextField
-            {...register("email")}
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="email"
-            label="Email"
-            id="email"
-            autoComplete="email"
           />
+          
 
           <Button
             type="submit"
@@ -77,11 +100,10 @@ const ResetPassword=()=> {
             color="primary"
             className={classes.submit}
           >
-            Reset
+            Reset Password
           </Button>
         </form>
       </div>
     </Container>
   );
 }
-export default ResetPassword

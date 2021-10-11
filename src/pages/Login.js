@@ -49,6 +49,7 @@ export default function Login() {
         email: data.email,
         password: data.password,
       }).then((res) => {  
+        console.log(res)
         if (res) {
          
           setUser(res.data);

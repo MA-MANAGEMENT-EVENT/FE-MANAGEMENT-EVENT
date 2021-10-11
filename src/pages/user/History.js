@@ -100,7 +100,7 @@ const History = () => {
                     <Grid item xs={4}>
                       <div style={{ marginTop: -5, float: "right" }}>
                         <Link
-                          to={`/feedback/${data.event.id}`}
+                          to={`/feedback/${data.event.id}/${data.id}`}
                           style={{ textDecoration: "none", padding: 10 }}
                         >
                           <Button
