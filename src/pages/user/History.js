@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Container from "@material-ui/core/Container";
 import Typography from "../../atoms/typography/Typhography";
 import { makeStyles } from "@material-ui/core/styles";
@@ -7,6 +7,7 @@ import Button from "../../atoms/button/Button";
 import Paper from "@mui/material/Paper";
 import Grid from "../../atoms/grid/index";
 import { Link } from "react-router-dom";
+import Axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -43,84 +44,80 @@ const history = [
 const countHistory = history.filter((item) => item.id).length;
 
 const History = () => {
+  const [history, setHistory] = useState(null);
+  useEffect(() => {
+    if (history === null) {
+      const token = localStorage.getItem("token");
+      const userId = localStorage.getItem("userId");
+
+      Axios({
+        method: "get",
+        url: `event-registration/history/${userId}`,
+      }).then((res) => {
+        console.log(res);
+        setHistory(res.data);
+      });
+    }
+  });
   const classes = useStyles();
   return (
     <>
-      <div className={classes.heroContent} style={{ marginTop: 5 }}>
-        <Container maxWidth="sm">
-          <Typography
-            variant="h4"
-            align="center"
-            color="textPrimary"
-            gutterBottom
-            text="Events History"
-          />
-        </Container>
-      </div>
-
-      <Box>
-        <Paper elevation={5} sx={{ mx: "auto", p: 5 }}>
-          <Grid container>
-            <Grid item xs={4}>
+      {history && (
+        <>
+          <div className={classes.heroContent} style={{ marginTop: 5 }}>
+            <Container maxWidth="sm">
               <Typography
-                align="left"
-                color="textSecondary"
-                text="Never Stop Learning, Because Life Never Stops Teaching."
-                paragraph
-              />
-            </Grid>
-            <Grid item xs={4}>
-              <Typography
+                variant="h4"
                 align="center"
-                color="textSecondary"
-                text="11/12/2021"
-                paragraph
+                color="textPrimary"
+                gutterBottom
+                text="Events History"
               />
-            </Grid>
-            <Grid item xs={4}>
-              <div style={{ marginTop: -5, float: "right" }}>
-                <Link
-                  to="/feedback"
-                  style={{ textDecoration: "none", padding: 10 }}
-                >
-                  <Button size="small" color="primary" text="Feedback" />
-                </Link>
-              </div>
-            </Grid>
-          </Grid>
-        </Paper>
+            </Container>
+          </div>
 
-        <Paper elevation={5} sx={{ my: 4, mx: "auto", p: 5 }}>
-          <Grid container>
-            <Grid item xs={4}>
-              <Typography
-                align="left"
-                color="textSecondary"
-                text="Never Stop Learning, Because Life Never Stops Teaching."
-                paragraph
-              />
-            </Grid>
-            <Grid item xs={4}>
-              <Typography
-                align="center"
-                color="textSecondary"
-                text="11/12/2021"
-                paragraph
-              />
-            </Grid>
-            <Grid item xs={4}>
-              <div style={{ marginTop: -5, float: "right" }}>
-                <Link
-                  to="/feedback"
-                  style={{ textDecoration: "none", padding: 10 }}
-                >
-                  <Button size="small" color="primary" text="Feedback" />
-                </Link>
-              </div>
-            </Grid>
-          </Grid>
-        </Paper>
-      </Box>
+          <Box>
+            {history.map((data) => {
+              return (
+                <Paper elevation={5} sx={{ mx: "auto", p: 5 }}>
+                  <Grid container>
+                    <Grid item xs={4}>
+                      <Typography
+                        align="left"
+                        color="textSecondary"
+                        text={data.event.name}
+                        paragraph
+                      />
+                    </Grid>
+                    <Grid item xs={4}>
+                      <Typography
+                        align="center"
+                        color="textSecondary"
+                        text={`${data.event.startDate} - ${data.event.endDate}`}
+                        paragraph
+                      />
+                    </Grid>
+                    <Grid item xs={4}>
+                      <div style={{ marginTop: -5, float: "right" }}>
+                        <Link
+                          to={`/feedback/${data.event.id}`}
+                          style={{ textDecoration: "none", padding: 10 }}
+                        >
+                          <Button
+                            size="small"
+                            color="primary"
+                            text="Feedback"
+                          />
+                        </Link>
+                      </div>
+                    </Grid>
+                  </Grid>
+                </Paper>
+              );
+            })}
+          </Box>
+        </>
+      )}
     </>
   );
 };

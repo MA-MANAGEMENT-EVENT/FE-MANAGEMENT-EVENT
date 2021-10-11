@@ -48,11 +48,12 @@ export default function Login() {
       Axios.post(`auth/login`, {
         email: data.email,
         password: data.password,
-      }).then((res) => {
+      }).then((res) => {  
         if (res) {
-          console.log(res)
+         
           setUser(res.data);
-          localStorage.setItem("user", JSON.stringify(res.data));
+          localStorage.setItem("userId", res.data.id);
+          localStorage.setItem("token", JSON.stringify(res.data.accessToken));
           history.push("/");
         } else {
           handleClickOpen();
@@ -107,7 +108,6 @@ export default function Login() {
                 id="password"
                 label="Password"
                 autoComplete="password"
-                autoFocus
                 {...field}
               />
             )}

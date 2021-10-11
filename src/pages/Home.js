@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const Home = () => {
-  const [events] = useContext(EventContext);
+  const [dataEvents] = useContext(EventContext);
   const [user] = useContext(UserContext);
   const classes = useStyles();
 
@@ -59,7 +59,7 @@ const Home = () => {
       </div>
       <Container className={classes.cardGrid} maxWidth="md">
         <Grid container spacing={4}>
-          {events.map((event) => (
+          {dataEvents.map((event) => (
             <CardEvent
               eventId={event.id}
               imageUrl={"https://source.unsplash.com/random"}

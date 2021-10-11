@@ -38,9 +38,11 @@ const useStyles = makeStyles((theme) => ({
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const ManageEvent = () => {
-  const [events] = useContext(EventContext);
   const classes = useStyles();
-
+  const [dataEvents,setStatusForm] = useContext(EventContext);
+  const handleEdit = () => {
+    setStatusForm("edit");
+  };
   return (
     <>
       <div className={classes.heroContent} style={{ marginTop: 10 }}>
@@ -69,7 +71,7 @@ const ManageEvent = () => {
       </div>
       <Container className={classes.cardGrid} maxWidth="md">
         <Grid container spacing={2}>
-          {events.map((event) => (
+          {dataEvents.map((event) => (
             <CardEvent
               eventId={event.id}
               imageUrl={"https://source.unsplash.com/random"}
@@ -77,7 +79,7 @@ const ManageEvent = () => {
               description={
                 event.description
               }
-              link={[`/detailevent/${event.id}`, "/editevent", "/delete"]}
+              link={[`/detailevent/${event.id}`, `/editevent/${event.id}`, "/delete"]}
               linkText={["View", "Edit", "Delete"]}
             />
           ))}

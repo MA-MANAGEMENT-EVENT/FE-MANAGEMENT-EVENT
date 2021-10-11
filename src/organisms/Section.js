@@ -15,10 +15,8 @@ import ChangePassword from "../pages/ChangePassword";
 import ResetPassword from "../pages/ResetPassword";
 import ManageSpeaker from "../pages/admin/ManageSpeaker";
 import FeedbackQuestion from "../pages/admin/FeedbackQuestion";
-import FullFeaturedCrudGrid from "../pages/admin/aTesting";
 const Section = () => {
   const [user] = useContext(UserContext);
-  console.log(user)
   const LoginRoute = ({ user, ...props }) =>
     user ? <Route {...props} /> : <Redirect to="/home" />;
 
@@ -75,7 +73,7 @@ const Section = () => {
                   <Route exact path="/home" component={Home} />
                   <Route
                     exact
-                    path="/feedback"
+                    path="/feedback/:id"
                     user={user}
                     component={Feedback}
                   />
@@ -111,7 +109,7 @@ const Section = () => {
                   />
                   <Route
                     exact
-                    path="/editevent"
+                    path="/editevent/:id"
                     user={user}
                     component={EventForm}
                   />
@@ -132,12 +130,6 @@ const Section = () => {
                     path="/manageparticipantandfeedback"
                     user={user}
                     component={ManageParticipantFeedback}
-                  />
-                  <Route
-                    exact
-                    path="/atesting"
-                    user={user}
-                    component={FullFeaturedCrudGrid}
                   />
                   {/* not found */}
                   <Route component={PageNotFound} />

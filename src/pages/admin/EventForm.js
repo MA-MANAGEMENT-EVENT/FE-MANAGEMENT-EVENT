@@ -3,18 +3,23 @@ import TextField from "../../atoms/textfield/TextField";
 import Button from "../../atoms/button/Button";
 import TextArea from "../../atoms/textarea/TextArea";
 import Grid from "../../atoms/grid/index";
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
 import MenuItem from "@material-ui/core/MenuItem";
-
-
-
 import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
+import { EventContext } from "../../context/EventContext";
+import { useParams } from "react-router";
+import moment from 'moment'
+const dateConvert = (datetime)=>{
 
+}
 const EventForm = () => {
+  const { id } = useParams();
+  const [dataEvents, setdataEvents] = useContext(EventContext);
+  const [event, setEvent] = useState(null);
   const defaultValues = {
-    title: "",
+    title: "a",
     description: "",
     location: "",
     code: "",
@@ -22,8 +27,29 @@ const EventForm = () => {
     speaker: ["Option 1"],
     startdate: "",
     enddate: "",
-    imagefile: "",
+    // imagefile: "",
   };
+  const { handleSubmit,  setValue, control } = useForm({ mode: 'onBlur' });
+
+  useEffect(() => {
+    if (window.location.href.includes("editevent") && event === null) {
+      axios.get(`event/${id}`).then((res) => {
+        console.log(res.data);
+        const newData = res.data;
+        setValue("title", newData.name);
+        setValue("location", newData.location.location);
+        setValue("code", newData.location.code);
+        setValue("password", newData.location.password);
+        setValue("description", newData.description);
+        // setValue("startdate", new Date(newData.startDate));
+        setValue("startdate", new Date("02/05/2021 10:40 AM"));
+        setValue("enddate", new Date("02/05/2021 10:40 AM"));
+        // new Date("02/05/2021 10:30 AM")
+        // setGame(newData);
+        // console.log(newData);
+      });
+    }
+  });
   const options = [
     { id: 1, name: "Option 1" },
     { id: 2, name: "Option 2" },
@@ -33,12 +59,10 @@ const EventForm = () => {
     { id: 6, name: "Option 6" },
   ];
 
-  const { handleSubmit, register, reset, setValue, control } = useForm({
-    defaultValues,
-  });
 
   const onSubmit = (data) => {
     console.log(data);
+    console.log(moment(data.startDate).format('DD/MM/YYYY h:mm:ss a'));
     // const formData = new FormData();
     // formData.set("image", data.imagefile[0]);
     // axios
@@ -53,14 +77,14 @@ const EventForm = () => {
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Label text="Form Event" className="title" />
-        <Label text="Event Thumbnail" className="question" />
+        {/* <Label text="Event Thumbnail" className="question" />
         <input
           id="imagefile"
           name="imagefile"
           type="file"
           // control={control}
           {...register("imagefile")}
-        />
+        /> */}
         <Grid container spacing={1}>
           <Grid item xs={3}>
             <Label text="Event Title" className="question" />
@@ -114,12 +138,11 @@ const EventForm = () => {
           datatest="title"
         />
 
-        <Label text="Speaker" className="question" />
+        {/* <Label text="Speaker" className="question" />
         <Controller
           name="speaker"
           control={control}
-          
-          render={({  field }) => {
+          render={({ field }) => {
             return (
               <TextField
                 select
@@ -140,7 +163,7 @@ const EventForm = () => {
               </TextField>
             );
           }}
-        />
+        /> */}
 
         <Grid container spacing={4}>
           <Grid item xs={4}>
@@ -152,8 +175,7 @@ const EventForm = () => {
                 <DateTimePickerComponent
                   className="input"
                   placeholderText="Start date"
-                  onChange={(e) => field.onChange(e)}
-                  selected={field.value}
+               {...field}
                 />
               )}
             />
@@ -168,8 +190,9 @@ const EventForm = () => {
                 <DateTimePickerComponent
                   className="input"
                   placeholderText="Start date"
-                  onChange={(e) => field.onChange(e)}
-                  selected={field.value}
+                  // onChange={(e) => field.onChange(e)}
+                  // selected={field.value}
+                  {...field}
                 />
               )}
             />
