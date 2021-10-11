@@ -139,23 +139,6 @@ export default function ManageParticipant() {
 
   let rows = [];
 
-  // {participant.map((data) => {
-  //   return (
-  //   rows = [
-  //     // {participant && (
-
-  //     // console.log(data.participant.id
-  //     {
-  //       id: `${data.participant.id}`,
-  //       name: `${data.participant.name}`,
-  //       email: `${data.participant.email}`,
-  //       job: `${data.participant.job}`,
-  //     },
-
-  //     // )}
-  //   ]);
-  // });}
-
   // console.log(event.id)
 
   // console.log(`${id}`)
@@ -169,13 +152,33 @@ export default function ManageParticipant() {
           method: "get",
           url: `event-registration/event/${event.id}`,
         }).then((res) => {
-          // console.log(res.data);
+          console.log(res);
           setParticipant(res.data);
         })
       );
     }
   });
+  
   console.log(participant);
+
+  //   participant.map((data) => {
+  //     return (
+  //       console.log(data.participant),
+  //     rows = [
+  //       {
+
+  //         id: `${data.participant.id}`,
+  //         name: `${data.participant.name}`,
+  //         email: `${data.participant.email}`,
+  //         job: `${data.participant.job}`,
+
+  //       },
+
+  //       // )}
+  //     ]
+  //   );
+  // });
+
   const classes = useStyles();
   return (
     <>
@@ -218,14 +221,13 @@ export default function ManageParticipant() {
               }}
             >
               <DataGrid
-                  rows={rows}
-                  columns={columns}
-                  pageSize={5}
-                  rowsPerPageOptions={[10]}
-                  disableSelectionOnClick
-                />
+                rows={participant}
+                columns={columns}
+                pageSize={5}
+                rowsPerPageOptions={[10]}
+                disableSelectionOnClick
+              />
 
-              
               {/* {participant.map((data) => {
                 return (
                   console.log(data.participant.id),
