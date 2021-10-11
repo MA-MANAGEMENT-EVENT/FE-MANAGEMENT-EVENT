@@ -73,7 +73,7 @@ const Section = () => {
                   <Route exact path="/home" component={Home} />
                   <Route
                     exact
-                    path="/feedback/:id"
+                    path="/feedback/:id/:regis"
                     user={user}
                     component={Feedback}
                   />

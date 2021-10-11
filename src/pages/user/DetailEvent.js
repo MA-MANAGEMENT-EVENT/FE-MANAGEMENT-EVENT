@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-
+import React, { useEffect, useState, useContext } from "react";
+import { UserContext } from "../../context/UserContext";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "../../atoms/grid/index";
@@ -10,6 +10,7 @@ import Sidebar from "../../organisms/Detail/Sidebar";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import Axios from "axios";
+
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
     marginTop: theme.spacing(3),
@@ -52,6 +53,7 @@ const sidebar = {
 export default function DetailEvent() {
   let { id } = useParams();
   const [event, setEvent] = useState(null);
+  const [user] = useContext(UserContext);
   const classes = useStyles();
 
   // useEffect(() => {
@@ -66,13 +68,12 @@ export default function DetailEvent() {
     }
   });
   const onSubmit = () => {
-    const token = localStorage.getItem("token");
-    console.log(token);
-    console.log(id);
-    Axios({
-      method: "post",
-      url: `event-registration/register/${id}`,
-      headers: { Authorization: "Basic" + token },
+    // const token = localStorage.getItem("token");
+    // console.log(token);
+    // console.log(id);
+    Axios.post(`event-registration/register`, {
+      eventId: id,
+      userId: user.id,
     }).then((res) => {
       console.log(res);
     });
