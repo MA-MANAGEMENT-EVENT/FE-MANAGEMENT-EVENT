@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import TextField from "../../atoms/textfield/TextField";
 import Typography from "../../atoms/typography/Typhography";
 import Grid from "../../atoms/grid/index";
@@ -7,6 +7,7 @@ import Container from "@material-ui/core/Container";
 import CardEvent from "../../molecules/cardevent";
 import { EventContext } from "../../context/EventContext";
 import Axios from "axios";
+import Button from "../../atoms/button/Button";
 const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
@@ -39,10 +40,28 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const ManageEvent = () => {
   const classes = useStyles();
-  const [dataEvents,setStatusForm] = useContext(EventContext);
+  const [dataEvents, setStatusForm] = useContext(EventContext);
+  const [searchEvents,setSearchEvents] = useState(dataEvents)
+  console.log(dataEvents);
   const handleEdit = () => {
     setStatusForm("edit");
   };
+
+  const handleChange = (event) =>{
+    let value = event.target.value
+    console.log(value)
+   if(value){
+    let selected = dataEvents.filter((event)=>{
+      return event.name.includes(event.target.value)
+    })
+    console.log(selected)
+    setSearchEvents(selected)
+   }else{
+     setSearchEvents(dataEvents)
+   }
+ 
+
+  }
   return (
     <>
       <div className={classes.heroContent} style={{ marginTop: 10 }}>
@@ -64,7 +83,18 @@ const ManageEvent = () => {
 
           <div className={classes.heroButtons}>
             <Grid container spacing={2} justifyContent="center">
-              <TextField label="Search Event" value="" className="trainer" />
+              <Button
+                size="small"
+                text="Create Event"
+                style={{
+                  backgroundColor: "#f0ad4e",
+                }}
+              />
+            </Grid>
+            <br />
+            <br />
+            <Grid container spacing={2} justifyContent="center">
+              <TextField label="Search Event" className="trainer" onChange={handleChange}/>
             </Grid>
           </div>
         </Container>
@@ -76,11 +106,9 @@ const ManageEvent = () => {
               eventId={event.id}
               imageUrl={"https://source.unsplash.com/random"}
               title={event.name}
-              description={
-                event.description
-              }
-              link={[`/detailevent/${event.id}`, `/editevent/${event.id}`, "/delete"]}
-              linkText={["View", "Edit", "Delete"]}
+              description={event.description}
+              link={[`/detailevent/${event.id}`, `/editevent/${event.id}`]}
+              linkText={["View", "Edit"]}
             />
           ))}
         </Grid>

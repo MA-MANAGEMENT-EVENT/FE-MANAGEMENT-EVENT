@@ -6,21 +6,21 @@ import Grid from "../../atoms/grid/index";
 import React, { useState, useEffect, useContext } from "react";
 import { useForm, Controller } from "react-hook-form";
 import Axios from "axios";
-import MenuItem from "@material-ui/core/MenuItem";
 import Select from "react-select";
 import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
 import { EventContext } from "../../context/EventContext";
 import { useParams } from "react-router";
 import moment from "moment";
 import ReactSelect from "react-select";
-import Multiselect from "multiselect-react-dropdown";
-const dateConvert = (datetime) => {};
+import Swal from "sweetalert2";
+import { useHistory } from "react-router-dom";
+import { Editor } from '@tinymce/tinymce-react';
 const EventForm = () => {
   const { id } = useParams();
+  let history = useHistory();
   const [dataEvents, setdataEvents] = useContext(EventContext);
   const [event, setEvent] = useState(null);
   const [speakerOptions, setSpeakerOptions] = useState(null);
-  //const [statusOptions,setStatusOptions]= useState(null)
   const defaultValues = {
     title: "a",
     description: "",
@@ -38,27 +38,26 @@ const EventForm = () => {
   useEffect(() => {
     if (speakerOptions === null) {
       Axios.get(`speaker`).then((res) => {
-        console.log(res)
-        
+        console.log(res);
+
         let newArray = res.data.map((speaker) => ({
           value: speaker.id,
           label: speaker.name,
         }));
 
         setSpeakerOptions(newArray);
-
       });
       if (window.location.href.includes("editevent")) {
         Axios.get(`event/${id}`).then((res) => {
           const newData = res.data;
-          console.log(newData)
-          console.log("----------------------")
-          //  let selectedSpeaker = newData.speaker.map((speaker) => speaker.id);
+          console.log(newData);
+          console.log("----------------------");
+
           let selectedSpeaker = newData.speaker.map((speaker) => ({
             value: speaker.id,
             label: speaker.name,
           }));
-        
+
           setValue("title", newData.name);
           setValue("location", newData.location.location);
           setValue("code", newData.location.code);
@@ -76,7 +75,9 @@ const EventForm = () => {
           );
           setValue(
             "platform",
-            platformOptions.find((c) => c.label === newData.location.platform.name)
+            platformOptions.find(
+              (c) => c.label === newData.location.platform.name
+            )
           );
 
           // speakerOptions.filter((speaker)=>{
@@ -96,7 +97,6 @@ const EventForm = () => {
     { value: "3", label: "Cancel" },
   ];
   const platformOptions = [
-
     { value: "PE001", label: "offline" },
     { value: "PE002", label: "Google Meet" },
     { value: "PE003", label: "Zoom" },
@@ -104,79 +104,62 @@ const EventForm = () => {
   ];
 
   const onSubmit = (data) => {
-  
-    const startdate= moment(data.startdate).format("DD/MM/YYYY h:mm a").toString();
-    const enddate= moment(data.enddate).format("DD/MM/YYYY h:mm a").toString();
-    const opendate= moment(data.opendate).format("DD/MM/YYYY h:mm a").toString();
-    const closedate= moment(data.closedate).format("DD/MM/YYYY h:mm a").toString();
-    const speaker = data.speaker.map((speaker)=>({"id" : speaker.value}))
-    // console.log("==============")
- // console.log(data.speaker.map((speaker)=> speaker.value))
-    // console.log(closedate)
-    // console.log(data.code)
-    // console.log(data.description)
-    // console.log(enddate)
-    // console.log(data.location)
-    // console.log(data.title)
-    // console.log(opendate)
-    // console.log(data.password)
-    // console.log(data.platform.value)
-    // console.log(speaker)
-    // console.log(startdate)
-    // console.log(data.status.value)
-    if(window.location.href.includes("editevent")){
-     // const speaker = data.speaker.map((speaker)=>({"id" : speaker.value}))
+    const startdate = moment(data.startdate)
+      .format("DD/MM/YYYY h:mm a")
+      .toString();
+    const enddate = moment(data.enddate).format("DD/MM/YYYY h:mm a").toString();
+    const opendate = moment(data.opendate)
+      .format("DD/MM/YYYY h:mm a")
+      .toString();
+    const closedate = moment(data.closedate)
+      .format("DD/MM/YYYY h:mm a")
+      .toString();
+    const speaker = data.speaker.map((speaker) => ({ id: speaker.value }));
+    const newdata = {
+      closeRegistration: closedate,
+      code: data.code,
+      description: data.description,
+      endDate: enddate,
+      location: data.location,
+      name: data.title,
+      openRegistration: opendate,
+      password: data.password,
+      platform: data.platform.value,
+      speakers: speaker,
+      startDate: startdate,
+      status: data.status.value,
+    };
+    if (window.location.href.includes("editevent")) {
       Axios({
         url: `event/${id}`,
-        method: 'put',
-        data:{
-          "closeRegistration": closedate,
-          "code": data.code,
-          "description": data.description,
-          "endDate": enddate,
-          "location": data.location,
-          "name": data.title,
-          "openRegistration": opendate,
-          "password": data.password,
-          "platform": data.platform.value,
-          "speakers": speaker,
-          "startDate": startdate,
-          "status": data.status.value
+        method: "put",
+        data: newdata,
+      }).then((res) => {
+        if (res.status == 200) {
+          let singleEvent = dataEvents.find((el) => el.id === id);
+          singleEvent = { id: id, ...newdata };
+          setdataEvents([...dataEvents]);
+          Swal.fire("Success", "Edit Event Success ", "success");
+          history.push("/manageevent");
         }
-      }).then((res)=>{
-        console.log(res)
-        if(res.status == 200){
-          console.log("success")
-        }
-      })
-    }else{
-      console.log(speaker)
-     
+      });
+    } else {
+      console.log("========")
+      delete newdata.status;
+      console.log(newdata)
+      
       Axios({
         url: `event`,
-        method: 'post',
-        data:{
-          "closeRegistration": closedate,
-          "code": data.code,
-          "description": data.description,
-          "endDate": enddate,
-          "location": data.location,
-          "name": data.title,
-          "openRegistration": opendate,
-          "password": data.password,
-          "platform": data.platform.value,
-          "speakers": speaker,
-          "startDate": startdate,
-          "status": data.status.value
+        method: "post",
+        data: newdata,
+      }).then((res) => {
+        console.log(res);
+        if (res.status == 200) {
+          console.log("success");
         }
-      }).then((res)=>{
-        console.log(res)
-        if(res.status == 200){
-          console.log("success")
-        }
-      })
+      });
     }
-  
+
     // const formData = new FormData();
     // formData.set("image", data.imagefile[0]);
     // axios
@@ -203,22 +186,21 @@ const EventForm = () => {
           {...register("imagefile")}
         /> */}
             <Label text="Status" className="question" />
+            <div style={{width: '300px'}}>
             <Controller
               name="status"
               control={control}
               render={({ field }) => {
                 return (
                   <>
-                    <ReactSelect
-                      isClearable
-                      {...field}
-                      options={options}
-                    />
+                    <ReactSelect style={{width:10}} isClearable {...field} options={options} />
                   </>
                 );
               }}
             />
-             <Label text="Platform" className="question" />
+            </div>
+            <Label text="Platform" className="question" />
+            <div style={{width: '300px'}}>
             <Controller
               name="platform"
               control={control}
@@ -234,6 +216,7 @@ const EventForm = () => {
                 );
               }}
             />
+            </div>
             <Grid container spacing={1}>
               <Grid item xs={3}>
                 <Label text="Event Title" className="question" />
@@ -281,6 +264,29 @@ const EventForm = () => {
             <Controller
               render={({ field }) => (
                 <TextArea {...field} style={{ width: "100%" }} />
+              //   <Editor
+              //   {...field}
+                
+              // //  onEditorChange={onChange}
+              //   init={{
+              //     height: 200,
+              //     menubar: false,
+              //     plugins: [
+              //       "advlist autolink lists link image charmap print preview anchor",
+              //       "searchreplace visualblocks code fullscreen",
+              //       "insertdatetime media table paste code help wordcount"
+              //     ],
+              //     toolbar:
+              //       "undo redo | formatselect | " +
+              //       "bold italic backcolor | alignleft aligncenter " +
+              //       "alignright alignjustify | bullist numlist outdent indent | " +
+              //       "removeformat | help",
+              //     content_style:
+              //       "body { font-family:Helvetica,Arial,sans-serif; font-size:14px, }"
+              //    }}
+              //   apiKey='i4496zrtz8ycpdqrnwfw7sbrnhqyih23uqh54sm3fvzncig6'
+              
+              // />
               )}
               control={control}
               name="description"
@@ -292,7 +298,12 @@ const EventForm = () => {
               control={control}
               name="speaker"
               render={({ field }) => (
-                <Select isClearable  isMulti options={speakerOptions} {...field} />
+                <Select
+                  isClearable
+                  isMulti
+                  options={speakerOptions}
+                  {...field}
+                />
               )}
             />
 
@@ -331,7 +342,7 @@ const EventForm = () => {
             </Grid>
 
             <Grid container spacing={4}>
-            <Grid item xs={4}>
+              <Grid item xs={4}>
                 <Label text="Open Registration" className="question" />
                 <Controller
                   control={control}
@@ -361,11 +372,16 @@ const EventForm = () => {
                   )}
                 />
               </Grid>
-
-             
             </Grid>
             <br />
-            <Button datatest="submit" text="submit" type="submit" />
+            <Button
+              datatest="submit"
+              text="submit"
+              type="submit"
+              style={{
+                backgroundColor: "#3f50b5",
+              }}
+            />
           </form>
         </>
       )}

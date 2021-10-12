@@ -7,6 +7,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Container from "@mui/material/Container";
 import logo from "../nav/logoMA2.png";
 
+
 const Nav = (props) => {
   const [user, setUser] = useContext(UserContext);
   const handleLogout = () => {
@@ -79,7 +80,7 @@ const Nav = (props) => {
                 )}
 
                 {/* User Route */}
-                {user.role === "User" && (
+                {user.role === "ROLE_USER" && (
                   <>
                     <Link
                       to="/home"
@@ -113,13 +114,13 @@ const Nav = (props) => {
                       <Typography
                         variant="body1"
                         text="LogOut"
-                        className="link"
+                        className="linklogout"
                       />
                     </Link>
                   </>
                 )}
                 {/* Admin Route */}
-                {user.role === "Admin" && (
+                {user.role === "ROLE_ADMIN" && (
                   <>
                     <Link
                       to="/manageevent"
@@ -145,16 +146,7 @@ const Nav = (props) => {
                         className="link"
                       />
                     </Link>
-                    <Link
-                      to="/createevent"
-                      style={{ textDecoration: "none", padding: 10 }}
-                    >
-                      <Typography
-                        variant="body1"
-                        text="Create Event"
-                        className="link"
-                      />
-                    </Link>
+                 
                     <Link
                       to="/Home"
                       style={{ textDecoration: "none", padding: 10 }}
@@ -163,7 +155,7 @@ const Nav = (props) => {
                       <Typography
                         variant="body1"
                         text="LogOut"
-                        className="link"
+                        className="linklogout"
                       />
                     </Link>
                   </>

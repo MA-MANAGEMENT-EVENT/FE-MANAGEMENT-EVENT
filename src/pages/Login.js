@@ -106,6 +106,7 @@ export default function Login() {
                 margin="normal"
                 required
                 fullWidth
+                type="password"
                 id="password"
                 label="Password"
                 autoComplete="password"
