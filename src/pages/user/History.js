@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { UserContext } from "../../context/UserContext";
 import Container from "@material-ui/core/Container";
 import Typography from "../../atoms/typography/Typhography";
 import { makeStyles } from "@material-ui/core/styles";
@@ -7,6 +8,7 @@ import Button from "../../atoms/button/Button";
 import Paper from "@mui/material/Paper";
 import Grid from "../../atoms/grid/index";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
@@ -44,15 +46,14 @@ const history = [
 const countHistory = history.filter((item) => item.id).length;
 
 const History = () => {
+  const [user] = useContext(UserContext);
   const [history, setHistory] = useState(null);
   useEffect(() => {
     if (history === null) {
-      const token = localStorage.getItem("token");
-      const userId = localStorage.getItem("userId");
 
       Axios({
         method: "get",
-        url: `event-registration/history/${userId}`,
+        url: `event-registration/history/${user.id}`,
       }).then((res) => {
         console.log(res);
         setHistory(res.data);
@@ -97,7 +98,8 @@ const History = () => {
                         paragraph
                       />
                     </Grid>
-                    <Grid item xs={4}>
+                    {data.statusFeedback!=="Complete"&&(<>
+                      <Grid item xs={4}>
                       <div style={{ marginTop: -5, float: "right" }}>
                         <Link
                           to={`/feedback/${data.event.id}/${data.id}`}
@@ -111,6 +113,8 @@ const History = () => {
                         </Link>
                       </div>
                     </Grid>
+                    </>)}
+                    
                   </Grid>
                 </Paper>
               );

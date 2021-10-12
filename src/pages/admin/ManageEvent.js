@@ -41,27 +41,24 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 const ManageEvent = () => {
   const classes = useStyles();
   const [dataEvents, setStatusForm] = useContext(EventContext);
-  const [searchEvents,setSearchEvents] = useState(dataEvents)
-  console.log(dataEvents);
+  const [filteredEvents, setFilteredEvents] = useState(dataEvents);
+  const [input, setInput] = useState({
+    search: "",
+  });
+
   const handleEdit = () => {
     setStatusForm("edit");
   };
 
-  // const handleChange = (event) =>{
-  //   let value = event.target.value
-  //   console.log(value)
-  //  if(value){
-  //   let selected = dataEvents.filter((event)=>{
-  //     return event.name.includes(event.target.value)
-  //   })
-  //   console.log(selected)
-  //   setSearchEvents(selected)
-  //  }else{
-  //    setSearchEvents(dataEvents)
-  //  }
- 
+  const handleChange = (event) => {
+    let value = event.target.value.toLowerCase();
+    let result = [];
 
-  // }
+    result = dataEvents.filter((event) => {
+      return event.name.toLowerCase().search(value) != -1;
+    });
+    setFilteredEvents(result);
+  };
   return (
     <>
       <div className={classes.heroContent} style={{ marginTop: 10 }}>
@@ -94,14 +91,19 @@ const ManageEvent = () => {
             <br />
             <br />
             <Grid container spacing={2} justifyContent="center">
-              {/* <TextField label="Search Event" className="trainer" onChange={handleChange}/> */}
+              <TextField
+                label="Search Event"
+                name="search"
+                className="trainer"
+                onChange={handleChange}
+              />
             </Grid>
           </div>
         </Container>
       </div>
       <Container className={classes.cardGrid} maxWidth="md">
         <Grid container spacing={2}>
-          {dataEvents.map((event) => (
+          {filteredEvents.map((event) => (
             <CardEvent
               eventId={event.id}
               imageUrl={"https://source.unsplash.com/random"}
