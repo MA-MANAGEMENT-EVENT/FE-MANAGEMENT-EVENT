@@ -47,21 +47,21 @@ const ManageEvent = () => {
     setStatusForm("edit");
   };
 
-  const handleChange = (event) =>{
-    let value = event.target.value
-    console.log(value)
-   if(value){
-    let selected = dataEvents.filter((event)=>{
-      return event.name.includes(event.target.value)
-    })
-    console.log(selected)
-    setSearchEvents(selected)
-   }else{
-     setSearchEvents(dataEvents)
-   }
+  // const handleChange = (event) =>{
+  //   let value = event.target.value
+  //   console.log(value)
+  //  if(value){
+  //   let selected = dataEvents.filter((event)=>{
+  //     return event.name.includes(event.target.value)
+  //   })
+  //   console.log(selected)
+  //   setSearchEvents(selected)
+  //  }else{
+  //    setSearchEvents(dataEvents)
+  //  }
  
 
-  }
+  // }
   return (
     <>
       <div className={classes.heroContent} style={{ marginTop: 10 }}>
@@ -94,7 +94,7 @@ const ManageEvent = () => {
             <br />
             <br />
             <Grid container spacing={2} justifyContent="center">
-              <TextField label="Search Event" className="trainer" onChange={handleChange}/>
+              {/* <TextField label="Search Event" className="trainer" onChange={handleChange}/> */}
             </Grid>
           </div>
         </Container>
