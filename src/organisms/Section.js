@@ -17,6 +17,7 @@ import ManageSpeaker from "../pages/admin/ManageSpeaker";
 import FeedbackQuestion from "../pages/admin/FeedbackQuestion";
 const Section = () => {
   const [user] = useContext(UserContext);
+  console.log(user.role)
   const LoginRoute = ({ user, ...props }) =>
     user ? <Route {...props} /> : <Redirect to="/home" />;
 
@@ -24,10 +25,7 @@ const Section = () => {
     <div className="section">
       <Switch>
         <Route exact path="/detailevent/:id" user={user} component={Detail} />
-        {user && (
-          <>
-            {/* login route */}
-            {user.role === "guest" && (
+        {user.role == "guest" && (
               <>
                 <Switch>
                   <Route exact path="/">
@@ -63,7 +61,11 @@ const Section = () => {
                 </Switch>
               </>
             )}
-            {user.role === "User" && (
+        {user && (
+          <>
+            {/* login route */}
+         
+            {user.role === "ROLE_USER" && (
               <>
                 {/* user route */}
                 <Switch>
@@ -88,7 +90,7 @@ const Section = () => {
                 </Switch>
               </>
             )}
-            {user.role === "Admin" && (
+            {user.role === "ROLE_ADMIN" && (
               <>
                 {/* admin route */}
                 <Switch>

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
 import Typography from "../../atoms/typography/Typhography";
@@ -6,13 +6,15 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Container from "@mui/material/Container";
 import logo from "../nav/logoMA2.png";
+import { set } from "js-cookie";
+
 
 const Nav = (props) => {
-  const [user, setUser] = useContext(UserContext);
+
+  const [user,setUser] = useContext(UserContext);
   const handleLogout = () => {
-    setUser({ role: "guest" });
-    localStorage.removeItem("userId");
-    localStorage.removeItem("token");
+    setUser({role:"guest"})
+    localStorage.removeItem("user");
   };
   return (
     <>
@@ -79,7 +81,7 @@ const Nav = (props) => {
                 )}
 
                 {/* User Route */}
-                {user.role === "User" && (
+                {user.role === "ROLE_USER" && (
                   <>
                     <Link
                       to="/home"
@@ -106,20 +108,20 @@ const Nav = (props) => {
                       />
                     </Link>
                     <Link
-                      to="/Home"
+                      to="/home"
                       style={{ textDecoration: "none", padding: 10 }}
                       onClick={() => handleLogout()}
                     >
                       <Typography
                         variant="body1"
                         text="LogOut"
-                        className="link"
+                        className="linklogout"
                       />
                     </Link>
                   </>
                 )}
                 {/* Admin Route */}
-                {user.role === "Admin" && (
+                {user.role === "ROLE_ADMIN" && (
                   <>
                     <Link
                       to="/manageevent"
@@ -145,16 +147,7 @@ const Nav = (props) => {
                         className="link"
                       />
                     </Link>
-                    <Link
-                      to="/createevent"
-                      style={{ textDecoration: "none", padding: 10 }}
-                    >
-                      <Typography
-                        variant="body1"
-                        text="Create Event"
-                        className="link"
-                      />
-                    </Link>
+                 
                     <Link
                       to="/Home"
                       style={{ textDecoration: "none", padding: 10 }}
@@ -163,7 +156,7 @@ const Nav = (props) => {
                       <Typography
                         variant="body1"
                         text="LogOut"
-                        className="link"
+                        className="linklogout"
                       />
                     </Link>
                   </>

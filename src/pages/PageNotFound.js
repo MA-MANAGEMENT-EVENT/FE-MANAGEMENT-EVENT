@@ -44,7 +44,8 @@ const PageNotFound = () => {
           <div className={classes.heroButtons}>
             <Grid container spacing={1} justifyContent="center">
               <Link to="/home">
-                <Button size="small" color="primary" text="Back To Home" />
+                <Button size="small" color="primary" text="Back To Home"  style={{
+                        backgroundColor: "#3f50b5" }} />
               </Link>
             </Grid>
           </div>

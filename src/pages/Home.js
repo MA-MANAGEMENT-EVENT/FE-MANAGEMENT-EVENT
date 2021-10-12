@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext,useState } from "react";
 import { UserContext } from "../context/UserContext";
 import TextField from "../atoms/textfield/TextField";
 import Typography from "../atoms/typography/Typhography";
@@ -29,9 +29,18 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const Home = () => {
   const [dataEvents] = useContext(EventContext);
+  const [filteredEvents, setFilteredEvents] = useState(dataEvents);
   const [user] = useContext(UserContext);
   const classes = useStyles();
+  const handleChange = (event) => {
+    let value = event.target.value.toLowerCase();
+    let result = [];
 
+    result = dataEvents.filter((event) => {
+      return event.name.toLowerCase().search(value) != -1;
+    });
+    setFilteredEvents(result);
+  };
   return (
     <>
       <div className={classes.heroContent} style={{ marginTop: 10 }}>
@@ -52,14 +61,19 @@ const Home = () => {
           />
           <div className={classes.heroButtons}>
             <Grid container spacing={2} justifyContent="center">
-              <TextField label="Search Event" value="" className="trainer" />
+            <TextField
+                label="Search Event"
+                name="search"
+                className="trainer"
+                onChange={handleChange}
+              />
             </Grid>
           </div>
         </Container>
       </div>
       <Container className={classes.cardGrid} maxWidth="md">
         <Grid container spacing={4}>
-          {dataEvents.map((event) => (
+          {filteredEvents.map((event) => (
             <CardEvent
               eventId={event.id}
               imageUrl={"https://source.unsplash.com/random"}

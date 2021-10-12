@@ -56,9 +56,6 @@ export default function DetailEvent() {
   const [user] = useContext(UserContext);
   const classes = useStyles();
 
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, []);
   useEffect(() => {
     if (event === null) {
       axios.get(`event/${id}`).then((res) => {
@@ -68,14 +65,19 @@ export default function DetailEvent() {
     }
   });
   const onSubmit = () => {
-    // const token = localStorage.getItem("token");
-    // console.log(token);
-    // console.log(id);
+    console.log(user.id)
+    console.log(id)
     Axios.post(`event-registration/register`, {
       eventId: id,
       userId: user.id,
     }).then((res) => {
-      console.log(res);
+      if(res){
+        console.log(res);
+        console.log("success")
+      }else{
+        console.log("failed")
+      }
+      
     });
     // Axios.post(`event-registration/register`, {
     //   eventId: id,

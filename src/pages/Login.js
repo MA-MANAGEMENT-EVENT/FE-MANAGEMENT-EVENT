@@ -53,8 +53,8 @@ export default function Login() {
         if (res) {
          
           setUser(res.data);
-          localStorage.setItem("userId", res.data.id);
-          localStorage.setItem("token", JSON.stringify(res.data.accessToken));
+          localStorage.setItem("user",JSON.stringify(res.data))
+
           history.push("/");
         } else {
           handleClickOpen();
@@ -106,6 +106,7 @@ export default function Login() {
                 margin="normal"
                 required
                 fullWidth
+                type="password"
                 id="password"
                 label="Password"
                 autoComplete="password"

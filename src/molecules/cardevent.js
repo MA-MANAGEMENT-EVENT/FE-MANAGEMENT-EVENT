@@ -53,7 +53,7 @@ const CardEvent = (props) => {
               text={props.title}
             />
 
-            <Typography text={props.description} />
+            <Typography text={props.description} className="cardtext"/>
           </CardContent>
 
           <Grid container style={{ marginBottom: 10 }}>

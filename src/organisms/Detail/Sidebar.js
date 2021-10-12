@@ -105,7 +105,7 @@ export default function Sidebar(props) {
       </Grid>
 
       <div style={{ borderTop: "1px gainsboro solid", marginBottom: 5 }}>
-        {user.role === "User" && (
+        {user.role === "ROLE_USER" && (
           <Typography
             style={{
               fontSize: 20.0,
@@ -118,7 +118,7 @@ export default function Sidebar(props) {
             {desc2}
           </Typography>
         )}
-        {user.role === "User" && (
+        {user.role === "ROLE_USER" && (
           <Button
            
             fullWidth
@@ -136,7 +136,7 @@ export default function Sidebar(props) {
             onClick={()=>onSubmit()}
           />
         )}
-        {user.role === "Admin" && (
+        {user.role === "ROLE_ADMIN" && (
           <Link
             to="/manageparticipantandfeedback"
             style={{ textDecoration: "none" }}

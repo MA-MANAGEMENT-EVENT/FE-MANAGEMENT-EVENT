@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import TextField from "../../atoms/textfield/TextField";
 import Typography from "../../atoms/typography/Typhography";
 import Grid from "../../atoms/grid/index";
@@ -7,6 +7,7 @@ import Container from "@material-ui/core/Container";
 import CardEvent from "../../molecules/cardevent";
 import { EventContext } from "../../context/EventContext";
 import Axios from "axios";
+import Button from "../../atoms/button/Button";
 const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
@@ -39,9 +40,24 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const ManageEvent = () => {
   const classes = useStyles();
-  const [dataEvents,setStatusForm] = useContext(EventContext);
+  const [dataEvents, setStatusForm] = useContext(EventContext);
+  const [filteredEvents, setFilteredEvents] = useState(dataEvents);
+  const [input, setInput] = useState({
+    search: "",
+  });
+
   const handleEdit = () => {
     setStatusForm("edit");
+  };
+
+  const handleChange = (event) => {
+    let value = event.target.value.toLowerCase();
+    let result = [];
+
+    result = dataEvents.filter((event) => {
+      return event.name.toLowerCase().search(value) != -1;
+    });
+    setFilteredEvents(result);
   };
   return (
     <>
@@ -64,23 +80,37 @@ const ManageEvent = () => {
 
           <div className={classes.heroButtons}>
             <Grid container spacing={2} justifyContent="center">
-              <TextField label="Search Event" value="" className="trainer" />
+              <Button
+                size="small"
+                text="Create Event"
+                style={{
+                  backgroundColor: "#f0ad4e",
+                }}
+              />
+            </Grid>
+            <br />
+            <br />
+            <Grid container spacing={2} justifyContent="center">
+              <TextField
+                label="Search Event"
+                name="search"
+                className="trainer"
+                onChange={handleChange}
+              />
             </Grid>
           </div>
         </Container>
       </div>
       <Container className={classes.cardGrid} maxWidth="md">
         <Grid container spacing={2}>
-          {dataEvents.map((event) => (
+          {filteredEvents.map((event) => (
             <CardEvent
               eventId={event.id}
               imageUrl={"https://source.unsplash.com/random"}
               title={event.name}
-              description={
-                event.description
-              }
-              link={[`/detailevent/${event.id}`, `/editevent/${event.id}`, "/delete"]}
-              linkText={["View", "Edit", "Delete"]}
+              description={event.description}
+              link={[`/detailevent/${event.id}`, `/editevent/${event.id}`]}
+              linkText={["View", "Edit"]}
             />
           ))}
         </Grid>
