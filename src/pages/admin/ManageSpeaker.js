@@ -9,7 +9,8 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { blue } from "@material-ui/core/colors";
 import FormDialog from "../../molecules/dialogSpeaker";
-
+import Axios from "axios";
+import axios from "axios";
 const useStyles = makeStyles((theme) => ({
   heroContent: {
     padding: theme.spacing(8, 0, 6),
@@ -26,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const initialValue = { name: "", description: "", image: "" };
+const initialValue = { name: "", description: "", image: "",newimage:""};
 
 export default function ManageSpeaker() {
   const baseURL = "https://management-event-api.herokuapp.com/speaker";
@@ -49,14 +50,14 @@ export default function ManageSpeaker() {
               style={{ background: "#00A44E", marginRight: 10 }}
               variant="contained"
               color="primary"
-              onClick={() => handleUpdate(params.data)}
+              onClick={() => handleUpdate(params.row)}
               text="Edit"
             />
             <Button
               style={{ background: "#FF2060" }}
               variant="contained"
               color="secondary"
-              onClick={() => handleDelete(params.value)}
+              onClick={() => handleDelete(params.row.id)}
               text="Delete"
             />
           </div>
@@ -72,9 +73,11 @@ export default function ManageSpeaker() {
   const [gridApi, setGridApi] = useState(null);
   const [open, setOpen] = React.useState(false);
   const [formData, setFormData] = useState(initialValue);
+  const [status, setStatus] = useState("create");
 
   //Read Speaker
   const [tableData, setTableData] = useState([]);
+ 
   useEffect(() => {
     fetch(baseURL)
       .then((data) => data.json())
@@ -94,14 +97,31 @@ export default function ManageSpeaker() {
   };
   const onChange = (e) => {
     const { value, id } = e.target;
-    setFormData({ ...formData, [id]: value });
+    switch (id) {
+      case "name": {
+        setFormData({ ...formData, name: value });
+        break;
+      }
+      case "description": {
+        setFormData({ ...formData, description: value });
+        break;
+      }
+      case "image": {
+        setFormData({ ...formData, newimage: e.target.files[0] });
+        break;
+      }
+      default: {
+        break;
+      }
+    }
   };
   const onGridReady = (params) => {
     setGridApi(params);
   };
 
-  const handleUpdate = (oldData) => {
-   setFormData(oldData);
+  const handleUpdate = (data) => {
+    setFormData(data);
+    handleClickOpen();
   };
 
   const handleDelete = (id) => {
@@ -116,20 +136,60 @@ export default function ManageSpeaker() {
     }
   };
 
-  const handleFormSubmit = () => {
-    fetch(baseURL, {
-      method: "POST",
-      body: JSON.stringify(formData),
-      headers: {
-        "content-type": "application/json",
-      },
-    })
-      .then((resp) => resp.json())
-      .then((resp) => {
-        handleClose();
-        getUsers();
-        setFormData(initialValue);
-      });
+  const handleFormSubmit = (id) => {
+    console.log(id);
+    let url = null;
+    const Data = new FormData();
+    Data.set("image", formData.newimage);
+    if (id === null) {
+      Axios.post(
+        "https://api.imgbb.com/1/upload?key=b58ff410c6b72c5c9584e782b1830cda",
+        Data
+      )
+        .then((res) => {
+          url = res.data.data.url;
+        })
+        .then((res) => {
+          console.log(url);
+          console.log(formData.description);
+          console.log(formData.name);
+          axios
+            .post("speaker", {
+              description: formData.description,
+              image: url,
+              name: formData.name,
+            })
+            .then((res) => {
+              console.log(res);
+              setFormData(initialValue);
+              handleClose();
+            });
+        });
+    } else if (id !== null) {
+      Axios.post(
+        "https://api.imgbb.com/1/upload?key=b58ff410c6b72c5c9584e782b1830cda",
+        Data
+      )
+        .then((res) => {
+          url = res.data.data.url;
+        })
+        .then((res) => {
+          console.log(url);
+          console.log(formData.description);
+          console.log(formData.name);
+          axios
+            .put(`speaker/${id}`, {
+              description: formData.description,
+              image: url,
+              name: formData.name,
+            })
+            .then((res) => {
+              console.log(res);
+              setFormData(initialValue);
+              handleClose();
+            });
+        });
+    }
   };
 
   return (
