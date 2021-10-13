@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState,useEffect } from "react";
 import TextField from "../../atoms/textfield/TextField";
 import Typography from "../../atoms/typography/Typhography";
 import Grid from "../../atoms/grid/index";
@@ -8,6 +8,7 @@ import CardEvent from "../../molecules/cardevent";
 import { EventContext } from "../../context/EventContext";
 import Axios from "axios";
 import Button from "../../atoms/button/Button";
+import { Link } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
@@ -36,24 +37,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const ManageEvent = () => {
   const classes = useStyles();
   const [dataEvents, setStatusForm] = useContext(EventContext);
   const [filteredEvents, setFilteredEvents] = useState(dataEvents);
-  const [input, setInput] = useState({
-    search: "",
-  });
 
-  const handleEdit = () => {
-    setStatusForm("edit");
-  };
-
+  
+  useEffect(() => {
+    if (filteredEvents.length === 0 ) {
+      setFilteredEvents(dataEvents)
+    }
+  })
   const handleChange = (event) => {
     let value = event.target.value.toLowerCase();
     let result = [];
-
     result = dataEvents.filter((event) => {
       return event.name.toLowerCase().search(value) != -1;
     });
@@ -80,6 +78,10 @@ const ManageEvent = () => {
 
           <div className={classes.heroButtons}>
             <Grid container spacing={2} justifyContent="center">
+            <Link
+                    to='/createevent'
+                    style={{ textDecoration: "none", padding: 10 }}
+                  >
               <Button
                 size="small"
                 text="Create Event"
@@ -87,6 +89,7 @@ const ManageEvent = () => {
                   backgroundColor: "#f0ad4e",
                 }}
               />
+              </Link>
             </Grid>
             <br />
             <br />

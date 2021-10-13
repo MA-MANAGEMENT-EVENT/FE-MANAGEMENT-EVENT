@@ -10,6 +10,7 @@ import Grid from "../../atoms/grid/index";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import Axios from "axios";
+import Loading from "react-loading-animation";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -24,33 +25,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const history = [
-  {
-    id: 1,
-    name: "Belajar Kotlin to Build Android App",
-  },
-  {
-    id: 2,
-    name: "How to Start Javascipt to build",
-  },
-  {
-    id: 3,
-    name: "Belajar Kotlin to Build Android App",
-  },
-  {
-    id: 4,
-    name: "Belajar Kotlin to Build Android App",
-  },
-];
-
-const countHistory = history.filter((item) => item.id).length;
-
 const History = () => {
   const [user] = useContext(UserContext);
   const [history, setHistory] = useState(null);
   useEffect(() => {
     if (history === null) {
-
       Axios({
         method: "get",
         url: `event-registration/history/${user.id}`,
@@ -63,6 +42,14 @@ const History = () => {
   const classes = useStyles();
   return (
     <>
+    {history === null && (
+        <>
+        <div style={{marginTop:200}}>
+        <Loading />
+        </div>
+     
+        </>
+      )}
       {history && (
         <>
           <div className={classes.heroContent} style={{ marginTop: 5 }}>
@@ -80,6 +67,7 @@ const History = () => {
           <Box>
             {history.map((data) => {
               return (
+                <>
                 <Paper elevation={5} sx={{ mx: "auto", p: 5 }}>
                   <Grid container>
                     <Grid item xs={4}>
@@ -109,6 +97,9 @@ const History = () => {
                             size="small"
                             color="primary"
                             text="Feedback"
+                            style={{
+                              backgroundColor: "#3f50b5",
+                            }}
                           />
                         </Link>
                       </div>
@@ -117,6 +108,8 @@ const History = () => {
                     
                   </Grid>
                 </Paper>
+                <br/>
+              </>
               );
             })}
           </Box>

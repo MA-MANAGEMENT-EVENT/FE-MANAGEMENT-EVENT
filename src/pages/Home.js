@@ -1,4 +1,4 @@
-import React, { useContext,useState } from "react";
+import React, { useContext,useState,useEffect } from "react";
 import { UserContext } from "../context/UserContext";
 import TextField from "../atoms/textfield/TextField";
 import Typography from "../atoms/typography/Typhography";
@@ -28,9 +28,15 @@ const useStyles = makeStyles((theme) => ({
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const Home = () => {
-  const [dataEvents] = useContext(EventContext);
+  const [dataEvents, setStatusForm] = useContext(EventContext);
   const [filteredEvents, setFilteredEvents] = useState(dataEvents);
-  const [user] = useContext(UserContext);
+
+  
+  useEffect(() => {
+    if (filteredEvents.length === 0 ) {
+      setFilteredEvents(dataEvents)
+    }
+  })
   const classes = useStyles();
   const handleChange = (event) => {
     let value = event.target.value.toLowerCase();

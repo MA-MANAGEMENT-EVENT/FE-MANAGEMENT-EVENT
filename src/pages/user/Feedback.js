@@ -7,10 +7,12 @@ import { Alert } from "../../atoms/alert/Alert";
 import { useForm, Controller } from "react-hook-form";
 import { UserContext } from "../../context/UserContext";
 import { useParams } from "react-router-dom";
+import Swal from "sweetalert2";
+import { useHistory } from "react-router-dom";
 const Feedback = () => {
+  let history = useHistory();
   let { id, regis } = useParams();
   const { control, register, handleSubmit } = useForm();
-  const [User, setUser] = useContext(UserContext);
   const [question, setQuestion] = useState(null);
   const [input, setInput] = useState({
     question1: "",
@@ -27,12 +29,12 @@ const Feedback = () => {
     }
   });
   const onSubmit = (data) => {
-    console.log(regis)
+    console.log(regis);
     if (data.question1 && data.question2 && data.question3 && data.question4) {
       Axios({
-        url: '/feedback',
-        method: 'post',
-        data:[
+        url: "/feedback",
+        method: "post",
+        data: [
           {
             answer: data.question1,
             question: question[0].id,
@@ -53,12 +55,17 @@ const Feedback = () => {
             question: question[3].id,
             registration: regis,
           },
-        ]
-      }).then((res)=>{
-        if(res.status == 200){
-          console.log("success")
+        ],
+      }).then((res) => {
+        if (res.status == 200) {
+          Swal.fire("Success", "Success Submit Feedback", "success");
+          history.push("/home");
+        } else {
+          Swal.fire("Error", "Failed Submit Feedback ", "error");
         }
-      })
+      });
+    } else {
+      Swal.fire("Error", "Failed Submit Feedback ", "error");
     }
   };
 
@@ -83,22 +90,19 @@ const Feedback = () => {
                     name={`question${index + 1}`}
                     className="root"
                   />
-                  {/* <TextField
-                datatest={`${question}-${index}`}
-                name={`${question}-${index}`}
-                //   onChange={props.onChange}
-                value={input[question]}
-                className="root"
-              /> */}
                 </>
               );
             })}
-            <br />{" "}
+            <br />
+            <br />
+
             <Button
-              // onClick={onSubmit}
-              datatest="submit"
+              color="primary"
               text="submit"
               type="submit"
+              style={{
+                backgroundColor: "#3f50b5",
+              }}
             />
           </form>
         </>

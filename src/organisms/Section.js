@@ -15,6 +15,7 @@ import ChangePassword from "../pages/ChangePassword";
 import ResetPassword from "../pages/ResetPassword";
 import ManageSpeaker from "../pages/admin/ManageSpeaker";
 import FeedbackQuestion from "../pages/admin/FeedbackQuestion";
+import Verification from "../pages/verification";
 const Section = () => {
   const [user] = useContext(UserContext);
   console.log(user.role)
@@ -32,6 +33,8 @@ const Section = () => {
                     <Redirect to="/home" />
                   </Route>
                   <Route exact path="/home" component={Home} />
+                  <Route exact path="/auth/confirm/:token" component={Verification}/>
+              
                   <LoginRoute
                     exact
                     path="/login"

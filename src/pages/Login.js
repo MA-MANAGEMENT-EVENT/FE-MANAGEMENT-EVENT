@@ -51,10 +51,9 @@ export default function Login() {
       }).then((res) => {  
         console.log(res)
         if (res) {
-         
+          console.log(res.data)
           setUser(res.data);
           localStorage.setItem("user",JSON.stringify(res.data))
-
           history.push("/");
         } else {
           handleClickOpen();
