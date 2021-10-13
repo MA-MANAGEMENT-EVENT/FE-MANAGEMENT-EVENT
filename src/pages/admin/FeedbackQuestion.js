@@ -3,7 +3,6 @@ import TextField from "../../atoms/textfield/TextField";
 import Button from "../../atoms/button/Button";
 import React, { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
-import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom";
 import Axios from "axios";
 import Loading from "react-loading-animation";
@@ -45,7 +44,7 @@ const FeedbackQuestion = () => {
           console.log("----------------------");
 
           for (let i = 0; i < 4; i++) {
-            setValue("question" + (i), newData[i].question);
+            setValue("question" + i, newData[i].question);
           }
         });
       }
@@ -60,26 +59,24 @@ const FeedbackQuestion = () => {
       data.question0,
       data.question1,
       data.question2,
-      data.question3
-    ]
-
+      data.question3,
+    ];
 
     if (window.location.href.includes("question")) {
       questionField.forEach((data, index) => {
         Axios({
-        url: `question-feedback/${data.id}`,
-        method: "put",
-        data: {question:newdata[index]},
-      }).then((res) => {
-        console.log(res)
-        if (res.status == 200) {
-          history.push("/manageevent");
-        }
+          url: `question-feedback/${data.id}`,
+          method: "put",
+          data: { question: newdata[index] },
+        }).then((res) => {
+          console.log(res);
+          if (res.status === 200) {
+            Swal.fire("Success", "Edit Feedback Questions Success ", "success");
+            history.push("/manageevent");
+          }
+        });
       });
-      }
-      
-      )
-    } 
+    }
   };
 
   const pertanyaan = [
@@ -133,12 +130,17 @@ const FeedbackQuestion = () => {
               );
             })}
             <br /> <br /> <br />
-            <Link
-              to="/manageparticipantandfeedback"
+            {/* <Link
+              to="/manageparticipantandfeedback/:id"
               style={{ textDecoration: "none" }}
-            >
-              <Button datatest="submit" text="Back" color="error" />
-            </Link>
+            > */}
+            <Button
+              datatest="submit"
+              text="Back"
+              color="error"
+              onClick={() => history.push(`/manageevent`)}
+            />
+            {/* </Link> */}
             <Button
               datatest="submit"
               text="submit"

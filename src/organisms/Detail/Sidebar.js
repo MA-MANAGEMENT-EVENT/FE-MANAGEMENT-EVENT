@@ -9,7 +9,6 @@ import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined
 import RoomOutlinedIcon from "@mui/icons-material/RoomOutlined";
 import EventAvailableSharpIcon from "@mui/icons-material/EventAvailableSharp";
 import { UserContext } from "../../context/UserContext";
-import { Link } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   sidebarAboutBox: {
     padding: theme.spacing(2),
@@ -26,7 +25,6 @@ export default function Sidebar(props) {
   const classes = useStyles();
   const {
     description,
-    title,
     desc2,
     speaker,
     location,

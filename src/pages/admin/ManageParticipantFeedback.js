@@ -10,6 +10,7 @@ import Axios from "axios";
 import { useParams } from "react-router-dom";
 import { EventContext } from "../../context/EventContext";
 import Loading from "react-loading-animation";
+import Swal from "sweetalert2";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -52,35 +53,58 @@ export default function ManageParticipant() {
     if (participant === null) {
       // const token = localStorage.getItem("token");
       // const Id = localStorage.getItem("Id");
-      dataEvents.map((event) =>
-        Axios({
-          method: "get",
-          url: `event-registration/event/${id}`,
-        }).then((res) => {
-          console.log(res);
+      // dataEvents.map((event) =>
+      Axios({
+        method: "get",
+        url: `event-registration/event/${id}`,
+      }).then((res) => {
+        console.log(res);
 
-          const rows = res.data.map((data) => {
-            return (
-              // console.log(data.participant),
-              {
-                id: `${data.participant.id}`,
-                name: `${data.participant.name}`,
-                email: `${data.participant.email}`,
-                job: `${data.participant.job}`,
-                feedback1: `${data.feedback[0].answer}`,
-                feedback2: `${data.feedback[1].answer}`,
-                feedback3: `${data.feedback[2].answer}`,
-                feedback4: `${data.feedback[3].answer}`,
-              }
-            );
-          });
-          setParticipant(rows);
-        })
-      );
+        const rows = res.data.map((data) => {
+          return (
+            // console.log(data.participant),
+            {
+              id: `${data.participant.id}`,
+              name: `${data.participant.name}`,
+              email: `${data.participant.email}`,
+              job: `${data.participant.job}`,
+              feedback1: `${data.feedback[0].answer}`,
+              feedback2: `${data.feedback[1].answer}`,
+              feedback3: `${data.feedback[2].answer}`,
+              feedback4: `${data.feedback[3].answer}`,
+            }
+          );
+        });
+        setParticipant(rows);
+      });
+      // );
     }
   });
 
   console.log(participant);
+
+  const exportData = () => {
+    Axios({
+      method: "get",
+      url: `event-registration/export/excel/${id}`,
+      responseType: "blob",
+    }).then((res) => {
+      console.log(res);
+      const url = window.URL.createObjectURL(new Blob([res.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "participant.xlsx");
+      document.body.appendChild(link);
+      link.click();
+      if (res.status === 200) {
+        Swal.fire("Success", "Export Participant Success ", "success");
+      }
+    });
+
+    // .then((res) => {
+    //   console.log(res);
+    // });
+  };
 
   const classes = useStyles();
   return (
@@ -119,6 +143,7 @@ export default function ManageParticipant() {
                 startIcon={<DownloadIcon />}
                 text="Export Participant"
                 color="warning"
+                onClick={() => exportData()}
               />
             </div>
             <div
