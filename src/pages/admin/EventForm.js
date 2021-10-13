@@ -14,7 +14,18 @@ import moment from "moment";
 import ReactSelect from "react-select";
 import Swal from "sweetalert2";
 import { useHistory } from "react-router-dom";
-import { Editor } from '@tinymce/tinymce-react';
+import { Editor } from "@tinymce/tinymce-react";
+const swap=(str)=>{
+  console.log(str)
+  const a = str.split(" ");
+  const date=a[0].split("/")
+  const tmp = date[0];
+  date[0] = date[1];
+  date[1] = tmp;
+  date.join("/")
+  
+  return `${date} ${a[1]}`
+}
 const EventForm = () => {
   const { id } = useParams();
   let history = useHistory();
@@ -28,19 +39,20 @@ const EventForm = () => {
       Axios.get(`speaker`).then((res) => {
         console.log(res);
 
-        let newArray = res.data.map((speaker) => ({
+        let newdatesplitay = res.data.map((speaker) => ({
           value: speaker.id,
           label: speaker.name,
         }));
 
-        setSpeakerOptions(newArray);
+        setSpeakerOptions(newdatesplitay);
       });
       if (window.location.href.includes("editevent")) {
         Axios.get(`event/${id}`).then((res) => {
           const newData = res.data;
+    
           console.log(newData);
           console.log("----------------------");
-
+          console.log(moment(newData.startDate).format("DD/MM/YYYY h:mm:ss a"));
           let selectedSpeaker = newData.speaker.map((speaker) => ({
             value: speaker.id,
             label: speaker.name,
@@ -51,11 +63,12 @@ const EventForm = () => {
           setValue("code", newData.location.code);
           setValue("password", newData.location.password);
           setValue("description", newData.description);
-          setValue("startdate", new Date("02/05/2021 10:40 AM"));
-          setValue("enddate", new Date("02/05/2021 10:40 AM"));
 
-          setValue("opendate", new Date("02/05/2021 10:40 AM"));
-          setValue("closedate", new Date("02/05/2021 10:40 AM"));
+          
+          setValue("startdate", new Date(moment(swap(newData.startDate)).format("MM/DD/YYYY h:mm a")));
+          setValue("enddate", new Date(moment(swap(newData.endDate)).format("MM/DD/YYYY h:mm a")));
+          setValue("opendate", new Date(moment(swap(newData.openRegistration)).format("MM/DD/YYYY h:mm a")));
+          setValue("closedate", new Date(moment(swap(newData.closeRegistration)).format("MM/DD/YYYY h:mm a")));
           setValue(
             "status",
             options.find((c) => c.label === newData.status.name)
@@ -84,10 +97,13 @@ const EventForm = () => {
   ];
 
   const onSubmit = (data) => {
+    console.log(data)
     const startdate = moment(data.startdate)
       .format("DD/MM/YYYY h:mm:ss")
       .toString();
-    const enddate = moment(data.enddate).format("DD/MM/YYYY h:mm:ss").toString();
+    const enddate = moment(data.enddate)
+      .format("DD/MM/YYYY h:mm:ss")
+      .toString();
     const opendate = moment(data.opendate)
       .format("DD/MM/YYYY h:mm:ss")
       .toString();
@@ -115,6 +131,8 @@ const EventForm = () => {
         method: "put",
         data: newdata,
       }).then((res) => {
+        console.log(res)
+        console.log("==========")
         if (res.status == 200) {
           let singleEvent = dataEvents.find((el) => el.id === id);
           singleEvent = { id: id, ...newdata };
@@ -124,10 +142,10 @@ const EventForm = () => {
         }
       });
     } else {
-      console.log("========")
+      console.log("========");
       delete newdata.status;
-      console.log(newdata)
-      
+      console.log(newdata);
+
       Axios({
         url: `event`,
         method: "post",
@@ -166,36 +184,41 @@ const EventForm = () => {
           {...register("imagefile")}
         /> */}
             <Label text="Status" className="question" />
-            <div style={{width: '300px'}}>
-            <Controller
-              name="status"
-              control={control}
-              render={({ field }) => {
-                return (
-                  <>
-                    <ReactSelect style={{width:10}} isClearable {...field} options={options} />
-                  </>
-                );
-              }}
-            />
+            <div style={{ width: "300px" }}>
+              <Controller
+                name="status"
+                control={control}
+                render={({ field }) => {
+                  return (
+                    <>
+                      <ReactSelect
+                        style={{ width: 10 }}
+                        isClearable
+                        {...field}
+                        options={options}
+                      />
+                    </>
+                  );
+                }}
+              />
             </div>
             <Label text="Platform" className="question" />
-            <div style={{width: '300px'}}>
-            <Controller
-              name="platform"
-              control={control}
-              render={({ field }) => {
-                return (
-                  <>
-                    <ReactSelect
-                      isClearable
-                      {...field}
-                      options={platformOptions}
-                    />
-                  </>
-                );
-              }}
-            />
+            <div style={{ width: "300px" }}>
+              <Controller
+                name="platform"
+                control={control}
+                render={({ field }) => {
+                  return (
+                    <>
+                      <ReactSelect
+                        isClearable
+                        {...field}
+                        options={platformOptions}
+                      />
+                    </>
+                  );
+                }}
+              />
             </div>
             <Grid container spacing={1}>
               <Grid item xs={3}>
@@ -244,29 +267,29 @@ const EventForm = () => {
             <Controller
               render={({ field }) => (
                 <TextArea {...field} style={{ width: "100%" }} />
-              //   <Editor
-              //   {...field}
-                
-              // //  onEditorChange={onChange}
-              //   init={{
-              //     height: 200,
-              //     menubar: false,
-              //     plugins: [
-              //       "advlist autolink lists link image charmap print preview anchor",
-              //       "searchreplace visualblocks code fullscreen",
-              //       "insertdatetime media table paste code help wordcount"
-              //     ],
-              //     toolbar:
-              //       "undo redo | formatselect | " +
-              //       "bold italic backcolor | alignleft aligncenter " +
-              //       "alignright alignjustify | bullist numlist outdent indent | " +
-              //       "removeformat | help",
-              //     content_style:
-              //       "body { font-family:Helvetica,Arial,sans-serif; font-size:14px, }"
-              //    }}
-              //   apiKey='i4496zrtz8ycpdqrnwfw7sbrnhqyih23uqh54sm3fvzncig6'
-              
-              // />
+                //   <Editor
+                //   {...field}
+
+                // //  onEditorChange={onChange}
+                //   init={{
+                //     height: 200,
+                //     menubar: false,
+                //     plugins: [
+                //       "advlist autolink lists link image charmap print preview anchor",
+                //       "searchreplace visualblocks code fullscreen",
+                //       "insertdatetime media table paste code help wordcount"
+                //     ],
+                //     toolbar:
+                //       "undo redo | formatselect | " +
+                //       "bold italic backcolor | alignleft aligncenter " +
+                //       "alignright alignjustify | bullist numlist outdent indent | " +
+                //       "removeformat | help",
+                //     content_style:
+                //       "body { font-family:Helvetica,Arial,sans-serif; font-size:14px, }"
+                //    }}
+                //   apiKey='i4496zrtz8ycpdqrnwfw7sbrnhqyih23uqh54sm3fvzncig6'
+
+                // />
               )}
               control={control}
               name="description"
@@ -353,9 +376,8 @@ const EventForm = () => {
             </Grid>
             <br />
             <Button
-          
               text="submit"
-         
+              type="submit"
               style={{
                 backgroundColor: "#3f50b5",
               }}
