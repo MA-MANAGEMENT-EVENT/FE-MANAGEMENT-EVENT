@@ -45,6 +45,7 @@ const ManageEvent = () => {
 
   
   useEffect(() => {
+    window.scrollTo(0, 0)
     if (filteredEvents.length === 0 ) {
       setFilteredEvents(dataEvents)
     }

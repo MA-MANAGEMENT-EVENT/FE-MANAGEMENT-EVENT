@@ -24,18 +24,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const detailHeader = {
-  title: "Preparing your IT to meet the demands of the hybrid workforce",
-  image: "https://source.unsplash.com/random",
-  imgText: "main image description",
-  location: "Online",
-  time: "Thursday, 30 September 2021 09.00 AM",
-  speaker: "Ken Wheeler",
-};
+// const detailHeader = {
+//   title: "Preparing your IT to meet the demands of the hybrid workforce",
+//   image: "https://source.unsplash.com/random",
+//   imgText: "main image description",
+//   location: "Online",
+//   time: "Thursday, 30 September 2021 09.00 AM",
+//   speaker: "Ken Wheeler",
+// };
 
 const sidebar = {
-  description: `Anda belum dapat mendaftar event ini. Yuk buat akun sekarang agar bisa mendaftar 
-    di event ini dan juga event - event lainnya.`,
+  description: `Anda belum dapat mendaftar event ini. 
+                Yuk buat akun sekarang agar bisa mendaftar 
+                di event ini dan juga event - event lainnya.`,
 
   desc2: "Daftar sekarang untuk dapat mengikuti event ini",
 };
@@ -48,6 +49,7 @@ export default function DetailEvent() {
   let history = useHistory();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (event === null) {
       axios.get(`event/${id}`).then((res) => {
         console.log(res);
@@ -82,8 +84,8 @@ export default function DetailEvent() {
     // });
   };
   const managePeserta = () => {
-    history.push(`/manageparticipantandfeedback/${id}`)
-  }
+    history.push(`/manageparticipantandfeedback/${id}`);
+  };
   return (
     <>
       {event === null && (

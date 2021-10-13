@@ -19,7 +19,6 @@ const Nav = (props) => {
       <AppBar data-testid={props.datatest} position={props.position}>
         <Container>
           <Toolbar>
-
             {/* User / Admin Route */}
             {user && (
               <>

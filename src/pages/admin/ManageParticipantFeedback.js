@@ -50,6 +50,7 @@ export default function ManageParticipant() {
   // console.log(`${id}`)
 
   useEffect(() => {
+    window.scrollTo(0, 0)
     if (participant === null) {
       // const token = localStorage.getItem("token");
       // const Id = localStorage.getItem("Id");
