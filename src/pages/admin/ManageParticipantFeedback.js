@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Typography from "../../atoms/typography/Typhography";
 import Button from "../../atoms/button/Button";
@@ -8,7 +8,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import DownloadIcon from "@mui/icons-material/Download";
 import Axios from "axios";
 import { useParams } from "react-router-dom";
-import { EventContext } from "../../context/EventContext";
 import Loading from "react-loading-animation";
 import Swal from "sweetalert2";
 
@@ -43,46 +42,30 @@ const columns = [
 export default function ManageParticipant() {
   let { id } = useParams();
   let [participant, setParticipant] = useState(null);
-  const [dataEvents, setStatusForm] = useContext(EventContext);
-
-  // console.log(event.id)
-
-  // console.log(`${id}`)
 
   useEffect(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
     if (participant === null) {
-      // const token = localStorage.getItem("token");
-      // const Id = localStorage.getItem("Id");
-      // dataEvents.map((event) =>
       Axios({
         method: "get",
         url: `event-registration/event/${id}`,
       }).then((res) => {
-        console.log(res);
-
         const rows = res.data.map((data) => {
-          return (
-            // console.log(data.participant),
-            {
-              id: `${data.participant.id}`,
-              name: `${data.participant.name}`,
-              email: `${data.participant.email}`,
-              job: `${data.participant.job}`,
-              feedback1: `${data.feedback[0].answer}`,
-              feedback2: `${data.feedback[1].answer}`,
-              feedback3: `${data.feedback[2].answer}`,
-              feedback4: `${data.feedback[3].answer}`,
-            }
-          );
+          return {
+            id: `${data.participant.id}`,
+            name: `${data.participant.name}`,
+            email: `${data.participant.email}`,
+            job: `${data.participant.job}`,
+            feedback1: `${data.feedback[0].answer}`,
+            feedback2: `${data.feedback[1].answer}`,
+            feedback3: `${data.feedback[2].answer}`,
+            feedback4: `${data.feedback[3].answer}`,
+          };
         });
         setParticipant(rows);
       });
-      // );
     }
   });
-
-  console.log(participant);
 
   const exportData = () => {
     Axios({
@@ -90,7 +73,6 @@ export default function ManageParticipant() {
       url: `event-registration/export/excel/${id}`,
       responseType: "blob",
     }).then((res) => {
-      console.log(res);
       const url = window.URL.createObjectURL(new Blob([res.data]));
       const link = document.createElement("a");
       link.href = url;
@@ -101,10 +83,6 @@ export default function ManageParticipant() {
         Swal.fire("Success", "Export Participant Success ", "success");
       }
     });
-
-    // .then((res) => {
-    //   console.log(res);
-    // });
   };
 
   const classes = useStyles();
