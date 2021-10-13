@@ -76,7 +76,7 @@ export default function ManageParticipant() {
       const url = window.URL.createObjectURL(new Blob([res.data]));
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", "participant.xlsx");
+      link.setAttribute("download", `${id}-Participant.xlsx`);
       document.body.appendChild(link);
       link.click();
       if (res.status === 200) {
