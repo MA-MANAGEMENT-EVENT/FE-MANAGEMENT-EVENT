@@ -9,6 +9,8 @@ import DownloadIcon from "@mui/icons-material/Download";
 import Axios from "axios";
 import { useParams } from "react-router-dom";
 import { EventContext } from "../../context/EventContext";
+import Loading from "react-loading-animation";
+import Swal from "sweetalert2";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -35,109 +37,13 @@ const columns = [
   { field: "feedback1", headerName: "Feedback 1", width: "200" },
   { field: "feedback2", headerName: "Feedback 2", width: "200" },
   { field: "feedback3", headerName: "Feedback 3", width: "200" },
+  { field: "feedback4", headerName: "Feedback 4", width: "200" },
 ];
-
-// const rows = [
-//   {
-//     id: 1,
-//     event: "Test Event",
-//     participant: "Snow",
-//     email: "Jon@mail.com",
-//     job: "Pelajar",
-//     feedback1: "Sudah",
-//     feedback2: "Baik",
-//     feedback3: "-",
-//   },
-//   {
-//     id: 2,
-//     event: "Test Event",
-//     participant: "Lannister",
-//     email: "Cersei@mail.com",
-//     job: "Pelajar",
-//     feedback1: "Oke",
-//     feedback2: "Baik",
-//     feedback3: "",
-//   },
-//   {
-//     id: 3,
-//     event: "Test Event",
-//     participant: "Lannister",
-//     email: "Jaime@mail.com",
-//     job: "Dosen",
-//     feedback1: "Baik",
-//     feedback2: "Humble",
-//     feedback3: "",
-//   },
-//   {
-//     id: 4,
-//     event: "Test Event",
-//     participant: "Stark",
-//     email: "Arya@mail.com",
-//     job: "Pelajar",
-//     feedback1: "Iya, sudah sesuai",
-//     feedback2: "",
-//     feedback3: "",
-//   },
-//   {
-//     id: 5,
-//     event: "Welcoming Party",
-//     participant: "Targaryen",
-//     email: "Daenerys@mail.com",
-//     job: "Pelajar",
-//     feedback1: "Tidak masalah",
-//     feedback2: "",
-//     feedback3: "",
-//   },
-//   {
-//     id: 6,
-//     event: "Welcoming Party",
-//     participant: "Melisandre",
-//     email: "Meli@mail.com",
-//     job: "Dosen",
-//     feedback1: "Materi presentasi sudah sesuai dengan ekspetasi",
-//     feedback2: "",
-//     feedback3: "",
-//   },
-//   {
-//     id: 7,
-//     event: "Welcoming Party",
-//     participant: "Clifford",
-//     email: "Ferrara@mail.com",
-//     job: "Pelajar",
-//     feedback1: "Materi sesuai ekspetasi",
-//     feedback2: "",
-//     feedback3: "",
-//   },
-//   {
-//     id: 8,
-//     event: "Welcoming Party",
-//     participant: "Frances",
-//     email: "Rossini@mail.com",
-//     job: "Pelajar",
-//     feedback1: "Baik",
-//     feedback2: "",
-//     feedback3: "",
-//   },
-//   {
-//     id: 9,
-//     event: "Welcoming Party",
-//     participant: "Roxie",
-//     email: "Harvey@mail.com",
-//     job: "Pelajar",
-//     feedback1: "Oke",
-//     feedback2: "",
-//     feedback3: "",
-//   },
-// ];
 
 export default function ManageParticipant() {
   let { id } = useParams();
   let [participant, setParticipant] = useState(null);
   const [dataEvents, setStatusForm] = useContext(EventContext);
-
-  // const rows = []
-
-  let rows = [];
 
   // console.log(event.id)
 
@@ -145,43 +51,69 @@ export default function ManageParticipant() {
 
   useEffect(() => {
     if (participant === null) {
-      const token = localStorage.getItem("token");
+      // const token = localStorage.getItem("token");
       // const Id = localStorage.getItem("Id");
-      dataEvents.map((event) =>
-        Axios({
-          method: "get",
-          url: `event-registration/event/${event.id}`,
-        }).then((res) => {
-          console.log(res);
-          setParticipant(res.data);
-        })
-      );
+      // dataEvents.map((event) =>
+      Axios({
+        method: "get",
+        url: `event-registration/event/${id}`,
+      }).then((res) => {
+        console.log(res);
+
+        const rows = res.data.map((data) => {
+          return (
+            // console.log(data.participant),
+            {
+              id: `${data.participant.id}`,
+              name: `${data.participant.name}`,
+              email: `${data.participant.email}`,
+              job: `${data.participant.job}`,
+              feedback1: `${data.feedback[0].answer}`,
+              feedback2: `${data.feedback[1].answer}`,
+              feedback3: `${data.feedback[2].answer}`,
+              feedback4: `${data.feedback[3].answer}`,
+            }
+          );
+        });
+        setParticipant(rows);
+      });
+      // );
     }
   });
-  
+
   console.log(participant);
 
-  //   participant.map((data) => {
-  //     return (
-  //       console.log(data.participant),
-  //     rows = [
-  //       {
+  const exportData = () => {
+    Axios({
+      method: "get",
+      url: `event-registration/export/excel/${id}`,
+      responseType: "blob",
+    }).then((res) => {
+      console.log(res);
+      const url = window.URL.createObjectURL(new Blob([res.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "participant.xlsx");
+      document.body.appendChild(link);
+      link.click();
+      if (res.status === 200) {
+        Swal.fire("Success", "Export Participant Success ", "success");
+      }
+    });
 
-  //         id: `${data.participant.id}`,
-  //         name: `${data.participant.name}`,
-  //         email: `${data.participant.email}`,
-  //         job: `${data.participant.job}`,
-
-  //       },
-
-  //       // )}
-  //     ]
-  //   );
-  // });
+    // .then((res) => {
+    //   console.log(res);
+    // });
+  };
 
   const classes = useStyles();
   return (
     <>
+      {participant === null && (
+        <div style={{ marginTop: 200 }}>
+          <Loading />
+        </div>
+      )}
       {participant && (
         <Container>
           <div>
@@ -211,6 +143,7 @@ export default function ManageParticipant() {
                 startIcon={<DownloadIcon />}
                 text="Export Participant"
                 color="warning"
+                onClick={() => exportData()}
               />
             </div>
             <div
@@ -227,28 +160,6 @@ export default function ManageParticipant() {
                 rowsPerPageOptions={[10]}
                 disableSelectionOnClick
               />
-
-              {/* {participant.map((data) => {
-                return (
-                  console.log(data.participant.id),
-                  <DataGrid
-                  
-                    rows={[
-                      {
-                        id: `${data.participant.id}`,
-                        name: `${data.participant.name}`,
-                        email: `${data.participant.email}`,
-                        job: `${data.participant.job}`,
-                      },
-                    ]}
-                    // rows={rows}
-                    columns={columns}
-                    pageSize={5}
-                    rowsPerPageOptions={[10]}
-                    disableSelectionOnClick
-                  />
-                );
-              })} */}
             </div>
           </div>
         </Container>
