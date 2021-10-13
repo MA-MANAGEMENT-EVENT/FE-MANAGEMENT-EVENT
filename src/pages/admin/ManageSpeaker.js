@@ -1,19 +1,14 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-// import { DataGridPro } from "@mui/x-data-grid-pro";
 import Container from "@material-ui/core/Container";
 import Typography from "../../atoms/typography/Typhography";
-import TextField from "../../atoms/textfield/TextField";
-import { makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Button from "../../atoms/button/Button";
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import { FormControlLabel, IconButton } from "@material-ui/core";
+import { Grid, FormControlLabel, IconButton } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
-import DeleteIcon from '@material-ui/icons/Delete';
+import DeleteIcon from "@material-ui/icons/Delete";
 import { blue } from "@material-ui/core/colors";
+import FormDialog from "../../molecules/dialogSpeaker";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -26,123 +21,117 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     color: theme.palette.text.secondary,
   },
-  columns:{
-    font:"#0C539F80",
-  }
+  columns: {
+    font: "#0C539F80",
+  },
 }));
 
-const MatEdit = ({ index }) => {
-    const handleEditClick = () => {
-    
-    };
-    const handleDeleteClick = () => {
-        
-        
-    };  
-    return (
-      <FormControlLabel
-        control={
-          <IconButton
-            color="secondary"
+const initialValue = { name: "", description: "", image: "" };
+
+export default function ManageSpeaker() {
+  const baseURL = "https://management-event-api.herokuapp.com/speaker";
+  const columns = [
+    { field: "name", headerName: "Speaker Name", width: "200" },
+    { field: "image", headerName: "Image", width: "150" },
+    { field: "description", headerName: "Deskripsi", width: "590" },
+    {
+      width: "200",
+      field: "id",
+      headerName: "Action",
+      sortable: false,
+      renderCell: (params) => {
+        return (
+          <div
+            className="d-flex justify-content-between align-items-center"
+            style={{ cursor: "pointer" }}
           >
-            <EditIcon style={{ color: blue[500] }} onClick={handleEditClick} />
-            <DeleteIcon onClick={handleDeleteClick} />
-          </IconButton>
-        }
-      />
-    );
-  };
-  
-const columns = [
-  { field: "speaker", headerName: "Speaker Name", width: "200" },
-  { field: "image", headerName: "Image", width: "150" },
-  { field: "deskripsi", headerName: "Deskripsi", width: "650" },
-  { field: "actions", headerName: "Action",
-    sortable: false,
-    width: 140,
-    disableClickEventBubbling: true,
-    renderCell: (params) => {
-    return (
-      <div
-        className="d-flex justify-content-between align-items-center"
-        style={{ cursor: "pointer" }}
-      >
-        <MatEdit index={params.row.id} />
-      </div>
-    );
-  }
-}
-];
+            <Button
+              style={{ background: "#00A44E", marginRight: 10 }}
+              variant="contained"
+              color="primary"
+              onClick={() => handleUpdate(params.data)}
+              text="Edit"
+            />
+            <Button
+              style={{ background: "#FF2060" }}
+              variant="contained"
+              color="secondary"
+              onClick={() => handleDelete(params.value)}
+              text="Delete"
+            />
+          </div>
+        );
+      },
+    },
+  ];
+  useEffect(() => {
+    getUsers();
+  }, []);
 
-const rows = [
-  {
-    id: 1,
-    speaker: "Robert Lewandowski",
-    image :"0000000124.jpg",
-    deskripsi :"Pemain sepak bola Polandia"
-  },
-  {
-    id: 2,
-    speaker: "Susi Susanti",
-    image :"0000000124.jpg",
-    deskripsi :"Robert Lewandowski adalah pemain sepak bola Polandia yang bermain sebagai penyerang pada klub Bundesliga Jerman, Bayern Munich dan merupakan kapten tim nasional Polandia",
-
-  },
-  {
-    id: 3,
-    speaker: "Lannister",
-    image :"0000000124.jpg",
-    deskripsi :"Pemain sepak bola Polandia"
-  },
-  { id: 4, 
-    speaker: "Lee Sinisuka Sanjaya", 
-    image :"0000000124.jpg",
-    deskripsi :"Pemain sepak bola Polandia"
-  },  
-  {
-    id: 5,
-    speaker: "Kevin Sinisuka Rahayu",
-    image :"0000000124.jpg",
-    deskripsi :"Pemain sepak bola Polandia"
-  },
-  {
-    id: 6,
-    speaker: "Melisandre",
-    image :"0000000124.jpg",
-    deskripsi :"Pemain sepak bola Polandia"
-  },
-  {
-    id: 7,
-    speaker: "Apriyani Sanjaya",
-    image :"0000000124.jpg",
-    deskripsi :"Pemain sepak bola Polandia"
-  },
-  {
-    id: 8,
-    speaker: "Robert Lewandowski",
-    image :"0000000124.jpg",
-    deskripsi :"Pemain sepak bola Polandia"
-  },
-  {
-    id: 9,
-    speaker: "Ratna Sari",
-    image :"0000000124.jpg",
-    deskripsi :"Pemain sepak bola Polandia"
-  },
-  {
-    id: 10,
-    speaker: "Riduan Kamil",
-    image :"0000000124.jpg",
-    deskripsi :"Pemain sepak bola Polandia"
-  },
-];
-
-export default function ManageSpeaker() { 
   const classes = useStyles();
+  const [gridApi, setGridApi] = useState(null);
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  
+  const [formData, setFormData] = useState(initialValue);
+
+  //Read Speaker
+  const [tableData, setTableData] = useState([]);
+  useEffect(() => {
+    fetch(baseURL)
+      .then((data) => data.json())
+      .then((data) => setTableData(data));
+  });
+  const handleClose = () => {
+    setOpen(false);
+    setFormData(initialValue);
+  };
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const getUsers = () => {
+    fetch(baseURL)
+      .then((resp) => resp.json())
+      .then((resp) => setTableData(resp));
+  };
+  const onChange = (e) => {
+    const { value, id } = e.target;
+    setFormData({ ...formData, [id]: value });
+  };
+  const onGridReady = (params) => {
+    setGridApi(params);
+  };
+
+  const handleUpdate = (oldData) => {
+   setFormData(oldData);
+  };
+
+  const handleDelete = (id) => {
+    const confirm = window.confirm(
+      "Are you sure, you want to delete this Speaker?",
+      id
+    );
+    if (confirm) {
+      fetch(baseURL + `/${id}`, { method: "DELETE" })
+        .then((resp) => resp.json())
+        .then((resp) => getUsers());
+    }
+  };
+
+  const handleFormSubmit = () => {
+    fetch(baseURL, {
+      method: "POST",
+      body: JSON.stringify(formData),
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+      .then((resp) => resp.json())
+      .then((resp) => {
+        handleClose();
+        getUsers();
+        setFormData(initialValue);
+      });
+  };
+
   return (
     <>
       <div className={classes.heroContent} style={{ marginTop: 5 }}>
@@ -160,61 +149,13 @@ export default function ManageSpeaker() {
       {/* Add New Speaker */}
       <div
         style={{
-          height:70,
+          height: 70,
         }}
       >
-      <Button
-        // className="add"
-        text="Add Speaker"
-        onClick={handleOpen}
-        // startIcon={<AddIcon/>}
-         />
-       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Add New Speaker</DialogTitle>
-        <DialogContent>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Nama Speaker"
-            type="text"
-            fullWidth
-            variant="standard"
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Description"
-            type="text"
-            fullWidth
-            variant="standard"
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label=""
-            type="file"
-            fullWidth
-            variant="standard"
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button 
-            onClick={handleClose}
-            // startIcon={<CloseIcon />}
-            color="secondary"
-            text="Cancel"
-          />
-          <Button 
-          onClick={handleClose} 
-          text="Submit"
-          />
-        </DialogActions>
-      </Dialog>
-
-     </div>
+        <Grid align="right">
+          <Button text="Add Speaker" onClick={handleClickOpen} />
+        </Grid>
+      </div>
       <div
         style={{
           height: 400,
@@ -222,14 +163,20 @@ export default function ManageSpeaker() {
         }}
       >
         <DataGrid
-          rows={rows}
+          rows={tableData}
           columns={columns}
           pageSize={5}
           rowsPerPageOptions={[10]}
           disableSelectionOnClick
         />
       </div>
+      <FormDialog
+        open={open}
+        handleClose={handleClose}
+        data={formData}
+        onChange={onChange}
+        handleFormSubmit={handleFormSubmit}
+      />
     </>
   );
 }
-
