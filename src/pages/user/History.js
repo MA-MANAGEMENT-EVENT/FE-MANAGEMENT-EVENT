@@ -24,33 +24,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const history = [
-  {
-    id: 1,
-    name: "Belajar Kotlin to Build Android App",
-  },
-  {
-    id: 2,
-    name: "How to Start Javascipt to build",
-  },
-  {
-    id: 3,
-    name: "Belajar Kotlin to Build Android App",
-  },
-  {
-    id: 4,
-    name: "Belajar Kotlin to Build Android App",
-  },
-];
-
-const countHistory = history.filter((item) => item.id).length;
-
 const History = () => {
   const [user] = useContext(UserContext);
   const [history, setHistory] = useState(null);
   useEffect(() => {
     if (history === null) {
-
       Axios({
         method: "get",
         url: `event-registration/history/${user.id}`,
@@ -110,6 +88,9 @@ const History = () => {
                             size="small"
                             color="primary"
                             text="Feedback"
+                            style={{
+                              backgroundColor: "#3f50b5",
+                            }}
                           />
                         </Link>
                       </div>

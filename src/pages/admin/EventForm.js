@@ -21,18 +21,6 @@ const EventForm = () => {
   const [dataEvents, setdataEvents] = useContext(EventContext);
   const [event, setEvent] = useState(null);
   const [speakerOptions, setSpeakerOptions] = useState(null);
-  const defaultValues = {
-    title: "a",
-    description: "",
-    location: "",
-    code: "",
-    password: "",
-    speaker: [],
-    status: "",
-    startdate: "",
-    enddate: "",
-    // imagefile: "",
-  };
   const { handleSubmit, setValue, control } = useForm({ mode: "onBlur" });
 
   useEffect(() => {
@@ -63,7 +51,6 @@ const EventForm = () => {
           setValue("code", newData.location.code);
           setValue("password", newData.location.password);
           setValue("description", newData.description);
-          // setValue("startdate", new Date(newData.startDate));
           setValue("startdate", new Date("02/05/2021 10:40 AM"));
           setValue("enddate", new Date("02/05/2021 10:40 AM"));
 
@@ -79,14 +66,7 @@ const EventForm = () => {
               (c) => c.label === newData.location.platform.name
             )
           );
-
-          // speakerOptions.filter((speaker)=>{
-          //   return  newArraySpeaker.includes()
-          // })
           setValue("speaker", selectedSpeaker);
-
-          // new Date("02/05/2021 10:30 AM")
-          // setGame(newData);
         });
       }
     }
@@ -351,8 +331,6 @@ const EventForm = () => {
                     <DateTimePickerComponent
                       className="input"
                       placeholderText="Open date"
-                      // onChange={(e) => field.onChange(e)}
-                      // selected={field.value}
                       {...field}
                     />
                   )}
@@ -375,9 +353,9 @@ const EventForm = () => {
             </Grid>
             <br />
             <Button
-              datatest="submit"
+          
               text="submit"
-              type="submit"
+         
               style={{
                 backgroundColor: "#3f50b5",
               }}

@@ -7,10 +7,12 @@ import { Alert } from "../../atoms/alert/Alert";
 import { useForm, Controller } from "react-hook-form";
 import { UserContext } from "../../context/UserContext";
 import { useParams } from "react-router-dom";
+import Swal from "sweetalert2";
+import { useHistory } from "react-router-dom";
 const Feedback = () => {
+  let history = useHistory();
   let { id, regis } = useParams();
   const { control, register, handleSubmit } = useForm();
-  const [User, setUser] = useContext(UserContext);
   const [question, setQuestion] = useState(null);
   const [input, setInput] = useState({
     question1: "",
@@ -56,9 +58,14 @@ const Feedback = () => {
         ]
       }).then((res)=>{
         if(res.status == 200){
-          console.log("success")
+          Swal.fire("Success", "Success Submit Feedback", "success");
+          history.push("/home");
+        }else{
+          Swal.fire("Error", "Failed Submit Feedback ", "error");
         }
       })
+    }else{
+      Swal.fire("Error", "Failed Submit Feedback ", "error");
     }
   };
 
@@ -83,23 +90,21 @@ const Feedback = () => {
                     name={`question${index + 1}`}
                     className="root"
                   />
-                  {/* <TextField
-                datatest={`${question}-${index}`}
-                name={`${question}-${index}`}
-                //   onChange={props.onChange}
-                value={input[question]}
-                className="root"
-              /> */}
                 </>
               );
             })}
-            <br />{" "}
-            <Button
-              // onClick={onSubmit}
-              datatest="submit"
-              text="submit"
-              type="submit"
-            />
+            <br />
+            <br />
+          
+              <Button
+                       
+                            color="primary"
+                            text="submit"
+                            type="submit"
+                            style={{
+                              backgroundColor: "#3f50b5",
+                            }}
+                          />
           </form>
         </>
       )}
