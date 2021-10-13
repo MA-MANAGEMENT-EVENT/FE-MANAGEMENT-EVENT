@@ -10,6 +10,7 @@ import Sidebar from "../../organisms/Detail/Sidebar";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import Axios from "axios";
+import Swal from "sweetalert2";
 
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
@@ -28,19 +29,6 @@ const detailHeader = {
   location: "Online",
   time: "Thursday, 30 September 2021 09.00 AM",
   speaker: "Ken Wheeler",
-};
-
-const posts = {
-  description: `There are many variations of passages of Lorem Ipsum available, 
-  but the majority have suffered alteration in some form, by injected humour, 
-  or randomised words which don't look even slightly believable. If you are going 
-  to use a passage of Lorem Ipsum, you need to be sure there isn't anything 
-  embarrassing hidden in the middle of text. All the Lorem Ipsum generators on 
-  the Internet tend to repeat predefined chunks as necessary, making this the first 
-  true generator on the Internet. It uses a dictionary of over 200 Latin words, 
-  combined with a handful of model sentence structures, to generate Lorem Ipsum 
-  which looks reasonable. The generated Lorem Ipsum is therefore always free from 
-  repetition, injected humour, or non-characteristic words etc.`,
 };
 
 const sidebar = {
@@ -71,11 +59,11 @@ export default function DetailEvent() {
       eventId: id,
       userId: user.id,
     }).then((res) => {
-      if(res){
-        console.log(res);
-        console.log("success")
+    
+      if(res.status===200){
+        Swal.fire("Success", "Registration Success ", "success");
       }else{
-        console.log("failed")
+        Swal.fire("Error", "Registration Failed", "error");
       }
       
     });

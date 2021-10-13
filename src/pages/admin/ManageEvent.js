@@ -8,6 +8,7 @@ import CardEvent from "../../molecules/cardevent";
 import { EventContext } from "../../context/EventContext";
 import Axios from "axios";
 import Button from "../../atoms/button/Button";
+import { Link } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
@@ -41,7 +42,7 @@ const ManageEvent = () => {
   const classes = useStyles();
   const [dataEvents, setStatusForm] = useContext(EventContext);
   const [filteredEvents, setFilteredEvents] = useState(dataEvents);
-console.log(dataEvents)
+
   
   useEffect(() => {
     if (filteredEvents.length === 0 ) {
@@ -78,6 +79,10 @@ console.log(dataEvents)
 
           <div className={classes.heroButtons}>
             <Grid container spacing={2} justifyContent="center">
+            <Link
+                    to='/createevent'
+                    style={{ textDecoration: "none", padding: 10 }}
+                  >
               <Button
                 size="small"
                 text="Create Event"
@@ -85,6 +90,7 @@ console.log(dataEvents)
                   backgroundColor: "#f0ad4e",
                 }}
               />
+              </Link>
             </Grid>
             <br />
             <br />

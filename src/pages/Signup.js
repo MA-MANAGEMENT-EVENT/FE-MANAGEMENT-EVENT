@@ -11,6 +11,7 @@ import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Axios from "axios";
+import Swal from "sweetalert2";
 import { useHistory } from "react-router-dom";
 import { Alert } from "../atoms/alert/Alert";
 const useStyles = makeStyles((theme) => ({
@@ -56,15 +57,16 @@ export default function SignUp() {
         password: password,
       }).then((res) => {
         console.log(res.data);
-        if (res.data.verificationcode) {
+        if (res) {
+          Swal.fire("Success", "Signup Success Check Your Email For Verification", "success");
+          history.push("/login");
         } else {
-          handleClickOpen();
+          Swal.fire("Error", "Signup failed ", "error");
         }
-        // history.push("/");
       });
-      // history.push("/login");
+    
     } else {
-      handleClickOpen();
+      Swal.fire("Error", "Signup failed ", "error");
     }
   };
   return (

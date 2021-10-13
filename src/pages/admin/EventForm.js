@@ -105,14 +105,14 @@ const EventForm = () => {
 
   const onSubmit = (data) => {
     const startdate = moment(data.startdate)
-      .format("DD/MM/YYYY h:mm a")
+      .format("DD/MM/YYYY h:mm:ss")
       .toString();
-    const enddate = moment(data.enddate).format("DD/MM/YYYY h:mm a").toString();
+    const enddate = moment(data.enddate).format("DD/MM/YYYY h:mm:ss").toString();
     const opendate = moment(data.opendate)
-      .format("DD/MM/YYYY h:mm a")
+      .format("DD/MM/YYYY h:mm:ss")
       .toString();
     const closedate = moment(data.closedate)
-      .format("DD/MM/YYYY h:mm a")
+      .format("DD/MM/YYYY h:mm:ss")
       .toString();
     const speaker = data.speaker.map((speaker) => ({ id: speaker.value }));
     const newdata = {

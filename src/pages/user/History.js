@@ -80,6 +80,7 @@ const History = () => {
           <Box>
             {history.map((data) => {
               return (
+                <>
                 <Paper elevation={5} sx={{ mx: "auto", p: 5 }}>
                   <Grid container>
                     <Grid item xs={4}>
@@ -117,6 +118,8 @@ const History = () => {
                     
                   </Grid>
                 </Paper>
+                <br/>
+              </>
               );
             })}
           </Box>
