@@ -7,9 +7,12 @@ import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom";
 import Axios from "axios";
 import Loading from "react-loading-animation";
+import Swal from "sweetalert2";
+import { useHistory } from "react-router-dom";
 
 const FeedbackQuestion = () => {
   const [questionField, setQuestionField] = useState(null);
+  let history = useHistory();
 
   const defaultValues = {
     questionField,
@@ -42,7 +45,7 @@ const FeedbackQuestion = () => {
           console.log("----------------------");
 
           for (let i = 0; i < 4; i++) {
-            setValue("question" + (i + 1), newData[i].question);
+            setValue("question" + (i), newData[i].question);
           }
         });
       }
@@ -53,43 +56,30 @@ const FeedbackQuestion = () => {
   const onSubmit = (data) => {
     console.log(data);
 
-    // const newdata = {
-    //   question1: data.question[0],
-    //   question2: data.question[1],
-    //   question3: data.question[2],
-    //   question4: data.question[3],
-    // };
+    const newdata = [
+      data.question0,
+      data.question1,
+      data.question2,
+      data.question3
+    ]
 
-    // if (window.location.href.includes("question")) {
-    //   Axios({
-    //     // url: `question-feedback/${id}`,
-    //     method: "put",
-    //     data: newdata,
-    //   }).then((res) => {
-    //     if (res.status == 200) {
-    //       // let singleEvent = dataEvents.find((el) => el.id === id);
-    //       // singleEvent = { id: id, ...newdata };
-    //       // setdataEvents([...dataEvents]);
-    //       // Swal.fire("Success", "Edit Event Success ", "success");
-    //       // history.push("/manageevent");
-    //     }
-    //   });
-    // } else {
-    //   console.log("========")
-    //   delete newdata.status;
-    //   console.log(newdata)
 
-    //   Axios({
-    //     url: `event`,
-    //     method: "post",
-    //     data: newdata,
-    //   }).then((res) => {
-    //     console.log(res);
-    //     if (res.status == 200) {
-    //       console.log("success");
-    //     }
-    //   });
-    // }
+    if (window.location.href.includes("question")) {
+      questionField.forEach((data, index) => {
+        Axios({
+        url: `question-feedback/${data.id}`,
+        method: "put",
+        data: {question:newdata[index]},
+      }).then((res) => {
+        console.log(res)
+        if (res.status == 200) {
+          history.push("/manageevent");
+        }
+      });
+      }
+      
+      )
+    } 
   };
 
   const pertanyaan = [
@@ -136,8 +126,8 @@ const FeedbackQuestion = () => {
                       // />
                     )}
                     control={control}
-                    datatest={`${question}-${index}`}
-                    name={`"question"${index + 1}`}
+                    datatest={`question${index}`}
+                    name={`question${index}`}
                   />
                 </>
               );

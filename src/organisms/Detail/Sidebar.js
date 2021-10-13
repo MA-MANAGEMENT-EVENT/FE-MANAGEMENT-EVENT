@@ -24,7 +24,16 @@ const useStyles = makeStyles((theme) => ({
 export default function Sidebar(props) {
   const [user] = useContext(UserContext);
   const classes = useStyles();
-  const { description, title, desc2, speaker, location, time, onSubmit } = props;
+  const {
+    description,
+    title,
+    desc2,
+    speaker,
+    location,
+    time,
+    onSubmit,
+    onMove,
+  } = props;
 
   return (
     <Grid item xs={12} md={4}>
@@ -120,7 +129,6 @@ export default function Sidebar(props) {
         )}
         {user.role === "ROLE_USER" && (
           <Button
-           
             fullWidth
             variant="contained"
             color="primary"
@@ -133,23 +141,19 @@ export default function Sidebar(props) {
               borderRadius: "8px",
               backgroundColor: "#3f50b5",
             }}
-            onClick={()=>onSubmit()}
+            onClick={() => onSubmit()}
           />
         )}
         {user.role === "ROLE_ADMIN" && (
-          <Link
-            to="/manageparticipantandfeedback"
-            style={{ textDecoration: "none" }}
-          >
-            <Button
-              size="large"
-              text="Manage Participant and Feedback"
-              // color="secondary"
-              style={{
-                backgroundColor: "#3f50b5",
-              }}
-            />
-          </Link>
+          <Button
+            size="large"
+            text="Manage Participant and Feedback"
+            // color="secondary"
+            style={{
+              backgroundColor: "#3f50b5",
+            }}
+            onClick={() => onMove()}
+          />
         )}
       </div>
     </Grid>

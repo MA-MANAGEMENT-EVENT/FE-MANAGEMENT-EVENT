@@ -55,7 +55,7 @@ export default function ManageParticipant() {
       dataEvents.map((event) =>
         Axios({
           method: "get",
-          url: `event-registration/event/${event.id}`,
+          url: `event-registration/event/${id}`,
         }).then((res) => {
           console.log(res);
 
