@@ -13,7 +13,7 @@ export default function FormDialog({
   onChange,
   handleFormSubmit,
 } = {}) {
-  const { description, image, name } = data;
+  const { id=null ,description, image, name } = data;
 
   return (
     <div>
@@ -44,11 +44,11 @@ export default function FormDialog({
             variant="standard"
             onChange={(e) => onChange(e)}
           />
+         {id&&image &&<a href={image}>{image}</a>} 
           <TextField
             autoFocus
             margin="dense"
             id="image"
-            value={image}
             label=""
             type="file"
             fullWidth
@@ -62,7 +62,7 @@ export default function FormDialog({
             style={{ background: "#D1514A" }}
             text="Cancel"
           />
-          <Button text="Submit" onClick={() => handleFormSubmit()}>
+          <Button text="Submit" onClick={() => handleFormSubmit(id)}>
             {/* {id ? "Update" : "Submit"} */}
           </Button>
         </DialogActions>
