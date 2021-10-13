@@ -9,6 +9,7 @@ import DownloadIcon from "@mui/icons-material/Download";
 import Axios from "axios";
 import { useParams } from "react-router-dom";
 import { EventContext } from "../../context/EventContext";
+import Loading from "react-loading-animation";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -84,6 +85,11 @@ export default function ManageParticipant() {
   const classes = useStyles();
   return (
     <>
+      {participant === null && (
+        <div style={{ marginTop: 200 }}>
+          <Loading />
+        </div>
+      )}
       {participant && (
         <Container>
           <div>

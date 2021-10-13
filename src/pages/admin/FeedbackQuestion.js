@@ -6,12 +6,13 @@ import { useForm, Controller } from "react-hook-form";
 import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom";
 import Axios from "axios";
+import Loading from "react-loading-animation";
 
 const FeedbackQuestion = () => {
-  const [field, setfield] = useState(null);
+  const [questionField, setQuestionField] = useState(null);
 
   const defaultValues = {
-    field
+    questionField,
     // question1: "",
     // question2: "",
     // question3: "",
@@ -23,7 +24,7 @@ const FeedbackQuestion = () => {
   });
 
   useEffect(() => {
-    if (field === null) {
+    if (questionField === null) {
       Axios.get(`question-feedback`).then((res) => {
         console.log(res);
 
@@ -32,7 +33,7 @@ const FeedbackQuestion = () => {
           isi: obj.question,
         }));
 
-        setfield(newArray);
+        setQuestionField(newArray);
       });
       if (window.location.href.includes("question")) {
         Axios.get(`question-feedback`).then((res) => {
@@ -40,13 +41,14 @@ const FeedbackQuestion = () => {
           console.log(newData);
           console.log("----------------------");
 
-          for(let i=0; i<4; i++){
-          setValue("question" + (i+1) , newData[i].question);}
+          for (let i = 0; i < 4; i++) {
+            setValue("question" + (i + 1), newData[i].question);
+          }
         });
       }
     }
   });
-  console.log(field)
+  console.log(questionField);
 
   const onSubmit = (data) => {
     console.log(data);
@@ -76,7 +78,7 @@ const FeedbackQuestion = () => {
     //   console.log("========")
     //   delete newdata.status;
     //   console.log(newdata)
-      
+
     //   Axios({
     //     url: `event`,
     //     method: "post",
@@ -99,7 +101,12 @@ const FeedbackQuestion = () => {
 
   return (
     <>
-      {field && (
+      {questionField === null && (
+        <div style={{ marginTop: 200 }}>
+          <Loading />
+        </div>
+      )}
+      {questionField && (
         <div
           style={{
             marginTop: 25,
@@ -120,7 +127,7 @@ const FeedbackQuestion = () => {
                   <Label text={question} className="question" />
                   <Controller
                     render={({ field }) => (
-                      <TextField {...field} />
+                      <TextField {...field} className="questionfeedback" />
                       // <TextField
                       //
                       //   name={`${question}-${index}`}
