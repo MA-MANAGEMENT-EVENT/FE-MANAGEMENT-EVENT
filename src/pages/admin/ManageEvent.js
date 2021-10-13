@@ -52,7 +52,6 @@ const ManageEvent = () => {
   const handleChange = (event) => {
     let value = event.target.value.toLowerCase();
     let result = [];
-
     result = dataEvents.filter((event) => {
       return event.name.toLowerCase().search(value) != -1;
     });

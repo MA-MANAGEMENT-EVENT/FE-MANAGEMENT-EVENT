@@ -10,6 +10,7 @@ import Grid from "../../atoms/grid/index";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import Axios from "axios";
+import Loading from "react-loading-animation";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -41,6 +42,14 @@ const History = () => {
   const classes = useStyles();
   return (
     <>
+    {history === null && (
+        <>
+        <div style={{marginTop:200}}>
+        <Loading />
+        </div>
+     
+        </>
+      )}
       {history && (
         <>
           <div className={classes.heroContent} style={{ marginTop: 5 }}>

@@ -54,7 +54,6 @@ export default function Login() {
          
           setUser(res.data);
           localStorage.setItem("user",JSON.stringify(res.data))
-
           history.push("/");
         } else {
           handleClickOpen();

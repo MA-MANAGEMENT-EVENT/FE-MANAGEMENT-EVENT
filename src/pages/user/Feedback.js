@@ -29,12 +29,12 @@ const Feedback = () => {
     }
   });
   const onSubmit = (data) => {
-    console.log(regis)
+    console.log(regis);
     if (data.question1 && data.question2 && data.question3 && data.question4) {
       Axios({
-        url: '/feedback',
-        method: 'post',
-        data:[
+        url: "/feedback",
+        method: "post",
+        data: [
           {
             answer: data.question1,
             question: question[0].id,
@@ -55,16 +55,16 @@ const Feedback = () => {
             question: question[3].id,
             registration: regis,
           },
-        ]
-      }).then((res)=>{
-        if(res.status == 200){
+        ],
+      }).then((res) => {
+        if (res.status == 200) {
           Swal.fire("Success", "Success Submit Feedback", "success");
           history.push("/home");
-        }else{
+        } else {
           Swal.fire("Error", "Failed Submit Feedback ", "error");
         }
-      })
-    }else{
+      });
+    } else {
       Swal.fire("Error", "Failed Submit Feedback ", "error");
     }
   };
@@ -95,16 +95,15 @@ const Feedback = () => {
             })}
             <br />
             <br />
-          
-              <Button
-                       
-                            color="primary"
-                            text="submit"
-                            type="submit"
-                            style={{
-                              backgroundColor: "#3f50b5",
-                            }}
-                          />
+
+            <Button
+              color="primary"
+              text="submit"
+              type="submit"
+              style={{
+                backgroundColor: "#3f50b5",
+              }}
+            />
           </form>
         </>
       )}

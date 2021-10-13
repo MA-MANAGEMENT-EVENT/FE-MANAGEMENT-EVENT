@@ -11,6 +11,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import Axios from "axios";
 import Swal from "sweetalert2";
+import Loading from "react-loading-animation";
 
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
@@ -53,19 +54,17 @@ export default function DetailEvent() {
     }
   });
   const onSubmit = () => {
-    console.log(user.id)
-    console.log(id)
+    console.log(user.id);
+    console.log(id);
     Axios.post(`event-registration/register`, {
       eventId: id,
       userId: user.id,
     }).then((res) => {
-    
-      if(res.status===200){
+      if (res.status === 200) {
         Swal.fire("Success", "Registration Success ", "success");
-      }else{
+      } else {
         Swal.fire("Error", "Registration Failed", "error");
       }
-      
     });
     // Axios.post(`event-registration/register`, {
     //   eventId: id,
@@ -82,6 +81,11 @@ export default function DetailEvent() {
   };
   return (
     <>
+      {event === null && (
+        <div style={{ marginTop: 200 }}>
+          <Loading />
+        </div>
+      )}
       {event && (
         <React.Fragment>
           <CssBaseline />
