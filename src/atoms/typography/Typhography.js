@@ -14,8 +14,8 @@ const useStyles = makeStyles({
     textDecoration: "none",
     color: "#FFFFFF",
     background:"#FF0000",
-    borderBottomRightRadius: 10,
-    borderTopLeftRadius: 10,
+    borderBottomRightRadius: 5,
+    borderTopLeftRadius: 5,
     padding:5
   },
   logo: {

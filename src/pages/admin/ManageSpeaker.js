@@ -152,7 +152,7 @@ export default function ManageSpeaker() {
             align="center"
             color="textPrimary"
             gutterBottom
-            text="Data Speaker"
+            text="Manage Speaker"
           />
         </Container>
       </div>
