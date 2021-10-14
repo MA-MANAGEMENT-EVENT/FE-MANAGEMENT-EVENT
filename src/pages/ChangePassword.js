@@ -14,6 +14,7 @@ import { UserContext } from "../context/UserContext";
 import { useHistory } from "react-router-dom";
 import { Alert } from "../atoms/alert/Alert";
 import { useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -35,30 +36,24 @@ export default function Login() {
   let history = useHistory();
   const classes = useStyles();
   const { control, register, handleSubmit } = useForm();
-  const [open, setOpen] = useState(false);
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
+
   const onSubmit = (data) => {
-    
-    const {email} = data;
-    if (email) {
+    const { password, cpassword } = data;
+    if (password && cpassword) {
       Axios.put(`auth/reset-password/${token}`, {
-        email: email,
-      }).then((res) => {  
-        console.log(res)
+        newPassword: password,
+        verificationPassword: cpassword,
+      }).then((res) => {
+        console.log(res);
         if (res) {
-        console.log(res)
+          Swal.fire("Success", "Change Password  Success ", "success");
+          console.log(res);
           history.push("/");
         } else {
-          handleClickOpen();
+          Swal.fire("Error", "Change Password  Failed ", "error");
         }
-      });
+      }); 
     } else {
-      handleClickOpen();
     }
   };
 
@@ -67,19 +62,13 @@ export default function Login() {
       <CssBaseline />
       <div className={classes.paper}>
         <Typography text="Change Password" variant="h4" />
-        {open && (
-          <Alert
-            severity="error"
-            title="Error Login failed."
-            className="formInfo"
-          ></Alert>
-        )}
+
         <form
           className={classes.form}
           noValidate
           onSubmit={handleSubmit(onSubmit)}
         >
-         <Controller
+          <Controller
             render={({ field }) => (
               <TextField
                 variant="outlined"
@@ -105,7 +94,7 @@ export default function Login() {
                 required
                 fullWidth
                 id="cpassword"
-                type="cpassword"
+                type="password"
                 label="Confirm Password"
                 autoComplete="cpassword"
                 autoFocus
@@ -115,7 +104,6 @@ export default function Login() {
             control={control}
             name="cpassword"
           />
-         
 
           <Button
             type="submit"
