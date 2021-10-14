@@ -49,7 +49,7 @@ const Section = () => {
                   />
                   <LoginRoute
                     exact
-                    path="/changepassword"
+                    path="/auth/reset-password/:token"
                     user={user}
                     component={ChangePassword}
                   />
