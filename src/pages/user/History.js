@@ -29,6 +29,7 @@ const History = () => {
   const [user] = useContext(UserContext);
   const [history, setHistory] = useState(null);
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (history === null) {
       Axios({
         method: "get",

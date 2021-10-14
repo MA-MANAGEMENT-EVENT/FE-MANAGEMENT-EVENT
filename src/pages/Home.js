@@ -1,4 +1,4 @@
-import React, { useContext,useState,useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "../context/UserContext";
 import TextField from "../atoms/textfield/TextField";
 import Typography from "../atoms/typography/Typhography";
@@ -8,6 +8,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { EventContext } from "../context/EventContext";
 import Axios from "axios";
+import Loading from "react-loading-animation";
+
 const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
@@ -28,12 +30,12 @@ const useStyles = makeStyles((theme) => ({
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const Home = () => {
-  const [dataEvents, setdataEvents] = useState([]);
-  const [filteredEvents, setFilteredEvents] = useState([]);
+  const [dataEvents, setdataEvents] = useState(null);
+  const [filteredEvents, setFilteredEvents] = useState(null);
 
-  
   useEffect(() => {
-    if (dataEvents.length === 0) {
+    window.scrollTo(0, 0);
+    if (dataEvents === null) {
       Axios.get(`https://management-event-api.herokuapp.com/event`).then(
         (res) => {
           console.log(res);
@@ -42,7 +44,7 @@ const Home = () => {
         }
       );
     }
-    if (filteredEvents.length === 0) {
+    if (filteredEvents === null) {
       setFilteredEvents(dataEvents);
     }
   });
@@ -58,48 +60,57 @@ const Home = () => {
   };
   return (
     <>
-      <div className={classes.heroContent} style={{ marginTop: 10 }}>
-        <Container maxWidth="sm">
-          <Typography
-            variant="h2"
-            align="center"
-            color="textPrimary"
-            gutterBottom
-            text="Metroevent"
-          />
-          <Typography
-            variant="h5"
-            align="center"
-            color="textSecondary"
-            text="Never Stop Learning, Because Life Never Stops Teaching."
-            paragraph
-          />
-          <div className={classes.heroButtons}>
-            <Grid container spacing={2} justifyContent="center">
-            <TextField
-                label="Search Event"
-                name="search"
-                className="trainer"
-                onChange={handleChange}
+      {dataEvents === null && (
+        <div style={{ marginTop: 200 }}>
+          <Loading />
+        </div>
+      )}
+      {filteredEvents && (
+        <>
+          <div className={classes.heroContent} style={{ marginTop: 10 }}>
+            <Container maxWidth="sm">
+              <Typography
+                variant="h2"
+                align="center"
+                color="textPrimary"
+                gutterBottom
+                text="Metroevent"
               />
-            </Grid>
+              <Typography
+                variant="h5"
+                align="center"
+                color="textSecondary"
+                text="Never Stop Learning, Because Life Never Stops Teaching."
+                paragraph
+              />
+              <div className={classes.heroButtons}>
+                <Grid container spacing={2} justifyContent="center">
+                  <TextField
+                    label="Search Event"
+                    name="search"
+                    className="trainer"
+                    onChange={handleChange}
+                  />
+                </Grid>
+              </div>
+            </Container>
           </div>
-        </Container>
-      </div>
-      <Container className={classes.cardGrid} maxWidth="md">
-        <Grid container spacing={4}>
-          {filteredEvents.map((event) => (
-            <CardEvent
-              eventId={event.id}
-              imageUrl={"https://source.unsplash.com/random"}
-              title={event.name}
-              description={event.description}
-              link={[`/detailevent/${event.id}`]}
-              linkText={["View"]}
-            />
-          ))}
-        </Grid>
-      </Container>
+          <Container className={classes.cardGrid} maxWidth="md">
+            <Grid container spacing={4}>
+              {filteredEvents.map((event) => (
+                <CardEvent
+                  eventId={event.id}
+                  imageUrl={"https://source.unsplash.com/random"}
+                  title={event.name}
+                  description={event.description}
+                  link={[`/detailevent/${event.id}`]}
+                  linkText={["View"]}
+                />
+              ))}
+            </Grid>
+          </Container>
+        </>
+      )}
     </>
   );
 };
