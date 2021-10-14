@@ -13,12 +13,8 @@ export default function FormDialog({
   onChange,
   handleFormSubmit,
 } = {}) {
-<<<<<<< Updated upstream
-  const { description, image, name } = data;
-=======
   const { id = null, description, image, name } = data;
   const [loading, setLoading] = useState([]);
->>>>>>> Stashed changes
 
   return (
     <div>
@@ -49,10 +45,7 @@ export default function FormDialog({
             variant="standard"
             onChange={(e) => onChange(e)}
           />
-<<<<<<< Updated upstream
-=======
           {id && image && <a href={image}>{image}</a>}
->>>>>>> Stashed changes
           <TextField
             autoFocus
             margin="dense"
@@ -71,10 +64,6 @@ export default function FormDialog({
             style={{ background: "#D1514A" }}
             text="Cancel"
           />
-<<<<<<< Updated upstream
-          <Button text="Submit" onClick={() => handleFormSubmit()}>
-            {/* {id ? "Update" : "Submit"} */}
-=======
           <Button
             text="Submit"
             onClick={() => handleFormSubmit(id)}
@@ -82,7 +71,6 @@ export default function FormDialog({
           >
             {id ? "Update" : "Submit"}
             {loading ? "Loading..." : "OK"}
->>>>>>> Stashed changes
           </Button>
         </DialogActions>
       </Dialog>

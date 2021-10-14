@@ -9,12 +9,9 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { blue } from "@material-ui/core/colors";
 import FormDialog from "../../molecules/dialogSpeaker";
-<<<<<<< Updated upstream
-=======
 import Loading from "react-loading-animation";
 import Axios from "axios";
 import axios from "axios";
->>>>>>> Stashed changes
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -32,11 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-<<<<<<< Updated upstream
-const initialValue = { name: "", description: "", image: "" };
-=======
 const initialValue = { name: "", description: "", image: "", newimage: "" };
->>>>>>> Stashed changes
 
 export default function ManageSpeaker() {
   const baseURL = "https://management-event-api.herokuapp.com/speaker";
@@ -83,12 +76,8 @@ export default function ManageSpeaker() {
   const [formData, setFormData] = useState(initialValue);
 
   //Read Speaker
-<<<<<<< Updated upstream
-  const [tableData, setTableData] = useState([]);
-=======
   const [tableData, setTableData] = useState(null);
 
->>>>>>> Stashed changes
   useEffect(() => {
     fetch(baseURL)
       .then((data) => data.json())
@@ -112,7 +101,7 @@ export default function ManageSpeaker() {
   };
 
   const handleUpdate = (oldData) => {
-   setFormData(oldData);
+    setFormData(oldData);
   };
 
   const handleDelete = (id) => {
@@ -145,16 +134,6 @@ export default function ManageSpeaker() {
 
   return (
     <>
-<<<<<<< Updated upstream
-      <div className={classes.heroContent} style={{ marginTop: 5 }}>
-        <Container maxWidth="sm">
-          <Typography
-            variant="h4"
-            align="center"
-            color="textPrimary"
-            gutterBottom
-            text="Data Speaker"
-=======
       {tableData === null && (
         <div style={{ marginTop: 200 }}>
           <Loading />
@@ -207,7 +186,6 @@ export default function ManageSpeaker() {
             data={formData}
             onChange={onChange}
             handleFormSubmit={handleFormSubmit}
->>>>>>> Stashed changes
           />
         </>
       )}
