@@ -5,12 +5,15 @@ import Typography from "../../atoms/typography/Typhography";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "../../atoms/button/Button";
 import { Grid, FormControlLabel, IconButton } from "@material-ui/core";
+import AddCircleOutlineSharpIcon from "@mui/icons-material/AddCircleOutlineSharp";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { blue } from "@material-ui/core/colors";
 import FormDialog from "../../molecules/dialogSpeaker";
+import Loading from "react-loading-animation";
 import Axios from "axios";
 import axios from "axios";
+
 const useStyles = makeStyles((theme) => ({
   heroContent: {
     padding: theme.spacing(8, 0, 6),
@@ -27,16 +30,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const initialValue = { name: "", description: "", image: "",newimage:""};
+const initialValue = { name: "", description: "", image: "", newimage: "" };
 
 export default function ManageSpeaker() {
   const baseURL = "https://management-event-api.herokuapp.com/speaker";
   const columns = [
     { field: "name", headerName: "Speaker Name", width: "200" },
     { field: "image", headerName: "Image", width: "150" },
-    { field: "description", headerName: "Deskripsi", width: "590" },
+    { field: "description", headerName: "Deskripsi", width: "510" },
     {
-      width: "200",
+      width: "230",
       field: "id",
       headerName: "Action",
       sortable: false,
@@ -47,6 +50,7 @@ export default function ManageSpeaker() {
             style={{ cursor: "pointer" }}
           >
             <Button
+              startIcon={<EditIcon />}
               style={{ background: "#f0ad4e", marginRight: 10 }}
               variant="contained"
               color="primary"
@@ -54,6 +58,7 @@ export default function ManageSpeaker() {
               text="Edit"
             />
             <Button
+              startIcon={<DeleteIcon />}
               style={{ background: "#FF2060" }}
               variant="contained"
               color="secondary"
@@ -70,14 +75,13 @@ export default function ManageSpeaker() {
   }, []);
 
   const classes = useStyles();
-  const [gridApi, setGridApi] = useState(null);
   const [open, setOpen] = React.useState(false);
   const [formData, setFormData] = useState(initialValue);
   const [status, setStatus] = useState("create");
 
   //Read Speaker
-  const [tableData, setTableData] = useState([]);
- 
+  const [tableData, setTableData] = useState(null);
+
   useEffect(() => {
     fetch(baseURL)
       .then((data) => data.json())
@@ -114,9 +118,6 @@ export default function ManageSpeaker() {
         break;
       }
     }
-  };
-  const onGridReady = (params) => {
-    setGridApi(params);
   };
 
   const handleUpdate = (data) => {
@@ -194,51 +195,56 @@ export default function ManageSpeaker() {
 
   return (
     <>
-      <div className={classes.heroContent} style={{ marginTop: 5 }}>
-        <Container maxWidth="sm">
-          <Typography
-            variant="h4"
-            align="center"
-            color="textPrimary"
-            gutterBottom
-            text="Manage Speaker"
+      {tableData === null && (
+        <div style={{ marginTop: 200 }}>
+          <Loading />
+        </div>
+      )}
+      {tableData && (
+        <Container>
+          <div className={classes.heroContent} style={{ marginTop: 5 }}>
+            <Container maxWidth="sm">
+              <Typography
+                variant="h4"
+                align="center"
+                color="textPrimary"
+                gutterBottom
+                text="Manage Speaker"
+              />
+            </Container>
+          </div>
+          {/* Add New Speaker */}
+          <div align="right">
+            <Button
+              startIcon={<AddCircleOutlineSharpIcon />}
+              text="Add Speaker"
+              onClick={handleClickOpen}
+              style={{ marginBottom: 20, backgroundColor: "#3f50b5" }}
+            />
+          </div>
+          <div
+            style={{
+              height: 400,
+              width: "100%",
+            }}
+          >
+            <DataGrid
+              rows={tableData}
+              columns={columns}
+              pageSize={5}
+              rowsPerPageOptions={[10]}
+              disableSelectionOnClick
+            />
+          </div>
+          <FormDialog
+            open={open}
+            handleClose={handleClose}
+            data={formData}
+            onChange={onChange}
+            handleFormSubmit={handleFormSubmit}
           />
         </Container>
-      </div>
-
-      {/* Add New Speaker */}
-      <div
-        style={{
-          height: 70,
-        }}
-      >
-        <Grid align="right">
-          <Button text="Add Speaker" onClick={handleClickOpen} style={{
-                  backgroundColor: "#5cb85c",
-                }}/>
-        </Grid>
-      </div>
-      <div
-        style={{
-          height: 400,
-          width: "100%",
-        }}
-      >
-        <DataGrid
-          rows={tableData}
-          columns={columns}
-          pageSize={5}
-          rowsPerPageOptions={[10]}
-          disableSelectionOnClick
-        />
-      </div>
-      <FormDialog
-        open={open}
-        handleClose={handleClose}
-        data={formData}
-        onChange={onChange}
-        handleFormSubmit={handleFormSubmit}
-      />
+      )}
     </>
   );
 }
