@@ -12,6 +12,7 @@ import { useParams } from "react-router-dom";
 import Axios from "axios";
 import Swal from "sweetalert2";
 import Loading from "react-loading-animation";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
@@ -44,6 +45,7 @@ export default function DetailEvent() {
   const [event, setEvent] = useState(null);
   const [user] = useContext(UserContext);
   const classes = useStyles();
+  let history = useHistory();
 
   useEffect(() => {
     if (event === null) {
@@ -79,6 +81,9 @@ export default function DetailEvent() {
     //   }
     // });
   };
+  const managePeserta = () => {
+    history.push(`/manageparticipantandfeedback/${id}`)
+  }
   return (
     <>
       {event === null && (
@@ -111,6 +116,7 @@ export default function DetailEvent() {
                   time={`${event.startDate} - ${event.endDate}`}
                   style={{ position: "fixed", justifyContent: "center" }}
                   onSubmit={onSubmit}
+                  onMove={managePeserta}
                 />
                 <div style={{ margin: 10 }}></div>
               </Grid>
