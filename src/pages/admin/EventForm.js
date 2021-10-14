@@ -15,6 +15,7 @@ import ReactSelect from "react-select";
 import Swal from "sweetalert2";
 import { useHistory } from "react-router-dom";
 import { Editor } from "@tinymce/tinymce-react";
+import ResetPassword from "../ResetPassword";
 const swap=(str)=>{
   console.log(str)
   const a = str.split(" ");
@@ -30,9 +31,8 @@ const EventForm = () => {
   const { id } = useParams();
   let history = useHistory();
   const [dataEvents, setdataEvents] = useContext(EventContext);
-  const [event, setEvent] = useState(null);
   const [speakerOptions, setSpeakerOptions] = useState(null);
-  const { handleSubmit, setValue, control } = useForm({ mode: "onBlur" });
+  const { handleSubmit, setValue, control,reset } = useForm({ mode: "onBlur" });
 
   useEffect(() => {
     if (speakerOptions === null) {
@@ -97,6 +97,7 @@ const EventForm = () => {
   ];
 
   const onSubmit = (data) => {
+
     console.log(data)
     const startdate = moment(data.startdate)
       .format("DD/MM/YYYY h:mm:ss")
@@ -123,9 +124,9 @@ const EventForm = () => {
       platform: data.platform.value,
       speakers: speaker,
       startDate: startdate,
-      status: data.status.value,
     };
     if (window.location.href.includes("editevent")) {
+      newdata.status=data.status.value
       Axios({
         url: `event/${id}`,
         method: "put",
@@ -154,8 +155,10 @@ const EventForm = () => {
         console.log(res);
         if (res.status == 200) {
           console.log("success");
+          Swal.fire("Success", "Create Event Success ", "success");
         }
       });
+    history.push("/manageevent")
     }
 
     // const formData = new FormData();
@@ -183,6 +186,7 @@ const EventForm = () => {
           // control={control}
           {...register("imagefile")}
         /> */}
+          {!window.location.href.includes("createevent") && (<>
             <Label text="Status" className="question" />
             <div style={{ width: "300px" }}>
               <Controller
@@ -202,6 +206,7 @@ const EventForm = () => {
                 }}
               />
             </div>
+          </>)}  
             <Label text="Platform" className="question" />
             <div style={{ width: "300px" }}>
               <Controller

@@ -86,7 +86,7 @@ const ManageEvent = () => {
                 size="small"
                 text="Create Event"
                 style={{
-                  backgroundColor: "#f0ad4e",
+                  backgroundColor: "#5cb85c",
                 }}
               />
               </Link>
