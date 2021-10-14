@@ -47,7 +47,7 @@ export default function ManageSpeaker() {
             style={{ cursor: "pointer" }}
           >
             <Button
-              style={{ background: "#00A44E", marginRight: 10 }}
+              style={{ background: "#f0ad4e", marginRight: 10 }}
               variant="contained"
               color="primary"
               onClick={() => handleUpdate(params.row)}
@@ -213,7 +213,9 @@ export default function ManageSpeaker() {
         }}
       >
         <Grid align="right">
-          <Button text="Add Speaker" onClick={handleClickOpen} />
+          <Button text="Add Speaker" onClick={handleClickOpen} style={{
+                  backgroundColor: "#5cb85c",
+                }}/>
         </Grid>
       </div>
       <div

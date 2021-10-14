@@ -104,18 +104,18 @@ export default function DetailEvent() {
                 imgText="main image description"
                 location={event.location.platform.name}
                 time={`${event.openRegistration} - ${event.closeRegistration}`}
-                speaker={event.speaker.map((speaker) => speaker.name).join(",")}
+                speaker={event.speaker.map((speaker) => speaker.name).join(", ")}
               />
               <Grid container spacing={5} className={classes.mainGrid}>
                 <Main title={event.name} description={event.description} />
                 <Sidebar
                   description={sidebar.description}
                   desc2={sidebar.desc2}
-                  speaker={event.speaker
-                    .map((speaker) => speaker.name)
-                    .join(",")}
+                  speaker={event.speaker}
+                    // .map((speaker) => speaker.name)
+                    // .join(",")}
                   location={event.location.platform.name}
-                  time={`${event.startDate} - ${event.endDate}`}
+                  time={`${event.startDate} ${event.endDate}`}
                   style={{ position: "fixed", justifyContent: "center" }}
                   onSubmit={onSubmit}
                   onMove={managePeserta}

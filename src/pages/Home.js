@@ -7,7 +7,7 @@ import CardEvent from "../molecules/cardevent";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { EventContext } from "../context/EventContext";
-
+import Axios from "axios";
 const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
@@ -28,15 +28,24 @@ const useStyles = makeStyles((theme) => ({
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const Home = () => {
-  const [dataEvents, setStatusForm] = useContext(EventContext);
-  const [filteredEvents, setFilteredEvents] = useState(dataEvents);
+  const [dataEvents, setdataEvents] = useState([]);
+  const [filteredEvents, setFilteredEvents] = useState([]);
 
   
   useEffect(() => {
-    if (filteredEvents.length === 0 ) {
-      setFilteredEvents(dataEvents)
+    if (dataEvents.length === 0) {
+      Axios.get(`https://management-event-api.herokuapp.com/event`).then(
+        (res) => {
+          console.log(res);
+          setdataEvents(res.data);
+          setFilteredEvents(res.data);
+        }
+      );
     }
-  })
+    if (filteredEvents.length === 0) {
+      setFilteredEvents(dataEvents);
+    }
+  });
   const classes = useStyles();
   const handleChange = (event) => {
     let value = event.target.value.toLowerCase();

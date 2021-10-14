@@ -63,7 +63,13 @@ export default function Sidebar(props) {
               fontStretch: "ultra-expanded",
             }}
           >
-            {speaker}
+            {speaker.map((data)=>{
+              return(
+                <div>
+                <span>{data.name}</span>
+                </div>
+              )
+            })}
           </Typography>
         </div>
 

@@ -9,6 +9,7 @@ import { EventContext } from "../../context/EventContext";
 import Axios from "axios";
 import Button from "../../atoms/button/Button";
 import { Link } from "react-router-dom";
+
 const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
@@ -40,12 +41,20 @@ const useStyles = makeStyles((theme) => ({
 
 const ManageEvent = () => {
   const classes = useStyles();
-  const [dataEvents, setStatusForm] = useContext(EventContext);
-  const [filteredEvents, setFilteredEvents] = useState(dataEvents);
+  const [dataEvents, setdataEvents] = useState([]);
+  const [filteredEvents, setFilteredEvents] = useState([]);
 
   
   useEffect(() => {
     window.scrollTo(0, 0)
+    if (dataEvents.length === 0 ) {
+    Axios.get(`https://management-event-api.herokuapp.com/event`)
+    .then(res => {
+      console.log(res)
+      setdataEvents(res.data)
+      setFilteredEvents(res.data)
+    })
+  }
     if (filteredEvents.length === 0 ) {
       setFilteredEvents(dataEvents)
     }
@@ -87,7 +96,7 @@ const ManageEvent = () => {
                 size="small"
                 text="Create Event"
                 style={{
-                  backgroundColor: "#f0ad4e",
+                  backgroundColor: "#5cb85c",
                 }}
               />
               </Link>
@@ -119,6 +128,8 @@ const ManageEvent = () => {
           ))}
         </Grid>
       </Container>
+    
+    
     </>
   );
 };
