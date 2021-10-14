@@ -5,6 +5,7 @@ import Typography from "../../atoms/typography/Typhography";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "../../atoms/button/Button";
 import { Grid, FormControlLabel, IconButton } from "@material-ui/core";
+import AddCircleOutlineSharpIcon from "@mui/icons-material/AddCircleOutlineSharp";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { blue } from "@material-ui/core/colors";
@@ -36,9 +37,9 @@ export default function ManageSpeaker() {
   const columns = [
     { field: "name", headerName: "Speaker Name", width: "200" },
     { field: "image", headerName: "Image", width: "150" },
-    { field: "description", headerName: "Deskripsi", width: "590" },
+    { field: "description", headerName: "Deskripsi", width: "510" },
     {
-      width: "200",
+      width: "230",
       field: "id",
       headerName: "Action",
       sortable: false,
@@ -49,6 +50,7 @@ export default function ManageSpeaker() {
             style={{ cursor: "pointer" }}
           >
             <Button
+              startIcon={<EditIcon />}
               style={{ background: "#f0ad4e", marginRight: 10 }}
               variant="contained"
               color="primary"
@@ -56,6 +58,7 @@ export default function ManageSpeaker() {
               text="Edit"
             />
             <Button
+              startIcon={<DeleteIcon />}
               style={{ background: "#FF2060" }}
               variant="contained"
               color="secondary"
@@ -117,14 +120,10 @@ export default function ManageSpeaker() {
     }
   };
 
-  const handleUpdate = (oldData) => {
-    setFormData(oldData);
-  }
-
-  // const handleUpdate = (data) => {
-  //   setFormData(data);
-  //   handleClickOpen();
-  // };
+  const handleUpdate = (data) => {
+    setFormData(data);
+    handleClickOpen();
+  };
 
   const handleDelete = (id) => {
     const confirm = window.confirm(
@@ -202,7 +201,7 @@ export default function ManageSpeaker() {
         </div>
       )}
       {tableData && (
-        <>
+        <Container>
           <div className={classes.heroContent} style={{ marginTop: 5 }}>
             <Container maxWidth="sm">
               <Typography
@@ -215,18 +214,13 @@ export default function ManageSpeaker() {
             </Container>
           </div>
           {/* Add New Speaker */}
-          <div
-            style={{
-              height: 70,
-            }}
-          >
-            <Grid align="right">
-              <Button
-                text="Add Speaker"
-                onClick={handleClickOpen}
-                style={{ backgroundColor: "#3f50b5" }}
-              />
-            </Grid>
+          <div align="right">
+            <Button
+              startIcon={<AddCircleOutlineSharpIcon />}
+              text="Add Speaker"
+              onClick={handleClickOpen}
+              style={{ marginBottom: 20, backgroundColor: "#3f50b5" }}
+            />
           </div>
           <div
             style={{
@@ -249,7 +243,7 @@ export default function ManageSpeaker() {
             onChange={onChange}
             handleFormSubmit={handleFormSubmit}
           />
-        </>
+        </Container>
       )}
     </>
   );
