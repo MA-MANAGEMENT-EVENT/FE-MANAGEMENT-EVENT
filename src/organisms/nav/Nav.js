@@ -8,12 +8,10 @@ import Container from "@mui/material/Container";
 import logo from "../nav/logoMA2.png";
 import { set } from "js-cookie";
 
-
 const Nav = (props) => {
-
-  const [user,setUser] = useContext(UserContext);
+  const [user, setUser] = useContext(UserContext);
   const handleLogout = () => {
-    setUser({role:"guest"})
+    setUser({ role: "guest" });
     localStorage.removeItem("user");
   };
   return (
@@ -21,28 +19,27 @@ const Nav = (props) => {
       <AppBar data-testid={props.datatest} position={props.position}>
         <Container>
           <Toolbar>
-            <Link
-              to="/home"
-              style={{
-                textDecoration: "none",
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              <img src={logo} alt="logo" style={{ width: "50px" }} />
-              <Typography
-                variant="h6"
-                text="METROEVENT"
-                className="logo"
-                style={{ marginLeft: 10.0 }}
-              />
-            </Link>
-
             {/* User / Admin Route */}
             {user && (
               <>
                 {user.role === "guest" && (
                   <>
+                    <Link
+                      to="/home"
+                      style={{
+                        textDecoration: "none",
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      <img src={logo} alt="logo" style={{ width: "50px" }} />
+                      <Typography
+                        variant="h6"
+                        text="METROEVENT"
+                        className="logo"
+                        style={{ marginLeft: 10.0 }}
+                      />
+                    </Link>
                     <Link
                       to="/home"
                       style={{
@@ -87,6 +84,22 @@ const Nav = (props) => {
                       to="/home"
                       style={{
                         textDecoration: "none",
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      <img src={logo} alt="logo" style={{ width: "50px" }} />
+                      <Typography
+                        variant="h6"
+                        text="METROEVENT"
+                        className="logo"
+                        style={{ marginLeft: 10.0 }}
+                      />
+                    </Link>
+                    <Link
+                      to="/home"
+                      style={{
+                        textDecoration: "none",
                         padding: 10,
                         marginLeft: "auto",
                       }}
@@ -127,6 +140,22 @@ const Nav = (props) => {
                       to="/manageevent"
                       style={{
                         textDecoration: "none",
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      <img src={logo} alt="logo" style={{ width: "50px" }} />
+                      <Typography
+                        variant="h6"
+                        text="METROEVENT"
+                        className="logo"
+                        style={{ marginLeft: 10.0 }}
+                      />
+                    </Link>
+                    <Link
+                      to="/manageevent"
+                      style={{
+                        textDecoration: "none",
                         padding: 10,
                         marginLeft: "auto",
                       }}
@@ -147,7 +176,7 @@ const Nav = (props) => {
                         className="link"
                       />
                     </Link>
-                 
+
                     <Link
                       to="/Home"
                       style={{ textDecoration: "none", padding: 10 }}

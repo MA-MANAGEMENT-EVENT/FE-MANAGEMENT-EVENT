@@ -3,7 +3,6 @@ import TextField from "../../atoms/textfield/TextField";
 import Button from "../../atoms/button/Button";
 import React, { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { Link } from "react-router-dom";
 import Axios from "axios";
 import Loading from "react-loading-animation";
 import Swal from "sweetalert2";
@@ -12,36 +11,22 @@ import { useHistory } from "react-router-dom";
 const FeedbackQuestion = () => {
   const [questionField, setQuestionField] = useState(null);
   let history = useHistory();
-
-  const defaultValues = {
-    questionField,
-    // question1: "",
-    // question2: "",
-    // question3: "",
-    // question4: "",
-  };
-  const { handleSubmit, register, control, setValue } = useForm({
-    // defaultValues,
-    // mode: "onBlur",
+  const { handleSubmit, control, setValue } = useForm({
   });
 
   useEffect(() => {
+    window.scrollTo(0, 0)
     if (questionField === null) {
       Axios.get(`question-feedback`).then((res) => {
-        console.log(res);
-
         let newArray = res.data.map((obj) => ({
           id: obj.id,
           isi: obj.question,
         }));
-
         setQuestionField(newArray);
       });
       if (window.location.href.includes("question")) {
         Axios.get(`question-feedback`).then((res) => {
           const newData = res.data;
-          console.log(newData);
-          console.log("----------------------");
 
           for (let i = 0; i < 4; i++) {
             setValue("question" + i, newData[i].question);
@@ -50,10 +35,8 @@ const FeedbackQuestion = () => {
       }
     }
   });
-  console.log(questionField);
 
   const onSubmit = (data) => {
-    console.log(data);
 
     const newdata = [
       data.question0,
@@ -69,7 +52,6 @@ const FeedbackQuestion = () => {
           method: "put",
           data: { question: newdata[index] },
         }).then((res) => {
-          console.log(res);
           if (res.status === 200) {
             Swal.fire("Success", "Edit Feedback Questions Success ", "success");
             history.push("/manageevent");
@@ -114,13 +96,7 @@ const FeedbackQuestion = () => {
                   <Label text={question} className="question" />
                   <Controller
                     render={({ field }) => (
-                      <TextField {...field} className="questionfeedback" />
-                      // <TextField
-                      //
-                      //   name={`${question}-${index}`}
-                      //   className="questionfeedback"
-                      // required
-                      // />
+                      <TextField {...field} className="questionfeedback" required/>
                     )}
                     control={control}
                     datatest={`question${index}`}
@@ -130,17 +106,12 @@ const FeedbackQuestion = () => {
               );
             })}
             <br /> <br /> <br />
-            {/* <Link
-              to="/manageparticipantandfeedback/:id"
-              style={{ textDecoration: "none" }}
-            > */}
             <Button
               datatest="submit"
               text="Back"
               color="error"
               onClick={() => history.push(`/manageevent`)}
             />
-            {/* </Link> */}
             <Button
               datatest="submit"
               text="submit"

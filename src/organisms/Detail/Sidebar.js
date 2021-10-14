@@ -152,7 +152,6 @@ export default function Sidebar(props) {
           <Button
             size="large"
             text="Manage Participant and Feedback"
-            // color="secondary"
             style={{
               backgroundColor: "#3f50b5",
             }}

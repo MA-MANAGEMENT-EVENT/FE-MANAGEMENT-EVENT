@@ -35,6 +35,7 @@ const EventForm = () => {
   const { handleSubmit, setValue, control,reset } = useForm({ mode: "onBlur" });
 
   useEffect(() => {
+    window.scrollTo(0, 0)
     if (speakerOptions === null) {
       Axios.get(`speaker`).then((res) => {
         console.log(res);
