@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "../atoms/button/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -13,13 +13,18 @@ export default function FormDialog({
   onChange,
   handleFormSubmit,
 } = {}) {
+<<<<<<< Updated upstream
   const { description, image, name } = data;
+=======
+  const { id = null, description, image, name } = data;
+  const [loading, setLoading] = useState([]);
+>>>>>>> Stashed changes
 
   return (
     <div>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle id="alert-dialog-title">
-          {/* {id ? "Update speaker" : "Create new speaker"} */}
+          {id ? "Update speaker" : "Create new speaker"}
         </DialogTitle>
         <DialogContent>
           <TextField
@@ -44,6 +49,10 @@ export default function FormDialog({
             variant="standard"
             onChange={(e) => onChange(e)}
           />
+<<<<<<< Updated upstream
+=======
+          {id && image && <a href={image}>{image}</a>}
+>>>>>>> Stashed changes
           <TextField
             autoFocus
             margin="dense"
@@ -62,8 +71,18 @@ export default function FormDialog({
             style={{ background: "#D1514A" }}
             text="Cancel"
           />
+<<<<<<< Updated upstream
           <Button text="Submit" onClick={() => handleFormSubmit()}>
             {/* {id ? "Update" : "Submit"} */}
+=======
+          <Button
+            text="Submit"
+            onClick={() => handleFormSubmit(id)}
+            style={{ backgroundColor: "#3f50b5" }}
+          >
+            {id ? "Update" : "Submit"}
+            {loading ? "Loading..." : "OK"}
+>>>>>>> Stashed changes
           </Button>
         </DialogActions>
       </Dialog>

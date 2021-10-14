@@ -9,6 +9,12 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { blue } from "@material-ui/core/colors";
 import FormDialog from "../../molecules/dialogSpeaker";
+<<<<<<< Updated upstream
+=======
+import Loading from "react-loading-animation";
+import Axios from "axios";
+import axios from "axios";
+>>>>>>> Stashed changes
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -26,7 +32,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+<<<<<<< Updated upstream
 const initialValue = { name: "", description: "", image: "" };
+=======
+const initialValue = { name: "", description: "", image: "", newimage: "" };
+>>>>>>> Stashed changes
 
 export default function ManageSpeaker() {
   const baseURL = "https://management-event-api.herokuapp.com/speaker";
@@ -69,12 +79,16 @@ export default function ManageSpeaker() {
   }, []);
 
   const classes = useStyles();
-  const [gridApi, setGridApi] = useState(null);
   const [open, setOpen] = React.useState(false);
   const [formData, setFormData] = useState(initialValue);
 
   //Read Speaker
+<<<<<<< Updated upstream
   const [tableData, setTableData] = useState([]);
+=======
+  const [tableData, setTableData] = useState(null);
+
+>>>>>>> Stashed changes
   useEffect(() => {
     fetch(baseURL)
       .then((data) => data.json())
@@ -95,9 +109,6 @@ export default function ManageSpeaker() {
   const onChange = (e) => {
     const { value, id } = e.target;
     setFormData({ ...formData, [id]: value });
-  };
-  const onGridReady = (params) => {
-    setGridApi(params);
   };
 
   const handleUpdate = (oldData) => {
@@ -134,6 +145,7 @@ export default function ManageSpeaker() {
 
   return (
     <>
+<<<<<<< Updated upstream
       <div className={classes.heroContent} style={{ marginTop: 5 }}>
         <Container maxWidth="sm">
           <Typography
@@ -142,41 +154,63 @@ export default function ManageSpeaker() {
             color="textPrimary"
             gutterBottom
             text="Data Speaker"
+=======
+      {tableData === null && (
+        <div style={{ marginTop: 200 }}>
+          <Loading />
+        </div>
+      )}
+      {tableData && (
+        <>
+          <div className={classes.heroContent} style={{ marginTop: 5 }}>
+            <Container maxWidth="sm">
+              <Typography
+                variant="h4"
+                align="center"
+                color="textPrimary"
+                gutterBottom
+                text="Manage Speaker"
+              />
+            </Container>
+          </div>
+          {/* Add New Speaker */}
+          <div
+            style={{
+              height: 70,
+            }}
+          >
+            <Grid align="right">
+              <Button
+                text="Add Speaker"
+                onClick={handleClickOpen}
+                style={{ backgroundColor: "#3f50b5" }}
+              />
+            </Grid>
+          </div>
+          <div
+            style={{
+              height: 400,
+              width: "100%",
+            }}
+          >
+            <DataGrid
+              rows={tableData}
+              columns={columns}
+              pageSize={5}
+              rowsPerPageOptions={[10]}
+              disableSelectionOnClick
+            />
+          </div>
+          <FormDialog
+            open={open}
+            handleClose={handleClose}
+            data={formData}
+            onChange={onChange}
+            handleFormSubmit={handleFormSubmit}
+>>>>>>> Stashed changes
           />
-        </Container>
-      </div>
-
-      {/* Add New Speaker */}
-      <div
-        style={{
-          height: 70,
-        }}
-      >
-        <Grid align="right">
-          <Button text="Add Speaker" onClick={handleClickOpen} />
-        </Grid>
-      </div>
-      <div
-        style={{
-          height: 400,
-          width: "100%",
-        }}
-      >
-        <DataGrid
-          rows={tableData}
-          columns={columns}
-          pageSize={5}
-          rowsPerPageOptions={[10]}
-          disableSelectionOnClick
-        />
-      </div>
-      <FormDialog
-        open={open}
-        handleClose={handleClose}
-        data={formData}
-        onChange={onChange}
-        handleFormSubmit={handleFormSubmit}
-      />
+        </>
+      )}
     </>
   );
 }
