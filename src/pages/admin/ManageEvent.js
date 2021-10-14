@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState,useEffect } from "react";
 import TextField from "../../atoms/textfield/TextField";
 import Typography from "../../atoms/typography/Typhography";
 import Grid from "../../atoms/grid/index";
@@ -6,6 +6,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import CardEvent from "../../molecules/cardevent";
 import { EventContext } from "../../context/EventContext";
+import Axios from "axios";
+import Button from "../../atoms/button/Button";
+import { Link } from "react-router-dom";
+
 const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
@@ -34,12 +38,34 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const ManageEvent = () => {
-  const [event] = useContext(EventContext);
-  console.log(event)
   const classes = useStyles();
+  const [dataEvents, setdataEvents] = useState([]);
+  const [filteredEvents, setFilteredEvents] = useState([]);
+
+  
+  useEffect(() => {
+    if (dataEvents.length === 0 ) {
+    Axios.get(`https://management-event-api.herokuapp.com/event`)
+    .then(res => {
+      console.log(res)
+      setdataEvents(res.data)
+      setFilteredEvents(res.data)
+    })
+  }
+    if (filteredEvents.length === 0 ) {
+      setFilteredEvents(dataEvents)
+    }
+  })
+  const handleChange = (event) => {
+    let value = event.target.value.toLowerCase();
+    let result = [];
+    result = dataEvents.filter((event) => {
+      return event.name.toLowerCase().search(value) != -1;
+    });
+    setFilteredEvents(result);
+  };
   return (
     <>
       <div className={classes.heroContent} style={{ marginTop: 10 }}>
@@ -61,27 +87,48 @@ const ManageEvent = () => {
 
           <div className={classes.heroButtons}>
             <Grid container spacing={2} justifyContent="center">
-              <TextField label="Search Event" value="" className="trainer" />
+            <Link
+                    to='/createevent'
+                    style={{ textDecoration: "none", padding: 10 }}
+                  >
+              <Button
+                size="small"
+                text="Create Event"
+                style={{
+                  backgroundColor: "#5cb85c",
+                }}
+              />
+              </Link>
+            </Grid>
+            <br />
+            <br />
+            <Grid container spacing={2} justifyContent="center">
+              <TextField
+                label="Search Event"
+                name="search"
+                className="trainer"
+                onChange={handleChange}
+              />
             </Grid>
           </div>
         </Container>
       </div>
       <Container className={classes.cardGrid} maxWidth="md">
         <Grid container spacing={2}>
-          {cards.map((card) => (
+          {filteredEvents.map((event) => (
             <CardEvent
-              card={card}
+              eventId={event.id}
               imageUrl={"https://source.unsplash.com/random"}
-              title={"Title"}
-              description={
-                " This is a media card. You can use this section to describe the content."
-              }
-              link={["/detailevent", "/editevent", "/delete"]}
-              linkText={["View", "Edit", "Delete"]}
+              title={event.name}
+              description={event.description}
+              link={[`/detailevent/${event.id}`, `/editevent/${event.id}`]}
+              linkText={["View", "Edit"]}
             />
           ))}
         </Grid>
       </Container>
+    
+    
     </>
   );
 };

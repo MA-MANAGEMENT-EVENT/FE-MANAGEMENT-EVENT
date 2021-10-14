@@ -10,34 +10,45 @@ const useStyles = makeStyles({
     textDecoration: "none",
     color: "#FFFFFF",
   },
+  linklogout: {
+    textDecoration: "none",
+    color: "#FFFFFF",
+    background:"#FF0000",
+    borderBottomRightRadius: 5,
+    borderTopLeftRadius: 5,
+    padding:5
+  },
   logo: {
     color: "#FFFFFF",
-    fontSize: "20px", 
-    fontWeight: "bold", 
-    
-  },logofooter:{
+    fontSize: "20px",
+    fontWeight: "bold",
+  },
+  logofooter: {
     color: "#FFFFFF",
-    fontSize: "30px", 
-    fontWeight: "bold", 
-    float:"left",
-    marginLeft:40,
-    
-  },sublogo:{
+    fontSize: "30px",
+    fontWeight: "bold",
+    float: "left",
+    marginLeft: 40,
+  },
+  sublogo: {
     color: "#FFFFFF",
-    fontSize: "20px", 
-    fontWeight: "bold", 
-    float:"left",
-    marginLeft:40
-  }
+    fontSize: "20px",
+    fontWeight: "bold",
+    float: "left",
+    marginLeft: 40,
+  },
+  cardtext:{
+    display: "block",
+  width: "100px",
+  overflow: "hidden",
+  whiteSpace: "nowrap",
+  textOverflow: "ellipsis",
+  },
 });
 const Typography = ({ variant, text, className, ...rest }) => {
   const classes = useStyles();
   return (
-    <Typograph
-      className={classes[className]}
-      variant={variant}
-      {...rest}
-    >
+    <Typograph className={classes[className]} variant={variant} {...rest}>
       {text}
     </Typograph>
   );

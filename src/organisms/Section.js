@@ -9,34 +9,32 @@ import Feedback from "../pages/user/Feedback";
 import History from "../pages/user/History";
 import ManageEvent from "../pages/admin/ManageEvent";
 import EventForm from "../pages/admin/EventForm";
-
 import ManageParticipantFeedback from "../pages/admin/ManageParticipantFeedback";
-
 import PageNotFound from "../pages/PageNotFound";
-import ChangePassword from "../pages/ChangePassword"
-import ResetPassword from "../pages/ResetPassword"
+import ChangePassword from "../pages/ChangePassword";
+import ResetPassword from "../pages/ResetPassword";
 import ManageSpeaker from "../pages/admin/ManageSpeaker";
 import FeedbackQuestion from "../pages/admin/FeedbackQuestion";
+import Verification from "../pages/verification";
 const Section = () => {
   const [user] = useContext(UserContext);
-
+  console.log(user.role)
   const LoginRoute = ({ user, ...props }) =>
     user ? <Route {...props} /> : <Redirect to="/home" />;
 
   return (
     <div className="section">
       <Switch>
-        <Route exact path="/detailevent" user={user} component={Detail} />
-        {user && (
-          <>
-            {/* login route */}
-            {user.role === "guest" && (
+        <Route exact path="/detailevent/:id" user={user} component={Detail} />
+        {user.role == "guest" && (
               <>
                 <Switch>
                   <Route exact path="/">
                     <Redirect to="/home" />
                   </Route>
                   <Route exact path="/home" component={Home} />
+                  <Route exact path="/auth/confirm/:token" component={Verification}/>
+              
                   <LoginRoute
                     exact
                     path="/login"
@@ -51,7 +49,7 @@ const Section = () => {
                   />
                   <LoginRoute
                     exact
-                    path="/changepassword"
+                    path="/auth/reset-password/:token"
                     user={user}
                     component={ChangePassword}
                   />
@@ -66,7 +64,11 @@ const Section = () => {
                 </Switch>
               </>
             )}
-            {user.role === "user" && (
+        {user && (
+          <>
+            {/* login route */}
+         
+            {user.role === "ROLE_USER" && (
               <>
                 {/* user route */}
                 <Switch>
@@ -76,7 +78,7 @@ const Section = () => {
                   <Route exact path="/home" component={Home} />
                   <Route
                     exact
-                    path="/feedback"
+                    path="/feedback/:id/:regis"
                     user={user}
                     component={Feedback}
                   />
@@ -91,7 +93,7 @@ const Section = () => {
                 </Switch>
               </>
             )}
-            {user.role === "admin" && (
+            {user.role === "ROLE_ADMIN" && (
               <>
                 {/* admin route */}
                 <Switch>
@@ -112,7 +114,7 @@ const Section = () => {
                   />
                   <Route
                     exact
-                    path="/editevent"
+                    path="/editevent/:id"
                     user={user}
                     component={EventForm}
                   />
@@ -130,7 +132,7 @@ const Section = () => {
                   />
                   <Route
                     exact
-                    path="/manageparticipantandfeedback"
+                    path="/manageparticipantandfeedback/:id"
                     user={user}
                     component={ManageParticipantFeedback}
                   />

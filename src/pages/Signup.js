@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import TextField from "../atoms/textfield/TextField";
 import Typography from "../atoms/typography/Typhography";
-import Grid from "../atoms/grid/index"
-import { useForm } from "react-hook-form";
+import Grid from "../atoms/grid/index";
+import { useForm, Controller } from "react-hook-form";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -10,7 +10,10 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-
+import Axios from "axios";
+import Swal from "sweetalert2";
+import { useHistory } from "react-router-dom";
+import { Alert } from "../atoms/alert/Alert";
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -32,16 +35,52 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignUp() {
+  let history = useHistory();
   const classes = useStyles();
-  const { register, handleSubmit } = useForm();
+  const { control, register, handleSubmit } = useForm();
+  const [open, setOpen] = useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   const onSubmit = (data) => {
     console.log(data);
+    const { email, job, name, password } = data;
+    if (email && job && name && password) {
+      Axios.post(`auth/register`, {
+        email: email,
+        job: job,
+        name: name,
+        password: password,
+      }).then((res) => {
+        console.log(res.data);
+        if (res) {
+          Swal.fire("Success", "Signup Success Check Your Email For Verification", "success");
+          history.push("/login");
+        } else {
+          Swal.fire("Error", "Signup failed ", "error");
+        }
+      });
+    
+    } else {
+      Swal.fire("Error", "Signup failed ", "error");
+    }
   };
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Typography text="Sign up" variant="h4" />
+        {open && (
+          <Alert
+            severity="error"
+            title="Error Sign up failed."
+            className="formInfo"
+          ></Alert>
+        )}
         <form
           className={classes.form}
           noValidate
@@ -49,52 +88,73 @@ export default function SignUp() {
         >
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <TextField
-                {...register("name")}
-                variant="outlined"
-                required
-                fullWidth
-                id="name"
-                label="Name"
+              <Controller
+                render={({ field }) => (
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="name"
+                    label="Name"
+                    autoComplete="name"
+                    autoFocus
+                    {...field}
+                  />
+                )}
+                control={control}
                 name="name"
-                autoComplete="lname"
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                {...register("email")}
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
+              <Controller
+                render={({ field }) => (
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email"
+                    autoComplete="email"
+                    {...field}
+                  />
+                )}
+                control={control}
                 name="email"
-                autoComplete="email"
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                {...register("password")}
-                variant="outlined"
-                required
-                fullWidth
+              <Controller
+                render={({ field }) => (
+                  <TextField
+                    variant="outlined"
+                    type="password"
+                    required
+                    fullWidth
+                    id="password"
+                    label="Password"
+                    autoComplete="password"
+                    {...field}
+                  />
+                )}
+                control={control}
                 name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                {...register("job")}
-                variant="outlined"
-                required
-                fullWidth
+              <Controller
+                render={({ field }) => (
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="job"
+                    label="Job"
+                    autoComplete="job"
+                    {...field}
+                  />
+                )}
+                control={control}
                 name="job"
-                label="Job"
-                id="job"
-                autoComplete="current-job"
               />
             </Grid>
             <Grid item xs={12}>
@@ -103,7 +163,6 @@ export default function SignUp() {
                 label="By clicking Sign Up, you agree to our Terms, Data Policy and Cookie Policy."
               />
             </Grid>
-            
           </Grid>
           <Button
             type="submit"

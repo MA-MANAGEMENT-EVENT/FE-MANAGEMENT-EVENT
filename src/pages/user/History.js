@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { UserContext } from "../../context/UserContext";
 import Container from "@material-ui/core/Container";
 import Typography from "../../atoms/typography/Typhography";
 import { makeStyles } from "@material-ui/core/styles";
@@ -7,6 +8,9 @@ import Button from "../../atoms/button/Button";
 import Paper from "@mui/material/Paper";
 import Grid from "../../atoms/grid/index";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import Axios from "axios";
+import Loading from "react-loading-animation";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -21,106 +25,96 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const history = [
-  {
-    id: 1,
-    name: "Belajar Kotlin to Build Android App",
-  },
-  {
-    id: 2,
-    name: "How to Start Javascipt to build",
-  },
-  {
-    id: 3,
-    name: "Belajar Kotlin to Build Android App",
-  },
-  {
-    id: 4,
-    name: "Belajar Kotlin to Build Android App",
-  },
-];
-
-const countHistory = history.filter((item) => item.id).length;
-
 const History = () => {
+  const [user] = useContext(UserContext);
+  const [history, setHistory] = useState(null);
+  useEffect(() => {
+    if (history === null) {
+      Axios({
+        method: "get",
+        url: `event-registration/history/${user.id}`,
+      }).then((res) => {
+        console.log(res);
+        setHistory(res.data);
+      });
+    }
+  });
   const classes = useStyles();
   return (
     <>
-      <div className={classes.heroContent} style={{ marginTop: 5 }}>
-        <Container maxWidth="sm">
-          <Typography
-            variant="h4"
-            align="center"
-            color="textPrimary"
-            gutterBottom
-            text="Events History"
-          />
-        </Container>
-      </div>
-
-      <Box>
-        <Paper elevation={5} sx={{ mx: "auto", p: 5 }}>
-          <Grid container>
-            <Grid item xs={4}>
+    {history === null && (
+        <>
+        <div style={{marginTop:200}}>
+        <Loading />
+        </div>
+     
+        </>
+      )}
+      {history && (
+        <>
+          <div className={classes.heroContent} style={{ marginTop: 5 }}>
+            <Container maxWidth="sm">
               <Typography
-                align="left"
-                color="textSecondary"
-                text="Never Stop Learning, Because Life Never Stops Teaching."
-                paragraph
-              />
-            </Grid>
-            <Grid item xs={4}>
-              <Typography
+                variant="h4"
                 align="center"
-                color="textSecondary"
-                text="11/12/2021"
-                paragraph
+                color="textPrimary"
+                gutterBottom
+                text="Events History"
               />
-            </Grid>
-            <Grid item xs={4}>
-              <div style={{ marginTop: -5, float: "right" }}>
-                <Link
-                  to="/feedback"
-                  style={{ textDecoration: "none", padding: 10 }}
-                >
-                  <Button size="small" color="primary" text="Feedback" />
-                </Link>
-              </div>
-            </Grid>
-          </Grid>
-        </Paper>
+            </Container>
+          </div>
 
-        <Paper elevation={5} sx={{ my: 4, mx: "auto", p: 5 }}>
-          <Grid container>
-            <Grid item xs={4}>
-              <Typography
-                align="left"
-                color="textSecondary"
-                text="Never Stop Learning, Because Life Never Stops Teaching."
-                paragraph
-              />
-            </Grid>
-            <Grid item xs={4}>
-              <Typography
-                align="center"
-                color="textSecondary"
-                text="11/12/2021"
-                paragraph
-              />
-            </Grid>
-            <Grid item xs={4}>
-              <div style={{ marginTop: -5, float: "right" }}>
-                <Link
-                  to="/feedback"
-                  style={{ textDecoration: "none", padding: 10 }}
-                >
-                  <Button size="small" color="primary" text="Feedback" />
-                </Link>
-              </div>
-            </Grid>
-          </Grid>
-        </Paper>
-      </Box>
+          <Box>
+            {history.map((data) => {
+              return (
+                <>
+                <Paper elevation={5} sx={{ mx: "auto", p: 5 }}>
+                  <Grid container>
+                    <Grid item xs={4}>
+                      <Typography
+                        align="left"
+                        color="textSecondary"
+                        text={data.event.name}
+                        paragraph
+                      />
+                    </Grid>
+                    <Grid item xs={4}>
+                      <Typography
+                        align="center"
+                        color="textSecondary"
+                        text={`${data.event.startDate} - ${data.event.endDate}`}
+                        paragraph
+                      />
+                    </Grid>
+                    {data.statusFeedback!=="Complete"&&(<>
+                      <Grid item xs={4}>
+                      <div style={{ marginTop: -5, float: "right" }}>
+                        <Link
+                          to={`/feedback/${data.event.id}/${data.id}`}
+                          style={{ textDecoration: "none", padding: 10 }}
+                        >
+                          <Button
+                            size="small"
+                            color="primary"
+                            text="Feedback"
+                            style={{
+                              backgroundColor: "#3f50b5",
+                            }}
+                          />
+                        </Link>
+                      </div>
+                    </Grid>
+                    </>)}
+                    
+                  </Grid>
+                </Paper>
+                <br/>
+              </>
+              );
+            })}
+          </Box>
+        </>
+      )}
     </>
   );
 };

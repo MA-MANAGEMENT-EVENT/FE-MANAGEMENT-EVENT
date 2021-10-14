@@ -50,7 +50,6 @@ export default function FormDialog({
             autoFocus
             margin="dense"
             id="image"
-            value={image}
             label=""
             type="file"
             fullWidth

@@ -9,7 +9,6 @@ import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined
 import RoomOutlinedIcon from "@mui/icons-material/RoomOutlined";
 import EventAvailableSharpIcon from "@mui/icons-material/EventAvailableSharp";
 import { UserContext } from "../../context/UserContext";
-import { Link } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   sidebarAboutBox: {
     padding: theme.spacing(2),
@@ -24,7 +23,15 @@ const useStyles = makeStyles((theme) => ({
 export default function Sidebar(props) {
   const [user] = useContext(UserContext);
   const classes = useStyles();
-  const { description, title, desc2, speaker, location, time } = props;
+  const {
+    description,
+    desc2,
+    speaker,
+    location,
+    time,
+    onSubmit,
+    onMove,
+  } = props;
 
   return (
     <Grid item xs={12} md={4}>
@@ -56,7 +63,13 @@ export default function Sidebar(props) {
               fontStretch: "ultra-expanded",
             }}
           >
-            {speaker}
+            {speaker.map((data)=>{
+              return(
+                <div>
+                <span>{data.name}</span>
+                </div>
+              )
+            })}
           </Typography>
         </div>
 
@@ -105,7 +118,7 @@ export default function Sidebar(props) {
       </Grid>
 
       <div style={{ borderTop: "1px gainsboro solid", marginBottom: 5 }}>
-        {user.role === "user" && (
+        {user.role === "ROLE_USER" && (
           <Typography
             style={{
               fontSize: 20.0,
@@ -118,31 +131,33 @@ export default function Sidebar(props) {
             {desc2}
           </Typography>
         )}
-        {user.role === "user" && (
+        {user.role === "ROLE_USER" && (
           <Button
-            type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
             text="Daftar Sekarang"
             size="large"
-            style={{ fontSize: 18, fontWeight: "700", borderRadius: "8px" }}
+            style={{
+              fontSize: 18,
+              fontWeight: "700",
+              borderRadius: "8px",
+              backgroundColor: "#3f50b5",
+            }}
+            onClick={() => onSubmit()}
           />
         )}
-        {user.role === "admin" && (
-          <Link to="/manageparticipantandfeedback"
-          style={{ textDecoration: "none"}}>
-         
-            <Button
-              size="large"
-              text="Manage Participant and Feedback"
-              // color="secondary"
-              style={{
-                backgroundColor: "#3f50b5",
-              }}
-            />
-          </Link>
+        {user.role === "ROLE_ADMIN" && (
+          <Button
+            size="large"
+            text="Manage Participant and Feedback"
+            // color="secondary"
+            style={{
+              backgroundColor: "#3f50b5",
+            }}
+            onClick={() => onMove()}
+          />
         )}
       </div>
     </Grid>

@@ -12,9 +12,7 @@ export const EventProvider = props => {
       axios.get(`https://management-event-api.herokuapp.com/event`)
         .then(res => {
           console.log(res)
-          const newData = res.data.map((el) => { return el}) ;
-          setdataEvents(newData);
-        
+          setdataEvents(res.data)
         })
     }
   })

@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Main(props) {
   
   const classes = useStyles();
-  const { posts, title } = props;
+  const { description, title } = props;
 
   return (
     <>
@@ -23,7 +23,7 @@ export default function Main(props) {
           {title}
         </Typography>
         <Typography variant="subtitle1" gutterBottom style={{fontSize: 18, marginTop: 40}}>
-          {posts.description}
+          {description}
         </Typography>
       </Grid>
     </>
