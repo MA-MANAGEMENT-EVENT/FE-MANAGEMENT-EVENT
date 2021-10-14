@@ -97,6 +97,24 @@ export default function Login() {
             control={control}
             name="password"
           />
+          <Controller
+            render={({ field }) => (
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="cpassword"
+                type="cpassword"
+                label="Confirm Password"
+                autoComplete="cpassword"
+                autoFocus
+                {...field}
+              />
+            )}
+            control={control}
+            name="cpassword"
+          />
          
 
           <Button

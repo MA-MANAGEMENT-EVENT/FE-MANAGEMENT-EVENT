@@ -48,17 +48,20 @@ export default function Login() {
       Axios.post(`auth/login`, {
         email: data.email,
         password: data.password,
-      }).then((res) => {  
-        console.log(res)
+      }).then((res) => { 
+        console.log("response",res.message)
+        console.log(res.data)
+       
         if (res) {
           console.log(res.data)
+          console.log(res.data.message)
           setUser(res.data);
           localStorage.setItem("user",JSON.stringify(res.data))
           history.push("/");
         } else {
           handleClickOpen();
         }
-      });
+      })
     } else {
       handleClickOpen();
     }

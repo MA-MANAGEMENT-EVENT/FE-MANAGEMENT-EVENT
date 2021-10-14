@@ -97,7 +97,6 @@ const EventForm = () => {
   ];
 
   const onSubmit = (data) => {
-
     console.log(data)
     const startdate = moment(data.startdate)
       .format("DD/MM/YYYY h:mm:ss")
