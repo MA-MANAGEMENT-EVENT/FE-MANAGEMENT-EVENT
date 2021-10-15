@@ -14,7 +14,7 @@ export default function FormDialog({
   handleFormSubmit,
 } = {}) {
   const { id = null, description, image, name } = data;
-  const [loading, setLoading] = useState([]);
+  const [loading] = useState([]);
 
   return (
     <div>

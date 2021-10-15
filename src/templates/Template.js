@@ -3,16 +3,15 @@ import { BrowserRouter as Router } from "react-router-dom";
 import Nav from "../organisms/nav/Nav";
 import Section from "../organisms/Section";
 import Footer from "../organisms/footer/Footer";
-import { EventProvider } from "../context/EventContext";
 
-const Template = (props) => {
+const Template = () => {
   return (
     <>
       <Router>
         <Nav datatest="nav" position="static" />
-        <EventProvider>
-          <Section />
-        </EventProvider>
+
+        <Section />
+
         <Footer datatest="footer" text="Metroevent" />
       </Router>
     </>

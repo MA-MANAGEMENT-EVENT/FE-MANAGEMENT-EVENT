@@ -1,26 +1,18 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, {  useState, useEffect } from "react";
 import Label from "../../atoms/label/Label";
 import TextField from "../../atoms/textfield/TextField";
 import Button from "../../atoms/button/Button";
 import Axios from "axios";
 import { Alert } from "../../atoms/alert/Alert";
 import { useForm, Controller } from "react-hook-form";
-import { UserContext } from "../../context/UserContext";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useHistory } from "react-router-dom";
 const Feedback = () => {
   let history = useHistory();
-  let { id, regis } = useParams();
-  const { control, register, handleSubmit } = useForm();
+  let { regis } = useParams();
+  const { control, handleSubmit } = useForm();
   const [question, setQuestion] = useState(null);
-  const [input, setInput] = useState({
-    question1: "",
-    question2: "",
-    question3: "",
-    question4: "",
-    question5: "",
-  });
   useEffect(() => {
     if (question === null) {
       Axios.get(`question-feedback`).then((res) => {
@@ -29,7 +21,6 @@ const Feedback = () => {
     }
   });
   const onSubmit = (data) => {
-    console.log(regis);
     if (data.question1 && data.question2 && data.question3 && data.question4) {
       Axios({
         url: "/feedback",
@@ -57,7 +48,7 @@ const Feedback = () => {
           },
         ],
       }).then((res) => {
-        if (res.status == 200) {
+        if (res.status === 200) {
           Swal.fire("Success", "Success Submit Feedback", "success");
           history.push("/home");
         } else {

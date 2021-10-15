@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import TextField from "../atoms/textfield/TextField";
 import Typography from "../atoms/typography/Typhography";
 import Grid from "../atoms/grid/index";
@@ -13,7 +13,6 @@ import Container from "@material-ui/core/Container";
 import Axios from "axios";
 import Swal from "sweetalert2";
 import { useHistory } from "react-router-dom";
-import { Alert } from "../atoms/alert/Alert";
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -37,15 +36,8 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUp() {
   let history = useHistory();
   const classes = useStyles();
-  const { control, register, handleSubmit } = useForm();
-  const [open, setOpen] = useState(false);
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const { control,handleSubmit } = useForm();
+  
   const onSubmit = (data) => {
     console.log(data);
     const { email, job, name, password } = data;
@@ -74,13 +66,7 @@ export default function SignUp() {
       <CssBaseline />
       <div className={classes.paper}>
         <Typography text="Sign up" variant="h4" />
-        {open && (
-          <Alert
-            severity="error"
-            title="Error Sign up failed."
-            className="formInfo"
-          ></Alert>
-        )}
+       
         <form
           className={classes.form}
           noValidate

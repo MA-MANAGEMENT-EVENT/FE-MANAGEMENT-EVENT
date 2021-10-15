@@ -52,14 +52,11 @@ export default function DetailEvent() {
     window.scrollTo(0, 0);
     if (event === null) {
       axios.get(`event/${id}`).then((res) => {
-        console.log(res);
         setEvent(res.data);
       });
     }
   });
   const onSubmit = () => {
-    console.log(user.id);
-    console.log(id);
     Axios.post(`event-registration/register`, {
       eventId: id,
       userId: user.id,
@@ -70,18 +67,6 @@ export default function DetailEvent() {
         Swal.fire("Error", "Registration Failed", "error");
       }
     });
-    // Axios.post(`event-registration/register`, {
-    //   eventId: id,
-    //   headers: {'Authorization' : `Basic ${token}`} }).then((res) => {
-    //   if (res) {
-    //    console.log(res)
-    //     // setUser(res.data);
-    //     // localStorage.setItem("user", JSON.stringify(res.data));
-    //     // history.push("/");
-    //   } else {
-    //     // handleClickOpen();
-    //   }
-    // });
   };
   const managePeserta = () => {
     history.push(`/manageparticipantandfeedback/${id}`);

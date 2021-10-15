@@ -1,12 +1,10 @@
-import React, { useContext, useState, useEffect } from "react";
-import { UserContext } from "../context/UserContext";
+import React, { useState, useEffect } from "react";
 import TextField from "../atoms/textfield/TextField";
 import Typography from "../atoms/typography/Typhography";
 import Grid from "../atoms/grid/index";
 import CardEvent from "../molecules/cardevent";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { EventContext } from "../context/EventContext";
 import Axios from "axios";
 import Loading from "react-loading-animation";
 
@@ -27,8 +25,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
 const Home = () => {
   const [dataEvents, setdataEvents] = useState(null);
   const [filteredEvents, setFilteredEvents] = useState(null);
@@ -36,25 +32,22 @@ const Home = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     if (dataEvents === null) {
-      Axios.get(`https://management-event-api.herokuapp.com/event`).then(
-        (res) => {
-          console.log(res);
-          setdataEvents(res.data);
-          setFilteredEvents(res.data);
-        }
-      );
+      Axios.get(`event`).then((res) => {
+        let filter = res.data.filter((data) => data.status.name === "Publish");
+        setdataEvents(filter);
+        setFilteredEvents(filter);
+      });
     }
     if (filteredEvents === null) {
       setFilteredEvents(dataEvents);
     }
-  });
+  },[dataEvents,filteredEvents]);
   const classes = useStyles();
   const handleChange = (event) => {
     let value = event.target.value.toLowerCase();
     let result = [];
-
     result = dataEvents.filter((event) => {
-      return event.name.toLowerCase().search(value) != -1;
+      return event.name.toLowerCase().search(value) !== -1;
     });
     setFilteredEvents(result);
   };

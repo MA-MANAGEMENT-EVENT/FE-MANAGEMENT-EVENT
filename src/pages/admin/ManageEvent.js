@@ -1,16 +1,14 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import TextField from "../../atoms/textfield/TextField";
 import Typography from "../../atoms/typography/Typhography";
 import Grid from "../../atoms/grid/index";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import CardEvent from "../../molecules/cardevent";
-import { EventContext } from "../../context/EventContext";
 import Axios from "axios";
 import Button from "../../atoms/button/Button";
 import { Link } from "react-router-dom";
 import Loading from "react-loading-animation";
-
 const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
@@ -41,35 +39,33 @@ const useStyles = makeStyles((theme) => ({
 
 const ManageEvent = () => {
   const classes = useStyles();
-  const [dataEvents, setdataEvents] = useState(null);
-  const [filteredEvents, setFilteredEvents] = useState(null);
+  const [dataEvents, setdataEvents] = useState([]);
+  const [filteredEvents, setFilteredEvents] = useState([]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-    if (dataEvents === null) {
-      Axios.get(`https://management-event-api.herokuapp.com/event`).then(
+    if (dataEvents.length === 0) {
+      Axios.get(`event`).then(
         (res) => {
-          console.log(res);
           setdataEvents(res.data);
           setFilteredEvents(res.data);
         }
       );
     }
-    if (filteredEvents === null) {
+    if (filteredEvents.length === 0) {
       setFilteredEvents(dataEvents);
     }
-  });
+  },[dataEvents,filteredEvents.length]);
   const handleChange = (event) => {
     let value = event.target.value.toLowerCase();
     let result = [];
     result = dataEvents.filter((event) => {
-      return event.name.toLowerCase().search(value) != -1;
+      return event.name.toLowerCase().search(value) !== -1;
     });
     setFilteredEvents(result);
   };
   return (
     <>
-      {dataEvents === null  && (
+      {dataEvents === null && (
         <div style={{ marginTop: 200 }}>
           <Loading />
         </div>
@@ -128,6 +124,7 @@ const ManageEvent = () => {
                   eventId={event.id}
                   imageUrl={"https://source.unsplash.com/random"}
                   title={event.name}
+                  status={event.status.name}
                   description={event.description}
                   link={[`/detailevent/${event.id}`, `/editevent/${event.id}`]}
                   linkText={["View", "Edit"]}

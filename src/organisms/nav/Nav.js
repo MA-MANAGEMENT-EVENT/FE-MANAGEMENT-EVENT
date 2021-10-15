@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext} from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
 import Typography from "../../atoms/typography/Typhography";
@@ -6,8 +6,6 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Container from "@mui/material/Container";
 import logo from "../nav/logoMA2.png";
-import { set } from "js-cookie";
-
 const Nav = (props) => {
   const [user, setUser] = useContext(UserContext);
   const handleLogout = () => {

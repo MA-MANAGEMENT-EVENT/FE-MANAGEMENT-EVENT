@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import Typography from "../atoms/typography/Typhography";
 import Grid from "../atoms/grid/index";
 import { Link } from "react-router-dom";

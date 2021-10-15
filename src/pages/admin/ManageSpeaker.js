@@ -4,15 +4,13 @@ import Container from "@material-ui/core/Container";
 import Typography from "../../atoms/typography/Typhography";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "../../atoms/button/Button";
-import { Grid, FormControlLabel, IconButton } from "@material-ui/core";
 import AddCircleOutlineSharpIcon from "@mui/icons-material/AddCircleOutlineSharp";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { blue } from "@material-ui/core/colors";
 import FormDialog from "../../molecules/dialogSpeaker";
 import Loading from "react-loading-animation";
 import Axios from "axios";
-import axios from "axios";
+
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -77,9 +75,6 @@ export default function ManageSpeaker() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [formData, setFormData] = useState(initialValue);
-  const [status, setStatus] = useState("create");
-
-  //Read Speaker
   const [tableData, setTableData] = useState(null);
 
   useEffect(() => {
@@ -138,11 +133,10 @@ export default function ManageSpeaker() {
   };
 
   const handleFormSubmit = (id) => {
-    console.log(id);
+    if (id === null) {
     let url = null;
     const Data = new FormData();
     Data.set("image", formData.newimage);
-    if (id === null) {
       Axios.post(
         "https://api.imgbb.com/1/upload?key=b58ff410c6b72c5c9584e782b1830cda",
         Data
@@ -151,45 +145,56 @@ export default function ManageSpeaker() {
           url = res.data.data.url;
         })
         .then((res) => {
-          console.log(url);
-          console.log(formData.description);
-          console.log(formData.name);
-          axios
+          Axios
             .post("speaker", {
               description: formData.description,
               image: url,
               name: formData.name,
             })
             .then((res) => {
-              console.log(res);
               setFormData(initialValue);
               handleClose();
             });
         });
     } else if (id !== null) {
-      Axios.post(
-        "https://api.imgbb.com/1/upload?key=b58ff410c6b72c5c9584e782b1830cda",
-        Data
-      )
-        .then((res) => {
-          url = res.data.data.url;
+      if(formData.newimage ){
+
+        let url = null;
+        const Data = new FormData();
+        Data.set("image", formData.newimage);
+        Axios.post(
+          "https://api.imgbb.com/1/upload?key=b58ff410c6b72c5c9584e782b1830cda",
+          Data
+        )
+          .then((res) => {
+            url = res.data.data.url;
+          })
+          .then((res) => {
+            Axios
+              .put(`speaker/${id}`, {
+                description: formData.description,
+                image: url,
+                name: formData.name,
+              })
+              .then((res) => {
+                setFormData(initialValue);
+                handleClose();
+              });
+          });
+      }else{
+        Axios
+        .put(`speaker/${id}`, {
+          description: formData.description,
+          image: formData.image,
+          name: formData.name,
         })
         .then((res) => {
-          console.log(url);
-          console.log(formData.description);
-          console.log(formData.name);
-          axios
-            .put(`speaker/${id}`, {
-              description: formData.description,
-              image: url,
-              name: formData.name,
-            })
-            .then((res) => {
-              console.log(res);
-              setFormData(initialValue);
-              handleClose();
-            });
+          setFormData(initialValue);
+          handleClose();
         });
+      }
+      
+    
     }
   };
 

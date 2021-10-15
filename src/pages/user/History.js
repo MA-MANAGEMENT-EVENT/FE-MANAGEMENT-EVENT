@@ -8,7 +8,6 @@ import Button from "../../atoms/button/Button";
 import Paper from "@mui/material/Paper";
 import Grid from "../../atoms/grid/index";
 import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
 import Axios from "axios";
 import Loading from "react-loading-animation";
 
@@ -35,7 +34,6 @@ const History = () => {
         method: "get",
         url: `event-registration/history/${user.id}`,
       }).then((res) => {
-        console.log(res);
         setHistory(res.data);
       });
     }

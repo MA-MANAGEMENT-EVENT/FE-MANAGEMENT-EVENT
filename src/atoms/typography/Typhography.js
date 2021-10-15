@@ -38,8 +38,8 @@ const useStyles = makeStyles({
     marginLeft: 40,
   },
   cardtext:{
-    display: "block",
-  width: "100px",
+  display: "block",
+  width: "250px",
   overflow: "hidden",
   whiteSpace: "nowrap",
   textOverflow: "ellipsis",

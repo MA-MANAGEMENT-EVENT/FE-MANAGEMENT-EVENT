@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import Typography from "../atoms/typography/Typhography";
 import Grid from "../atoms/grid/index";
 import { Link } from "react-router-dom";
@@ -24,7 +24,6 @@ const Verification = () => {
   };
   useEffect(() => {
     Axios.get(`auth/confirm/${token}`).then((res) => {
-      console.log(res);
       if (res) {
         handleStatus(true);
       } else {

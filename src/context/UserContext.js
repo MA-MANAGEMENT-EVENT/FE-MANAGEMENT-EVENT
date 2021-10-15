@@ -1,36 +1,15 @@
-import React, { useState, createContext, useEffect } from "react";
-import axios from "axios";
-import userdata from "../Data/user";
+import React, { useState, createContext} from "react";
 
 export const UserContext = createContext();
 
 export const UserProvider = (props) => {
   const currentUser = JSON.parse(localStorage.getItem("user"));
 
-  const iniateUser = currentUser ? currentUser : {role: "guest" };
+  const iniateUser = currentUser ? currentUser : { role: "guest" };
 
   const [user, setUser] = useState(iniateUser);
-  const [daftarUser, setDaftarUser] = useState([]);
-  // useEffect(() => {
-  //   if (daftarUser.length === 0) {
-  //     // axios.get(`url`)
-  //     // .then(res => {
-
-  //     //     setDaftarUser(res.data.map(el=>{ return {
-  //     //       id: el.id,
-  //     //       username: el.username,
-  //     //       password: el.password,
-  //     //       role: el.role,
-  //     //     }
-  //     //   }))
-  //     // })
-     
-  //     setDaftarUser(userdata);
-  //   }
-  // }, [daftarUser]);
-
   return (
-    <UserContext.Provider value={[user, setUser, daftarUser, setDaftarUser]}>
+    <UserContext.Provider value={[user, setUser]}>
       {props.children}
     </UserContext.Provider>
   );

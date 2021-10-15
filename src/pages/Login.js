@@ -9,7 +9,6 @@ import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Axios from "axios";
-import Cookies from "js-cookie";
 import { UserContext } from "../context/UserContext";
 import { useHistory } from "react-router-dom";
 import { Alert } from "../atoms/alert/Alert";
@@ -32,8 +31,8 @@ const useStyles = makeStyles((theme) => ({
 export default function Login() {
   let history = useHistory();
   const classes = useStyles();
-  const [User, setUser] = useContext(UserContext);
-  const { control, register, handleSubmit } = useForm();
+  const [user,setUser] = useContext(UserContext);
+  const { control, handleSubmit } = useForm();
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -49,12 +48,7 @@ export default function Login() {
         email: data.email,
         password: data.password,
       }).then((res) => { 
-        console.log("response",res.message)
-        console.log(res.data)
-       
         if (res) {
-          console.log(res.data)
-          console.log(res.data.message)
           setUser(res.data);
           localStorage.setItem("user",JSON.stringify(res.data))
           history.push("/");

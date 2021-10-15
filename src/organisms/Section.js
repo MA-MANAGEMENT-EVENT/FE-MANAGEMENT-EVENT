@@ -18,7 +18,6 @@ import FeedbackQuestion from "../pages/admin/FeedbackQuestion";
 import Verification from "../pages/verification";
 const Section = () => {
   const [user] = useContext(UserContext);
-  console.log(user.role)
   const LoginRoute = ({ user, ...props }) =>
     user ? <Route {...props} /> : <Redirect to="/home" />;
 
@@ -26,7 +25,7 @@ const Section = () => {
     <div className="section">
       <Switch>
         <Route exact path="/detailevent/:id" user={user} component={Detail} />
-        {user.role == "guest" && (
+        {user.role === "guest" && (
               <>
                 <Switch>
                   <Route exact path="/">

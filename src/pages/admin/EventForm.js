@@ -3,43 +3,36 @@ import TextField from "../../atoms/textfield/TextField";
 import Button from "../../atoms/button/Button";
 import TextArea from "../../atoms/textarea/TextArea";
 import Grid from "../../atoms/grid/index";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import Axios from "axios";
 import Select from "react-select";
 import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
-import { EventContext } from "../../context/EventContext";
 import { useParams } from "react-router";
 import moment from "moment";
 import ReactSelect from "react-select";
 import Swal from "sweetalert2";
 import { useHistory } from "react-router-dom";
-import { Editor } from "@tinymce/tinymce-react";
-import ResetPassword from "../ResetPassword";
-const swap=(str)=>{
-  console.log(str)
+const swap = (str) => {
   const a = str.split(" ");
-  const date=a[0].split("/")
+  const date = a[0].split("/");
   const tmp = date[0];
   date[0] = date[1];
   date[1] = tmp;
-  date.join("/")
-  
-  return `${date} ${a[1]}`
-}
+  date.join("/");
+
+  return `${date} ${a[1]}`;
+};
 const EventForm = () => {
   const { id } = useParams();
   let history = useHistory();
-  const [dataEvents, setdataEvents] = useContext(EventContext);
   const [speakerOptions, setSpeakerOptions] = useState(null);
-  const { handleSubmit, setValue, control,reset } = useForm({ mode: "onBlur" });
+  const { handleSubmit, setValue, control } = useForm({ mode: "onBlur" });
 
   useEffect(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
     if (speakerOptions === null) {
       Axios.get(`speaker`).then((res) => {
-        console.log(res);
-
         let newdatesplitay = res.data.map((speaker) => ({
           value: speaker.id,
           label: speaker.name,
@@ -50,10 +43,6 @@ const EventForm = () => {
       if (window.location.href.includes("editevent")) {
         Axios.get(`event/${id}`).then((res) => {
           const newData = res.data;
-    
-          console.log(newData);
-          console.log("----------------------");
-          console.log(moment(newData.startDate).format("DD/MM/YYYY h:mm:ss a"));
           let selectedSpeaker = newData.speaker.map((speaker) => ({
             value: speaker.id,
             label: speaker.name,
@@ -65,11 +54,30 @@ const EventForm = () => {
           setValue("password", newData.location.password);
           setValue("description", newData.description);
 
-          
-          setValue("startdate", new Date(moment(swap(newData.startDate)).format("MM/DD/YYYY h:mm a")));
-          setValue("enddate", new Date(moment(swap(newData.endDate)).format("MM/DD/YYYY h:mm a")));
-          setValue("opendate", new Date(moment(swap(newData.openRegistration)).format("MM/DD/YYYY h:mm a")));
-          setValue("closedate", new Date(moment(swap(newData.closeRegistration)).format("MM/DD/YYYY h:mm a")));
+          setValue(
+            "startdate",
+            new Date(
+              moment(swap(newData.startDate)).format("MM/DD/YYYY h:mm a")
+            )
+          );
+          setValue(
+            "enddate",
+            new Date(moment(swap(newData.endDate)).format("MM/DD/YYYY h:mm a"))
+          );
+          setValue(
+            "opendate",
+            new Date(
+              moment(swap(newData.openRegistration)).format("MM/DD/YYYY h:mm a")
+            )
+          );
+          setValue(
+            "closedate",
+            new Date(
+              moment(swap(newData.closeRegistration)).format(
+                "MM/DD/YYYY h:mm a"
+              )
+            )
+          );
           setValue(
             "status",
             options.find((c) => c.label === newData.status.name)
@@ -98,7 +106,6 @@ const EventForm = () => {
   ];
 
   const onSubmit = (data) => {
-    console.log(data)
     const startdate = moment(data.startdate)
       .format("DD/MM/YYYY h:mm:ss")
       .toString();
@@ -126,50 +133,32 @@ const EventForm = () => {
       startDate: startdate,
     };
     if (window.location.href.includes("editevent")) {
-      newdata.status=data.status.value
+      newdata.status = data.status.value;
       Axios({
         url: `event/${id}`,
         method: "put",
         data: newdata,
       }).then((res) => {
-        console.log(res)
-        console.log("==========")
-        if (res.status == 200) {
-          let singleEvent = dataEvents.find((el) => el.id === id);
-          singleEvent = { id: id, ...newdata };
-          setdataEvents([...dataEvents]);
+        if (res.status === 200) {
           Swal.fire("Success", "Edit Event Success ", "success");
           history.push("/manageevent");
         }
       });
     } else {
-      console.log("========");
       delete newdata.status;
-      console.log(newdata);
 
       Axios({
         url: `event`,
         method: "post",
         data: newdata,
       }).then((res) => {
-        console.log(res);
-        if (res.status == 200) {
-          console.log("success");
+        if (res.status === 200) {
           Swal.fire("Success", "Create Event Success ", "success");
+          history.push("/manageevent");
         }
       });
-    history.push("/manageevent")
+      history.push("/manageevent");
     }
-
-    // const formData = new FormData();
-    // formData.set("image", data.imagefile[0]);
-    // axios
-    //   .post(
-    //     "https://api.imgbb.com/1/upload?key=e89f02c8622e737decf2b7a248bfd467",
-    //     formData
-    //   )
-    //   .then((res) => console.log(res.data))
-    //   .catch(console.error);
   };
 
   return (
@@ -178,35 +167,29 @@ const EventForm = () => {
         <>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Label text="Form Event" className="title" />
-            {/* <Label text="Event Thumbnail" className="question" />
-        <input
-          id="imagefile"
-          name="imagefile"
-          type="file"
-          // control={control}
-          {...register("imagefile")}
-        /> */}
-          {!window.location.href.includes("createevent") && (<>
-            <Label text="Status" className="question" />
-            <div style={{ width: "300px" }}>
-              <Controller
-                name="status"
-                control={control}
-                render={({ field }) => {
-                  return (
-                    <>
-                      <ReactSelect
-                        style={{ width: 10 }}
-                        isClearable
-                        {...field}
-                        options={options}
-                      />
-                    </>
-                  );
-                }}
-              />
-            </div>
-          </>)}  
+            {!window.location.href.includes("createevent") && (
+              <>
+                <Label text="Status" className="question" />
+                <div style={{ width: "300px" }}>
+                  <Controller
+                    name="status"
+                    control={control}
+                    render={({ field }) => {
+                      return (
+                        <>
+                          <ReactSelect
+                            style={{ width: 10 }}
+                            isClearable
+                            {...field}
+                            options={options}
+                          />
+                        </>
+                      );
+                    }}
+                  />
+                </div>
+              </>
+            )}
             <Label text="Platform" className="question" />
             <div style={{ width: "300px" }}>
               <Controller
