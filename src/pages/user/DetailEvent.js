@@ -66,6 +66,8 @@ export default function DetailEvent() {
       } else {
         Swal.fire("Error", "Registration Failed", "error");
       }
+    }).catch((err)=>{
+      Swal.fire("Error", "already registered", "error");
     });
   };
   const managePeserta = () => {

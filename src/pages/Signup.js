@@ -39,16 +39,15 @@ export default function SignUp() {
   const { control,handleSubmit } = useForm();
   
   const onSubmit = (data) => {
-    console.log(data);
-    const { email, job, name, password } = data;
-    if (email && job && name && password) {
+    const { email, job, name, password, check } = data;
+    if (email && job && name && password && check) {
       Axios.post(`auth/register`, {
         email: email,
         job: job,
         name: name,
         password: password,
       }).then((res) => {
-        console.log(res.data);
+   
         if (res) {
           Swal.fire("Success", "Signup Success Check Your Email For Verification", "success");
           history.push("/login");
@@ -58,7 +57,7 @@ export default function SignUp() {
       });
     
     } else {
-      Swal.fire("Error", "Signup failed ", "error");
+      Swal.fire("Failed", "Please fill in all the required fields.", "error");
     }
   };
   return (
@@ -144,10 +143,21 @@ export default function SignUp() {
               />
             </Grid>
             <Grid item xs={12}>
-              <FormControlLabel
+            <Controller
+                render={({ field }) => (
+                  <FormControlLabel
+                  control={<Checkbox value="allowExtraEmails" color="primary" />}
+                  label="By clicking Sign Up, you agree to our Terms, Data Policy and Cookie Policy."
+                  {...field}
+                />
+                )}
+                control={control}
+                name="check"
+              />
+              {/* <FormControlLabel
                 control={<Checkbox value="allowExtraEmails" color="primary" />}
                 label="By clicking Sign Up, you agree to our Terms, Data Policy and Cookie Policy."
-              />
+              /> */}
             </Grid>
           </Grid>
           <Button

@@ -26,9 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ResetPassword() {
   const classes = useStyles();
-
   const { control, handleSubmit } = useForm();
-
   const onSubmit = (data) => {
     if (data.email) {
       axios

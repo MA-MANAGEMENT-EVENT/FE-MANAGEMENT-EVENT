@@ -33,16 +33,7 @@ export default function Login() {
   const classes = useStyles();
   const [user,setUser] = useContext(UserContext);
   const { control, handleSubmit } = useForm();
-  const [open, setOpen] = useState(false);
-  
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
   const onSubmit = (data) => {
-    handleClose()
     const { email, password } = data;
     if (email && password) {
       Axios.post(`auth/login`, {
@@ -60,7 +51,7 @@ export default function Login() {
         Swal.fire("failed", `${err.response.data.message}`, "error");
       })
     } else {
-      handleClickOpen();
+      Swal.fire("Failed", "Please fill in all the required fields.", "error");
     }
   };
 
@@ -69,13 +60,6 @@ export default function Login() {
       <CssBaseline />
       <div className={classes.paper}>
         <Typography text="Sign in" variant="h4" />
-        {open && (
-          <Alert
-            severity="error"
-            title="Error Login failed."
-            className="formInfo"
-          ></Alert>
-        )}
         <form
           className={classes.form}
           noValidate
