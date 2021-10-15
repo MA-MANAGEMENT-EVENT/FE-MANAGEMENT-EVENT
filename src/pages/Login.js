@@ -12,6 +12,7 @@ import Axios from "axios";
 import { UserContext } from "../context/UserContext";
 import { useHistory } from "react-router-dom";
 import { Alert } from "../atoms/alert/Alert";
+import Swal from "sweetalert2";
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -27,13 +28,13 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
 }));
-
 export default function Login() {
   let history = useHistory();
   const classes = useStyles();
   const [user,setUser] = useContext(UserContext);
   const { control, handleSubmit } = useForm();
   const [open, setOpen] = useState(false);
+  
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -48,13 +49,15 @@ export default function Login() {
         email: data.email,
         password: data.password,
       }).then((res) => { 
+        console.log(res)
         if (res) {
           setUser(res.data);
           localStorage.setItem("user",JSON.stringify(res.data))
+          Swal.fire("Success", `Login Success`, "success");
           history.push("/");
-        } else {
-          handleClickOpen();
-        }
+        } 
+      }).catch((err)=> {
+        Swal.fire("failed", `${err.response.data.message}`, "error");
       })
     } else {
       handleClickOpen();
