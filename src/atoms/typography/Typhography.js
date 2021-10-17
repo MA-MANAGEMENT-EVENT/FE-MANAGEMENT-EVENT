@@ -13,10 +13,10 @@ const useStyles = makeStyles({
   linklogout: {
     textDecoration: "none",
     color: "#FFFFFF",
-    background:"#FF0000",
+    background: "#FF0000",
     borderBottomRightRadius: 5,
     borderTopLeftRadius: 5,
-    padding:5
+    padding: 5,
   },
   logo: {
     color: "#FFFFFF",
@@ -37,12 +37,27 @@ const useStyles = makeStyles({
     float: "left",
     marginLeft: 40,
   },
-  cardtext:{
-  display: "block",
-  width: "250px",
-  overflow: "hidden",
-  whiteSpace: "nowrap",
-  textOverflow: "ellipsis",
+  cardtext: {
+    // display: "block",
+    // whiteSpace: "nowrap",
+    textAlign: "justify",
+    width: "250px",
+    overflow: "hidden",
+    textOverflow: "ellipsis",    
+    display: "-webkit-box",
+    WebkitBoxOrient: "vertical",
+    WebkitLineClamp: 5,
+  },
+  cardTitle: {
+    fontWeight: 500,
+    marginTop: 18,
+    height: 70,
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    display: "-webkit-box",
+    WebkitBoxOrient: "vertical",
+    WebkitLineClamp: 2,
+    maxWidth: '100%',
   },
 });
 const Typography = ({ variant, text, className, ...rest }) => {

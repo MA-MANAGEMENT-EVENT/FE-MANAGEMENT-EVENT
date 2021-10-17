@@ -69,7 +69,7 @@ const FeedbackQuestion = () => {
   ];
 
   return (
-    <>
+    <div style={{ marginBottom: 100 }}>
       {questionField === null && (
         <div style={{ marginTop: 200 }}>
           <Loading />
@@ -105,7 +105,7 @@ const FeedbackQuestion = () => {
                 </>
               );
             })}
-            <br /> <br /> <br />
+            <br /> <br />
             <Button
               datatest="submit"
               text="Back"
@@ -121,7 +121,7 @@ const FeedbackQuestion = () => {
           </form>
         </div>
       )}
-    </>
+    </div>
   );
 };
 export default FeedbackQuestion;

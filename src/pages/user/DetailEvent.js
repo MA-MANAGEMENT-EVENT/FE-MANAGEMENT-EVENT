@@ -82,7 +82,7 @@ export default function DetailEvent() {
       )}
       {event && (
         <React.Fragment>
-          <CssBaseline />
+          {/* <CssBaseline /> */}
           <Container maxWidth="lg" className={classes.container}>
             <main>
               <DetailHeader
