@@ -34,7 +34,7 @@ export default function Login() {
 
   const onSubmit = (data) => {
     const { password, cpassword } = data;
-    if (password && cpassword) {
+    if (password && cpassword && password===cpassword) {
       Axios.put(`auth/reset-password/${token}`, {
         newPassword: password,
         verificationPassword: cpassword,
@@ -45,8 +45,9 @@ export default function Login() {
         } else {
           Swal.fire("Error", "Change Password  Failed ", "error");
         }
-      }); 
+      })
     } else {
+      Swal.fire("Error", "Change Password  Failed ", "error");
     }
   };
 
