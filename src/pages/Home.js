@@ -41,7 +41,7 @@ const Home = () => {
     if (filteredEvents === null) {
       setFilteredEvents(dataEvents);
     }
-  },[dataEvents,filteredEvents]);
+  }, [dataEvents, filteredEvents]);
   const classes = useStyles();
   const handleChange = (event) => {
     let value = event.target.value.toLowerCase();
@@ -53,41 +53,41 @@ const Home = () => {
   };
   return (
     <>
-      {dataEvents === null && (
-        <div style={{ marginTop: 200 }}>
+      <div className={classes.heroContent} style={{ marginTop: 10 }}>
+        <Container maxWidth="sm">
+          <Typography
+            variant="h2"
+            align="center"
+            color="textPrimary"
+            gutterBottom
+            text="Metroevent"
+          />
+          <Typography
+            variant="h5"
+            align="center"
+            color="textSecondary"
+            text="Never Stop Learning, Because Life Never Stops Teaching."
+            paragraph
+          />
+          <div className={classes.heroButtons}>
+            <Grid container spacing={2} justifyContent="center">
+              <TextField
+                label="Search Event"
+                name="search"
+                className="trainer"
+                onChange={handleChange}
+              />
+            </Grid>
+          </div>
+        </Container>
+      </div>
+      {filteredEvents === null && (
+        <div style={{ marginTop: 20 }}>
           <Loading />
         </div>
       )}
       {filteredEvents && (
         <>
-          <div className={classes.heroContent} style={{ marginTop: 10 }}>
-            <Container maxWidth="sm">
-              <Typography
-                variant="h2"
-                align="center"
-                color="textPrimary"
-                gutterBottom
-                text="Metroevent"
-              />
-              <Typography
-                variant="h5"
-                align="center"
-                color="textSecondary"
-                text="Never Stop Learning, Because Life Never Stops Teaching."
-                paragraph
-              />
-              <div className={classes.heroButtons}>
-                <Grid container spacing={2} justifyContent="center">
-                  <TextField
-                    label="Search Event"
-                    name="search"
-                    className="trainer"
-                    onChange={handleChange}
-                  />
-                </Grid>
-              </div>
-            </Container>
-          </div>
           <Container className={classes.cardGrid} maxWidth="md">
             <Grid container spacing={4}>
               {filteredEvents.map((event) => (

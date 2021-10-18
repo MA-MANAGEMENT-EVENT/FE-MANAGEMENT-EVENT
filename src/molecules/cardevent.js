@@ -43,12 +43,7 @@ const CardEvent = (props) => {
             title="Image title"
           />
           <CardContent className={classes.cardContent}>
-            <Typography
-              gutterBottom
-              variant="h5"
-              component="h2"
-              text={props.title}
-            />
+            
             {props.status && (
               <>
                 <span
@@ -56,7 +51,7 @@ const CardEvent = (props) => {
                     fontWeight: "bold",
                     backgroundColor: "#FFA500",
                     color: "white",
-                    padding: 3,
+                    padding: 5,
                     borderTopLeftRadius: 10,
                     borderTopRightRadius: 10,
                     
@@ -67,16 +62,23 @@ const CardEvent = (props) => {
                 
               </>
             )}{" "}
+            <Typography
+              gutterBottom
+              variant="h5"
+              component="h2"
+              text={props.title}
+              className="cardTitle"
+            />
             <Typography text={props.description} className="cardtext" />
           </CardContent>
 
-          <Grid container style={{ marginBottom: 10 }}>
+          <Grid container style={{marginLeft: 10, marginBottom: 15 }}>
             {props.link.map((value, i) => {
               return (
                 <Grid item xs={3.5}>
                   <Link
                     to={value}
-                    style={{ textDecoration: "none", padding: 10 }}
+                    style={{ textDecoration: "none", padding: 5 }}
                   >
                     <Button
                       size="small"

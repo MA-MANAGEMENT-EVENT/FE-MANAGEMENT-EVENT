@@ -49,7 +49,7 @@ export default function ResetPassword() {
 
   return (
     <Container component="main" maxWidth="xs">
-      <CssBaseline />
+      {/* <CssBaseline /> */}
       <div className={classes.paper}>
         <Typography text="Reset Password" variant="h4" />
         <form
