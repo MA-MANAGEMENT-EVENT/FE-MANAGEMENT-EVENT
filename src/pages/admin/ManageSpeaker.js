@@ -4,15 +4,15 @@ import Container from "@material-ui/core/Container";
 import Typography from "../../atoms/typography/Typhography";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "../../atoms/button/Button";
-import { Grid, FormControlLabel, IconButton } from "@material-ui/core";
 import AddCircleOutlineSharpIcon from "@mui/icons-material/AddCircleOutlineSharp";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { blue } from "@material-ui/core/colors";
+
 import FormDialog from "../../molecules/dialogSpeaker";
 import Loading from "react-loading-animation";
 import Axios from "axios";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -74,10 +74,16 @@ export default function ManageSpeaker() {
     getUsers();
   }, []);
 
+  const imgbbUploader = require("imgbb-uploader");
+  imgbbUploader("your-imgbb-api-key-string", "path/to/your/image.png")
+    .then((response) => console.log(response))
+    .catch((error) => console.error(error));
+
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [formData, setFormData] = useState(initialValue);
   const [status, setStatus] = useState("create");
+  const [loading, setLoading] = useState(true);
 
   //Read Speaker
   const [tableData, setTableData] = useState(null);
@@ -138,13 +144,14 @@ export default function ManageSpeaker() {
   };
 
   const handleFormSubmit = (id) => {
+    setLoading({ label: "Loading..." });
     console.log(id);
     let url = null;
     const Data = new FormData();
     Data.set("image", formData.newimage);
     if (id === null) {
       Axios.post(
-        "https://api.imgbb.com/1/upload?key=b58ff410c6b72c5c9584e782b1830cda",
+        "https://api.imgbb.com/1/upload?key=e7947ff1194df59fe61df000ce454954",
         Data
       )
         .then((res) => {
@@ -188,6 +195,9 @@ export default function ManageSpeaker() {
               console.log(res);
               setFormData(initialValue);
               handleClose();
+              if (res.status === 200) {
+                Swal.fire("Success", "Update Data Success", "success");
+              }
             });
         });
     }
