@@ -91,7 +91,7 @@ export default function Login() {
                 type="password"
                 label="Confirm Password"
                 autoComplete="cpassword"
-                autoFocus
+                
                 {...field}
               />
             )}
