@@ -171,6 +171,9 @@ export default function ManageSpeaker() {
               console.log(res);
               setFormData(initialValue);
               handleClose();
+              if (res.status === 200) {
+                Swal.fire("Success", "Data Berhasil Ditambah", "success");
+              }
             });
         });
     } else if (id !== null) {
